@@ -4,7 +4,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>Metronic | User Login 1</title>
+        <title>Login</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -29,17 +29,25 @@
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
-    <!-- END HEAD -->
-
+        <!-- END HEAD -->
+        <style>
+            html {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
     <body class=" login">
         <!-- BEGIN LOGO -->
-        <div class="logo">
+        <!-- <div class="logo">
             <a href="index.html">
                 <img src="./assets/pages/img/logo-big.png" alt="" /> </a>
-        </div>
+        </div> -->
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
-        <div class="content">
+        <div class="content" style="display: flex; align-items: center;">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" action="index.html" method="post">
                 <h3 class="form-title font-green">Sign In</h3>
@@ -77,7 +85,7 @@
             </form>
             <!-- END FORGOT PASSWORD FORM -->
         </div>
-        <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
+        <!-- <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div> -->
         <!--[if lt IE 9]>
 <script src="./assets/global/plugins/respond.min.js"></script>
 <script src="./assets/global/plugins/excanvas.min.js"></script> 
