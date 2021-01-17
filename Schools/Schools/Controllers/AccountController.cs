@@ -24,6 +24,7 @@ namespace Schools.Controllers
       return View(nameof(Login));
     }
 
+    [HttpPost]
     public async Task<IActionResult> Login(LoginModel model)
     {
       if (!ModelState.IsValid)
