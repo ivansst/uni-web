@@ -61,7 +61,6 @@ E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\scopedcss\bundle\Schools.styles.
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Schools.TagHelpers.input.cache
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Schools.TagHelpers.output.cache
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Schools.RazorCoreGenerate.cache
-E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 E:\Schools_UNI\Schools\Schools\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
