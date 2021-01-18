@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Schools.Data.Models
 {
-  public class Subject
+  public class StudentAbsence
   {
     [Key]
     public int Id { get; set; }
 
     [Required]
-    [Column(TypeName = "NVARCHAR(2000)")]
-    public string Name { get; set; }
+    public string StudentId { get; set; }
+
+    [ForeignKey("StudentId")]
+    public User User { get; set; }
 
     [Required]
-    public int SchoolId { get; set; }
-
-    public School School { get; set; }
+    public int Absences { get; set; }
   }
 }

@@ -29,6 +29,7 @@ namespace Schools
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
+        app.ApplyMigrations();
       }
 
       app.UseHttpsRedirection()
@@ -43,9 +44,9 @@ namespace Schools
       {
         endpoints.MapControllerRoute(
                   name: "default",
-                  pattern: "{controller=Home}/{action=Index}/{id?}");
+                  pattern: "{controller=Account}/{action=Login}");
         endpoints.MapRazorPages();
-      });
+      }); 
     }
   }
 }

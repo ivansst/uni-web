@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Schools.Data.Models;
 
@@ -10,6 +10,20 @@ namespace Schools.Data
         : base(options)
     {
     }
+
+    public DbSet<School> Schools { get; set; }
+
+    public DbSet<Subject> Subjects {get;set;}
+
+    public DbSet<StudentSubject> StudentSubjects { get; set; }
+
+    public DbSet<TeacherSubject> TeacherSubjects { get; set; }
+
+    public DbSet<Schedule> Schedules { get; set; }
+
+    public DbSet<StudentAbsence> StudentAbsences { get; set; }
+
+    public DbSet<StudentGrade> StudentGrades { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -24,6 +38,15 @@ namespace Schools.Data
         .Ignore(u => u.TwoFactorEnabled)
         .Ignore(u => u.LockoutEnd)
         .Ignore(u => u.ConcurrencyStamp);
+
+      builder.Entity<Subject>()
+        .HasOne(s => s.School)
+        .WithOne()
+        .OnDelete(DeleteBehavior.ClientCascade);
+
+      builder.Entity<User>()
+        .Property(u => u.CreationTime)
+        .HasDefaultValueSql("GETUTCDATE()");
 
       base.OnModelCreating(builder);
     }

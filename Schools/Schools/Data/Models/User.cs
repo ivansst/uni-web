@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Schools.Data.Models
 {
@@ -13,5 +14,7 @@ namespace Schools.Data.Models
     public int SchoolId { get; set; }
 
     public School School { get; set; }
+
+    public DateTime CreationTime { get; set; }
   }
 }
