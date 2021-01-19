@@ -46,5 +46,12 @@ namespace Schools.Controllers
 
       return RedirectToAction("Index", "Dashboard");
     }
-  }
+
+    [HttpGet]
+    public IActionResult Profile()
+    {
+        return View(nameof(Profile));
+    }
+
+    }
 }
