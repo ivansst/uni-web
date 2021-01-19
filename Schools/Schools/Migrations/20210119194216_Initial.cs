@@ -62,6 +62,7 @@ namespace Schools.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SchoolId = table.Column<int>(type: "int", nullable: false),

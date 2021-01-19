@@ -340,6 +340,9 @@ namespace Schools.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");

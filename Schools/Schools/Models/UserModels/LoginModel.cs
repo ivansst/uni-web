@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Schools.Models.AccountModels
+namespace Schools.Models.UserModels
 {
   public class LoginModel
   {

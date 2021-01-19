@@ -2,20 +2,46 @@
 using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
 using Schools.Models.AccountModels;
+using Schools.Models.UserModels;
+using Schools.Models.UserModels.UserRequestModel;
+using Schools.Models.UserRequestModel;
+using Schools.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class AccountController : Controller
+  public class UserController : Controller
   {
     private readonly UserManager<User> userManager;
     private readonly SignInManager<User> signInManager;
+    private readonly IUserService userService;
 
-    public AccountController(UserManager<User> userManager,
-                             SignInManager<User> signInManager)
+    public UserController(UserManager<User> userManager,
+                             SignInManager<User> signInManager,
+                             IUserService userService)
     {
       this.userManager = userManager;
       this.signInManager = signInManager;
+      this.userService = userService;
+    }
+
+    [HttpGet]
+    public IActionResult Register()
+    {
+      return View(nameof(Register));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(UserCreateRequestModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
+
+      await this.userService.Create(model);
+
+      return View();
     }
 
     [HttpGet]
@@ -33,7 +59,7 @@ namespace Schools.Controllers
       }
 
       var user = await this.userManager.FindByNameAsync(model.UserName);
-      if(user == null)
+      if (user == null)
       {
         return View();
       }
@@ -46,12 +72,6 @@ namespace Schools.Controllers
 
       return RedirectToAction("Index", "Dashboard");
     }
-
-    [HttpGet]
-    public IActionResult Profile()
-    {
-        return View(nameof(Profile));
     }
-
-    }
+  }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Schools.Data.Models
@@ -14,9 +15,6 @@ namespace Schools.Data.Models
     [ForeignKey("TeacherId")]
     public User User { get; set; }
 
-    [Required]
-    public int SubjectId { get; set; }
-
-    public Subject Subject { get; set; }
+    public List<Subject> Subjects { get; set; }
   }
 }

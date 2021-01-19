@@ -10,7 +10,7 @@ using Schools.Data;
 namespace Schools.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210118214615_Initial")]
+    [Migration("20210119194216_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,6 +340,9 @@ namespace Schools.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")

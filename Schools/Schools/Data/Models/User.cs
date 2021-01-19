@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schools.Data.Models
 {
@@ -7,10 +8,16 @@ namespace Schools.Data.Models
   {
     public string FirstName { get; set; }
 
+    public string MiddleName { get; set; }
+
     public string LastName { get; set; }
 
-    public string Role { get; set; }
+    [Required]
+    public string RoleId { get; set; }
 
+    public IdentityRole Role { get; set; }
+
+    [Required]
     public int SchoolId { get; set; }
 
     public School School { get; set; }
