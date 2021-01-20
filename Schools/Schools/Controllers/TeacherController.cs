@@ -18,9 +18,15 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Student()
     {
-      return View();
+      return View(nameof(Student));
+    }
+
+    [HttpGet]
+    public IActionResult Teacher()
+    {
+        return View(nameof(Teacher));
     }
 
     [HttpGet]
