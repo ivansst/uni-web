@@ -17,8 +17,8 @@ namespace Schools
     {
       services.AddDatabase(this.Configuration)
               .AddIdentity()
-              .AddCookieAuthentication();
-
+              .AddCookieAuthentication()
+              .AddApplicationServices();
 
       services.AddControllersWithViews();
       services.AddRazorPages();
@@ -44,7 +44,7 @@ namespace Schools
       {
         endpoints.MapControllerRoute(
                   name: "default",
-                  pattern: "{controller=Account}/{action=Login}");
+                  pattern: "{controller=User}/{action=Login}");
         endpoints.MapRazorPages();
       }); 
     }

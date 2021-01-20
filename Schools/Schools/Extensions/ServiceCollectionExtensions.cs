@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Schools.Data;
 using Schools.Data.Models;
+using Schools.Services;
+using Schools.Services.Interfaces;
 
 namespace Schools.Extensions
 {
@@ -41,5 +43,10 @@ namespace Schools.Extensions
 
       return services;
     }
+
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+       => services.AddTransient<IUserService, UserService>()
+      .AddTransient<ITeacherService, TeacherService>()
+      .AddTransient<ISchoolService, SchoolService>();
   }
 }

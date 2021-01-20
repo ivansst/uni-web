@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
-using Schools.Models.AccountModels;
 using Schools.Models.UserModels;
 using Schools.Models.UserModels.UserRequestModel;
-using Schools.Models.UserRequestModel;
 using Schools.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -71,7 +69,6 @@ namespace Schools.Controllers
       }
 
       return RedirectToAction("Index", "Dashboard");
-    }
     }
   }
 }
