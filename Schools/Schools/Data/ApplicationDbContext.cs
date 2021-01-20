@@ -1,4 +1,4 @@
-﻿ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Schools.Data.Models;
 
@@ -13,17 +13,15 @@ namespace Schools.Data
 
     public DbSet<School> Schools { get; set; }
 
-    public DbSet<Subject> Subjects {get;set;}
-
-    public DbSet<StudentSubject> StudentSubjects { get; set; }
-
-    public DbSet<TeacherSubject> TeacherSubjects { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
 
     public DbSet<Schedule> Schedules { get; set; }
 
     public DbSet<StudentAbsence> StudentAbsences { get; set; }
 
     public DbSet<StudentGrade> StudentGrades { get; set; }
+
+    public DbSet<StudentClass> StudentClass { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -44,9 +42,22 @@ namespace Schools.Data
         .WithOne()
         .OnDelete(DeleteBehavior.ClientCascade);
 
+      builder.Entity<Class>()
+        .HasOne(s => s.School)
+        .WithOne()
+        .OnDelete(DeleteBehavior.ClientCascade);
+
+      builder.Entity<StudentClass>()
+        .HasNoKey();
+
       builder.Entity<User>()
         .Property(u => u.CreationTime)
         .HasDefaultValueSql("GETUTCDATE()");
+
+      builder.Entity<User>()
+        .HasMany(s => s.Subject)
+        .WithMany(s => s.Teacher)
+        .UsingEntity(join => join.ToTable("TeacherSubject"));
 
       base.OnModelCreating(builder);
     }

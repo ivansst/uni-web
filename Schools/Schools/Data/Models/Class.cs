@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Schools.Data.Models
 {
@@ -16,6 +18,8 @@ namespace Schools.Data.Models
     [Required]
     public int SchoolId { get; set; }
 
-    public School School { get; set; }
+    public virtual School School { get; set; }
+
+    public virtual IList<Subject> Subject { get; set; }
   }
 }

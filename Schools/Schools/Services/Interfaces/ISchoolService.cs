@@ -4,6 +4,8 @@ namespace Schools.Services.Interfaces
 {
   public interface ISchoolService
   {
-    Task Create(string name, string address);
+    Task Save(int id, string name, string address);
+
+    Task AssignPrincipal(int schoolId, string userId);
   }
 }

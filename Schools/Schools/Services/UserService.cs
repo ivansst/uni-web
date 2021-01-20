@@ -30,7 +30,7 @@ namespace Schools.Services
         FirstName = model.FirstName,
         MiddleName = model.MiddleName,
         LastName = model.LastName,
-        RoleId = model.RoleId,
+        Role = model.Role,
         SchoolId = model.SchoolId
       };
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Schools.Data.Models
@@ -17,6 +18,8 @@ namespace Schools.Data.Models
 
     public School School { get; set; }
 
-    public TeacherSubject TeacherSubject { get; set; }
+    public virtual IList<User> Teacher { get; set; }
+
+    public virtual IList<Class> Class { get; set; }
   }
 }

@@ -11,12 +11,12 @@ namespace Schools.Data.Models
     [Required]
     public int SchoolId { get; set; }
 
-    public School School { get; set; }
+    public virtual School School { get; set; }
 
     [Required]
     public int SubjectId { get; set; }
 
-    public Subject Subjcet { get; set; }
+    public virtual Subject Subjcet { get; set; }
 
     public DateTime StartTime { get; set; }
 

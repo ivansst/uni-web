@@ -2,9 +2,8 @@
 
 namespace Schools.Controllers
 {
-    public class DashboardController : Controller
+  public class DashboardController : Controller
     {
-
         [HttpGet]
         public IActionResult Admin()
         {

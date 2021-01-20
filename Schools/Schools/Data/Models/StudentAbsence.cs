@@ -12,7 +12,7 @@ namespace Schools.Data.Models
     public string StudentId { get; set; }
 
     [ForeignKey("StudentId")]
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
     [Required]
     public int Absences { get; set; }

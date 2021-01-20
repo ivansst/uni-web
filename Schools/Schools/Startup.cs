@@ -20,8 +20,8 @@ namespace Schools
               .AddCookieAuthentication()
               .AddApplicationServices();
 
-      services.AddControllersWithViews();
-      services.AddRazorPages();
+      services.AddControllersWithViews()
+              .AddRazorRuntimeCompilation();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,7 +45,6 @@ namespace Schools
         endpoints.MapControllerRoute(
                   name: "default",
                   pattern: "{controller=User}/{action=Login}");
-        endpoints.MapRazorPages();
       }); 
     }
   }

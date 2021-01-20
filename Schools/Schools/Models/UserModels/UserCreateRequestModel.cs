@@ -16,6 +16,6 @@
 
     public int SchoolId { get; set; }
 
-    public string RoleId { get; set; }
+    public string Role { get; set; }
   }
 }

@@ -47,6 +47,7 @@ namespace Schools.Extensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
        => services.AddTransient<IUserService, UserService>()
       .AddTransient<ITeacherService, TeacherService>()
-      .AddTransient<ISchoolService, SchoolService>();
+      .AddTransient<ISchoolService, SchoolService>()
+      .AddTransient<IClassService, ClassService>();
   }
 }

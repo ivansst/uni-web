@@ -56,7 +56,7 @@ namespace Schools.Controllers
         return View();
       }
 
-      var user = await this.userManager.FindByNameAsync(model.UserName);
+      var user = await this.userManager.FindByEmailAsync(model.Email);
       if (user == null)
       {
         return View();
@@ -68,7 +68,12 @@ namespace Schools.Controllers
         return View(nameof(Login), model);
       }
 
-      return RedirectToAction("Index", "Dashboard");
+      if(user.Role == "Учител")
+      {
+        return RedirectToAction("Index", "Teacher");
+      }
+
+      return RedirectToAction("Index", "Student");
     }
   }
 }

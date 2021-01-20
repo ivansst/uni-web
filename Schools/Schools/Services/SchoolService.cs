@@ -2,7 +2,6 @@
 using Schools.Data;
 using Schools.Data.Models;
 using Schools.Services.Interfaces;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Schools.Services
@@ -13,15 +12,37 @@ namespace Schools.Services
 
     public SchoolService(ApplicationDbContext data) => this.data = data;
 
-    public async Task Create(string name, string address)
+    public async Task AssignPrincipal(int schoolId, string userId)
     {
-      var school = new School
-      {
-        Name = name,
-        Address = address
-      };
+      var user = await this.data.Users.FirstOrDefaultAsync(u=>u.Id == userId);
 
-      this.data.Add(school);
+      user.SchoolId = schoolId;
+      user.Role = "Директор";
+
+      await this.data.SaveChangesAsync();
+    }
+
+    public async Task Save(int id, string name, string address)
+    {
+      var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == id);
+
+      if (school == null)
+      {
+        school = new School
+        {
+          Name = name,
+          Address = address
+        };
+
+        this.data.Add(school);
+      }
+      else
+      {
+        school.Name = name;
+        school.Address = address;
+
+        this.data.Update(school);
+      }
 
       await this.data.SaveChangesAsync();
     }

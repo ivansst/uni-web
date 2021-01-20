@@ -11,12 +11,12 @@ namespace Schools.Data.Models
     public string ParentId { get; set; }
 
     [ForeignKey("StudentId")]
-    public User Parent { get; set; }
+    public virtual User Parent { get; set; }
 
     [Required]
     public string StudentId { get; set; }
 
     [ForeignKey("StudentId")]
-    public User Student { get; set; }
+    public virtual User Student { get; set; }
   }
 }
