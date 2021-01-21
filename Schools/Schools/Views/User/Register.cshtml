@@ -1,0 +1,115 @@
+﻿@model Schools.Models.UserModels.UserRequestModel.UserCreateRequestModel
+@{
+}
+
+<!-- REGISTER/EDIT USERS -->
+<div class="col-md-6">
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Register Student
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form asp-controller="User" asp-action="Register" class="form-horizontal">
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">First Name</label>
+                        <div class="col-md-4">
+                            <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
+                            <span class="help-block"> Enter user first name. </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Middle Name</label>
+                        <div class="col-md-4">
+                            <input asp-for="MiddleName" type="text" class="form-control" placeholder="Middle Name">
+                            <span class="help-block"> Enter user middle name. </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Last Name</label>
+                        <div class="col-md-4">
+                            <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                            <span class="help-block"> Enter user last name. </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email Address</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username</label>
+                        <div class="col-md-4">
+                            <input asp-for="UserName" type="text" class="form-control" placeholder="Username">
+                            <span class="help-block"> Enter a username. </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Role</label>
+                        <div class="col-md-4">
+                            <select asp-for="Role" class="form-control">
+                                <option value="Admin">Admin</option>
+                                <option value="Principal">Principal</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Student">Student</option>
+                                <option value="Parent">Parent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">School</label>
+                        <div class="col-md-4">
+                            <select asp-for="SchoolId" class="form-control">
+                                <option value="1">NBU</option>
+                                <option value="2">Sofia University</option>
+                                <option value="3">Unibit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn green">Submit</button>
+                            <button type="reset" class="btn default">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+
+</div>
