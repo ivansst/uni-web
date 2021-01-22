@@ -9,5 +9,9 @@ namespace Schools.Services.Interfaces
   public interface IClassService
   {
     Task Create(int name, string group, int schoolId, List<Subject> subjects);
+
+    Task AddStudentToClass(string studentId, int classId);
+
+    Task RemoveStudentFromClass(string studentId, int classId);
   }
 }

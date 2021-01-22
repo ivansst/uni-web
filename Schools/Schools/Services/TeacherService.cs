@@ -30,6 +30,14 @@ namespace Schools.Services
         subjects = new List<Subject>();
       }
 
+      var teacher = await this.data.Users.FirstOrDefaultAsync(u => u.Id == teacherId);
+
+      var teacherSubjects = await this.data.Subjects.Where(s => s.Teacher == teacher).ToListAsync();
+
+      this.data.RemoveRange(teacherSubjects);
+
+      teacher.Subject = subjects;
+
       await this.data.SaveChangesAsync();
     }
   }

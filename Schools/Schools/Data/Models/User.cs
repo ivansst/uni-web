@@ -15,8 +15,7 @@ namespace Schools.Data.Models
   
     public string Role { get; set; }
 
-    [Required]
-    public int SchoolId { get; set; }
+    public int? SchoolId { get; set; }
 
     public virtual School School { get; set; }
 

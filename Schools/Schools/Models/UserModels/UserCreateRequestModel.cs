@@ -1,4 +1,4 @@
-﻿namespace Schools.Models.UserModels.UserRequestModel
+﻿namespace Schools.Models.UserModels
 {
   public class UserCreateRequestModel
   {

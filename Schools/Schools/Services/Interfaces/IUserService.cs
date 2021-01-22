@@ -1,4 +1,4 @@
-﻿using Schools.Models.UserModels.UserRequestModel;
+﻿using Schools.Models.UserModels;
 using System.Threading.Tasks;
 
 namespace Schools.Services.Interfaces

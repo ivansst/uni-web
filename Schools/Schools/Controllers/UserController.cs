@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
 using Schools.Models.UserModels;
-using Schools.Models.UserModels.UserRequestModel;
 using Schools.Services.Interfaces;
+using Schools.ViewModels;
 using System.Threading.Tasks;
 
 namespace Schools.Controllers
@@ -13,31 +13,40 @@ namespace Schools.Controllers
     private readonly UserManager<User> userManager;
     private readonly SignInManager<User> signInManager;
     private readonly IUserService userService;
+    private readonly ISchoolService schoolService;
 
     public UserController(UserManager<User> userManager,
                              SignInManager<User> signInManager,
-                             IUserService userService)
+                             IUserService userService,
+                             ISchoolService schoolService)
     {
       this.userManager = userManager;
       this.signInManager = signInManager;
       this.userService = userService;
+      this.schoolService = schoolService;
     }
 
     [HttpGet]
-    public IActionResult Register()
+    public async Task<IActionResult> Register()
     {
-      return View(nameof(Register));
+      var schools = await this.schoolService.GetAll();
+      var model = new UserCreateViewModel
+      {
+        Schools = schools
+      };
+
+      return View(nameof(Register), model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(UserCreateRequestModel model)
+    public async Task<IActionResult> Register(UserCreateViewModel model)
     {
       if (!ModelState.IsValid)
       {
         return View();
       }
 
-      await this.userService.Create(model);
+      await this.userService.Create(model.UserCreateRequestModel);
 
       return View();
     }

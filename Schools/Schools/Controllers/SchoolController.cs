@@ -21,13 +21,6 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-      var subject = new Subject
-      {
-        Name = "Mathematics",
-        SchoolId = 1
-      };
-
-      await classService.Create(1, "А", 1, new List<Subject> { subject });
 
       return View();
     }

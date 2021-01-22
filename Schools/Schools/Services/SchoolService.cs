@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schools.Data;
 using Schools.Data.Models;
+using Schools.Models.SchoolModels;
 using Schools.Services.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Schools.Services
@@ -12,12 +15,49 @@ namespace Schools.Services
 
     public SchoolService(ApplicationDbContext data) => this.data = data;
 
-    public async Task AssignPrincipal(int schoolId, string userId)
+    public async Task AssignNewPrincipal(int schoolId, string userId)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u=>u.Id == userId);
+      var user = await this.data.Users.FirstOrDefaultAsync(u=>u.Id == userId && u.SchoolId == schoolId);
 
-      user.SchoolId = schoolId;
       user.Role = "Директор";
+
+      await this.data.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<School>> GetAll()
+    {
+      return await this.data.Schools.ToListAsync();
+    }
+
+    public async Task<SchoolPrincipalModel> GetPrincipal(int schoolId)
+    {
+      var user = await this.data.Users.FirstOrDefaultAsync(u =>u.SchoolId == schoolId && u.Role == "Директор");
+
+      var schoolName = (await this.data.Schools.FirstOrDefaultAsync(s => s.Id == user.SchoolId)).Name;
+
+      var model = new SchoolPrincipalModel
+      {
+        FirstName = user.FirstName,
+        MiddleName = user.MiddleName,
+        LastName = user.LastName,
+        Role = user.Role,
+        SchoolName = schoolName
+      };
+
+      return model;
+    }
+
+    public async Task RemoveUserFromSchool(int schoolId, string userId)
+    {
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId && u.SchoolId == schoolId);
+
+      if (user == null)
+      {
+        throw new Exception("There is no such user attached to this school");
+      }
+
+      user.SchoolId = null;
+      user.Role = null;
 
       await this.data.SaveChangesAsync();
     }
