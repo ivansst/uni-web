@@ -9,11 +9,13 @@ namespace Schools.Controllers
   {
     public readonly IUserService userService;
     public readonly IClassService classService;
+    public readonly IStudentService studentService;
 
-    public StudentController(IUserService userService, IClassService classService)
+    public StudentController(IUserService userService, IClassService classService, IStudentService studentService)
     {
       this.userService = userService;
       this.classService = classService;
+      this.studentService = studentService;
     }
 
     [HttpGet]
@@ -30,9 +32,9 @@ namespace Schools.Controllers
         return View();
       }
 
-      await this.userService.UpdatePersonalData(model.UserEditModel.UserId, model.UserEditModel.FirstName, model.UserEditModel.MiddleName, model.UserEditModel.LastName);
+      await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      await this.classService.AddStudentToClass(model.UserEditModel.UserId, model.ClassId);
+      await this.studentService.SaveStudentClass(model.UserEditModel.UserId, model.NewClassId.Value);
 
       return View();
     }

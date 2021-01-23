@@ -4,14 +4,12 @@ using System.Collections.Generic;
 
 namespace Schools.ViewModels
 {
-  public class StudentEditViewModel
+  public class TeacherEditViewModel
   {
     public UserEditModel UserEditModel { get; set; }
 
-    public Class CurrentClass { get; set; }
+    public IEnumerable<Subject> TeacherSubjects { get; set; }
 
-    public int? NewClassId { get; set; }
-
-    public IEnumerable<Class> Classes { get; set; }
+    public IEnumerable<Subject> SchoolSubjects { get; set; }
   }
 }

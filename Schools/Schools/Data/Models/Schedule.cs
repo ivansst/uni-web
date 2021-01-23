@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Schools.Data.Models
 {
@@ -16,7 +17,7 @@ namespace Schools.Data.Models
     [Required]
     public int SubjectId { get; set; }
 
-    public virtual Subject Subjcet { get; set; }
+    public virtual Subject Subject { get; set; }
 
     public DateTime StartTime { get; set; }
 
@@ -24,5 +25,14 @@ namespace Schools.Data.Models
 
     [Required]
     public int Day { get; set; }
+
+    public string TeacherId { get; set; }
+
+    [ForeignKey("TeacherId")]
+    public virtual User Teacher { get; set; }
+
+    public int ClassId { get; set; }
+
+    public Class Class { get; set; }
   }
 }

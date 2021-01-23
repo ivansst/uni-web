@@ -23,6 +23,10 @@ namespace Schools.Data
 
     public DbSet<StudentClass> StudentClass { get; set; }
 
+    public DbSet<ParentStudents> ParentStudents { get; set; }
+
+    public DbSet<Class> Classes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<User>()

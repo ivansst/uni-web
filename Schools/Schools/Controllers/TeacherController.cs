@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Schools.Models.TeacherModels;
 using Schools.Services.Interfaces;
-using System;
+using Schools.ViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Schools.Controllers
@@ -18,34 +18,24 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Student()
+    public async Task<IActionResult> Edit(string userId)
     {
-      return View(nameof(Student));
-    }
+      var model = await this.teacherService.GetTeacherEditViewModel(userId);
 
-    [HttpGet]
-    public IActionResult Teacher()
-    {
-        return View(nameof(Teacher));
-    }
-
-    [HttpGet]
-    public IActionResult Edit()
-    {
-      return View(nameof(Edit));
+      return View(nameof(Edit), model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(TeacherEditRequestModel model)
+    public async Task<IActionResult> Edit(TeacherEditViewModel model)
     {
       if (!ModelState.IsValid)
       {
         return View();
       }
 
-      await this.userService.UpdatePersonalData(model.TeacherId, model.FirstName, model.MiddleName, model.LastName);
+      await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      await this.teacherService.UpdateClassSubjects(model.TeacherId, model.Subjects);
+      await this.teacherService.UpdateClassSubjects(model.UserEditModel.UserId, model.TeacherSubjects.ToList());
 
       return View();
     }

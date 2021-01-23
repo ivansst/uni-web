@@ -5,6 +5,8 @@ namespace Schools.Services.Interfaces
 {
   public interface IStudentService
   {
-    Task EditStudent(StudentEditViewModel model);
+    Task<StudentEditViewModel> GetViewModel(string userId);
+
+    Task SaveStudentClass(string studentId, int classId);
   }
 }

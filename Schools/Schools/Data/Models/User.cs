@@ -12,6 +12,8 @@ namespace Schools.Data.Models
     public string MiddleName { get; set; }
 
     public string LastName { get; set; }
+
+    public string IdentificationNumer { get; set; }
   
     public string Role { get; set; }
 

@@ -10,7 +10,7 @@ namespace Schools.Data.Models
 
     public string ParentId { get; set; }
 
-    [ForeignKey("StudentId")]
+    [ForeignKey("ParentId")]
     public virtual User Parent { get; set; }
 
     [Required]

@@ -1,14 +1,10 @@
-﻿using Schools.Data.Models;
+﻿using Schools.Models.UserModels;
 
 namespace Schools.Models.SchoolModels
 {
   public class SchoolPrincipalModel
   {
-    public string FirstName { get; set; }
-
-    public string MiddleName { get; set; }
-
-    public string LastName { get; set; }
+    public UserEditModel UserEditModel { get; set; }
 
     public string Role { get; set; }
 

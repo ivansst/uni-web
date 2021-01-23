@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schools.Data;
+using Schools.Data.Models;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Schools.Services
 {
-  public class StudentService : IStudentService
+  public class StudentService : BaseService, IStudentService
   {
     private readonly ApplicationDbContext data;
 
@@ -15,24 +18,51 @@ namespace Schools.Services
       this.data = data;
     }
 
-    public async Task EditStudent(StudentEditViewModel model)
+    public async Task<StudentEditViewModel> GetViewModel(string userId)
     {
-      var student = await this.data.Users.FirstOrDefaultAsync(u => u.Id == model.UserEditModel.UserId);
+      var student = await this.data.Users.FirstOrDefaultAsync(s => s.Id == userId);
 
-      if (student.FirstName == model.UserEditModel.FirstName &&
-          student.MiddleName == model.UserEditModel.MiddleName &&
-          student.LastName == model.UserEditModel.LastName)
+      if(student == null)
       {
-        student.FirstName = model.UserEditModel.FirstName;
-        student.MiddleName = model.UserEditModel.MiddleName;
-        student.LastName = model.UserEditModel.LastName;
+        throw new Exception("User doesn't exist");
       }
+
+      var basicEditModel = new UserEditModel
+      {
+        FirstName = student.FirstName,
+        MiddleName = student.MiddleName,
+        LastName = student.LastName
+      };
 
       var studentClass = await this.data.StudentClass.FirstOrDefaultAsync(sc => sc.StudentId == student.Id);
 
-      if(studentClass.ClassId != model.ClassId)
+      var model = new StudentEditViewModel
       {
-        studentClass.ClassId = model.ClassId;
+        UserEditModel = basicEditModel,
+        CurrentClass = studentClass.Class
+      };
+
+      return model;
+    }
+
+    public async Task SaveStudentClass(string studentId, int classId)
+    {
+      var studentClass = await this.data.StudentClass.FirstOrDefaultAsync(sc => sc.StudentId == studentId);
+
+      if (studentClass.ClassId != classId)
+      {
+        studentClass.ClassId = classId;
+      }
+
+      if (studentClass == null)
+      {
+        studentClass = new StudentClass
+        {
+          StudentId = studentId,
+          ClassId = classId
+        };
+
+        this.data.StudentClass.Add(studentClass);
       }
 
       await this.data.SaveChangesAsync();

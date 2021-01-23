@@ -2,6 +2,7 @@
 using Schools.Data;
 using Schools.Data.Models;
 using Schools.Models.SchoolModels;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,24 @@ namespace Schools.Services
     {
       var user = await this.data.Users.FirstOrDefaultAsync(u =>u.SchoolId == schoolId && u.Role == "Директор");
 
+      if (user == null)
+      {
+        throw new Exception("There is no principal for this school");
+      }
+
       var schoolName = (await this.data.Schools.FirstOrDefaultAsync(s => s.Id == user.SchoolId)).Name;
+
+      var userEditModel = new UserEditModel
+      {
+        UserId = user.Id,
+        FirstName = user.FirstName,
+        MiddleName = user.MiddleName,
+        LastName = user.LastName
+      };
 
       var model = new SchoolPrincipalModel
       {
-        FirstName = user.FirstName,
-        MiddleName = user.MiddleName,
-        LastName = user.LastName,
+        UserEditModel = userEditModel,
         Role = user.Role,
         SchoolName = schoolName
       };

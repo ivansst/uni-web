@@ -9,6 +9,6 @@ namespace Schools.Services.Interfaces
 
     Task UpdateUserSchool(string userId, int schoolId);
 
-    Task UpdatePersonalData(string userId, string firstName, string middleName, string lastName);
+    Task UpdatePersonalData(UserEditModel model);
   }
 }

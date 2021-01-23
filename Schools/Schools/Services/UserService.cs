@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Services
 {
-  public class UserService : IUserService
+  public class UserService : BaseService, IUserService
   {
     private readonly ApplicationDbContext data;
     private readonly UserManager<User> userManager;
@@ -42,20 +42,21 @@ namespace Schools.Services
       }
     }
 
-    public async Task UpdatePersonalData(string userId, string firstName, string middleName, string lastName)
+    public async Task UpdatePersonalData(UserEditModel model)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId);
-      
-      if(user.FirstName == firstName && 
-         user.MiddleName == middleName && 
-         user.LastName == lastName)
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == model.UserId);
+
+
+      if (user.FirstName == model.FirstName &&
+         user.MiddleName == model.MiddleName &&
+         user.LastName == model.LastName)
       {
         return;
       }
 
-      user.FirstName = firstName;
-      user.MiddleName = middleName;
-      user.LastName = lastName;
+      user.FirstName = model.FirstName;
+      user.MiddleName = model.MiddleName;
+      user.LastName = model.LastName;
 
       await this.data.SaveChangesAsync();
     }
