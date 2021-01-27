@@ -19,9 +19,11 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Edit()
+    public async Task<IActionResult> Edit(string userId)
     {
-      return View();
+      var model = await this.studentService.GetViewModel(userId);
+
+      return View(nameof(Edit), model);
     }
 
     [HttpPost]

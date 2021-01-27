@@ -5,8 +5,6 @@ namespace Schools.Controllers
 {
   public class ParentController : Controller
   {
-
-
     [HttpGet]
     public IActionResult Edit(string userId)
     {

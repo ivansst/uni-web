@@ -37,8 +37,8 @@ namespace Schools.Extensions
       services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options => {
           options.Cookie.Name = "ApplicationCookie";
-          options.LoginPath = "/Account/Login";
-          options.LogoutPath = "/Account/Logout";
+          options.LoginPath = "/User/Login";
+          options.LogoutPath = "/User/Logout";
         });
 
       return services;
