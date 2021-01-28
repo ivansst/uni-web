@@ -5,6 +5,7 @@ using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Schools.Services
@@ -36,10 +37,13 @@ namespace Schools.Services
 
       var studentClass = await this.data.StudentClass.FirstOrDefaultAsync(sc => sc.StudentId == student.Id);
 
+      var classes = await this.data.Classes.Where(c => c.SchoolId == student.SchoolId).ToListAsync();
+
       var model = new StudentEditViewModel
       {
         UserEditModel = basicEditModel,
-        CurrentClass = studentClass.Class
+        CurrentClass = studentClass.Class,
+        Classes =  classes
       };
 
       return model;

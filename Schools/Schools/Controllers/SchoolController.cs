@@ -10,12 +10,10 @@ namespace Schools.Controllers
   public class SchoolController : Controller
   {
     private readonly ISchoolService schoolService;
-    private readonly IClassService classService;
 
-    public SchoolController(ISchoolService schoolService, IClassService classService)
+    public SchoolController(ISchoolService schoolService)
     {
       this.schoolService = schoolService;
-      this.classService = classService;
     }
 
     [HttpGet]
