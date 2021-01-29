@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schools.Data;
 using Schools.Data.Models;
+using Schools.Models.ClassModels;
 using Schools.Services.Interfaces;
+using Schools.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,24 +33,45 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task Create(int name, string group, int schoolId, List<Subject> subjects)
+    public async Task Save(ClassSaveRequestModel model)
     {
-      if (name == default(int))
+
+      if(model.Id == null)
       {
-        throw new Exception("Cannot create Class without Name");
+        if (model.Name == default(int))
+        {
+          throw new Exception("Cannot create Class without Name");
+        }
+
+        var classModel = new Class
+        {
+          Name = model.Name,
+          Group = model.Group,
+          SchoolId = model.SchoolId,
+          Subject = model.Subjects
+        };
+
+        this.data.Add(classModel);
+
+        await this.data.SaveChangesAsync();
       }
-
-      var classModel = new Class
+      else
       {
-        Name = name,
-        Group = group,
-        SchoolId = schoolId,
-        Subject = subjects
-      };
+        var classData = await this.data.Classes.FirstOrDefaultAsync(s => s.Id == model.Id);
 
-      this.data.Add(classModel);
+        if(classData == null)
+        {
+          throw new Exception("Cannot create Class without Name");
+        }
 
-      await this.data.SaveChangesAsync();
+        classData.Name = model.Name;
+        classData.Group = model.Group;
+        classData.Subject = model.Subjects;
+
+        this.data.Update(classData);
+
+      }
+      
     }
 
     public async Task RemoveStudentFromClass(string studentId, int classId)
@@ -63,6 +86,64 @@ namespace Schools.Services
       this.data.StudentClass.Remove(studentClass);
 
       await this.data.SaveChangesAsync();
+    }
+
+    public async Task<ClassSaveViewModel> GetSaveViewModel(int? classId)
+    {
+      if (classId.HasValue)
+      {
+        var subjects = await this.data.Subjects.ToListAsync();
+
+        var classData = await this.data.Classes.FirstOrDefaultAsync(s => s.Id == classId);
+
+        var basicSaveModel = new ClassSaveRequestModel
+        {
+          Id = classData.Id,
+          Name = classData.Name,
+          Group = classData.Group,
+          SchoolId = classData.SchoolId,
+          Subjects = subjects
+        };
+
+        var model = new ClassSaveViewModel
+        {
+          ClassCreateRequestModel = basicSaveModel,
+          Subjects = subjects
+        };
+
+        return model;
+      }
+      else
+      {
+        var subjects = await this.data.Subjects.ToListAsync();
+
+        var model = new ClassSaveViewModel
+        {
+          ClassCreateRequestModel = new ClassSaveRequestModel(),
+          Subjects = subjects,
+        };
+
+        return model;
+      }
+
+    }
+
+    public async Task<List<Class>> GetAll(int? schoolId)
+    {
+
+      if (schoolId.HasValue)
+      {
+        var classes = await this.data.Classes.Where(c => c.SchoolId == schoolId).ToListAsync();
+
+        return classes;
+      }
+      else
+      {
+        var classes = await this.data.Classes.ToListAsync();
+
+        return classes;
+      }
+     
     }
   }
 }
