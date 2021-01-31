@@ -22,6 +22,8 @@ namespace Schools.Services
 
     public async Task<TeacherEditViewModel> GetTeacherEditViewModel(string teacherId)
     {
+      teacherId = "07daf6aa-8e4b-4296-927b-9e2f98d8d00b";
+
       var teacher = await this.data.Users.FirstOrDefaultAsync(t => t.Id == teacherId);
 
       var teacherModel = new UserEditModel
@@ -32,7 +34,7 @@ namespace Schools.Services
         LastName = teacher.LastName
       };
 
-      var teacherSubjects = await this.data.Subjects.Where(s => s.Teacher == teacher).ToListAsync();
+      var teacherSubjects = (await this.data.Users.FirstOrDefaultAsync(s => s.Id == teacherId)).Subject;
 
       var schoolSubjects = await this.data.Subjects.Where(s=> s.SchoolId == teacher.SchoolId).ToListAsync();
 

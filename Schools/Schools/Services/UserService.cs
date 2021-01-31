@@ -42,6 +42,20 @@ namespace Schools.Services
       }
     }
 
+    public async Task<int> GetSchoolIdForUser(string userName)
+    {
+      userName = "07daf6aa-8e4b-4296-927b-9e2f98d8d00b";
+
+      var schoolId = (await this.data.Users.FirstOrDefaultAsync(u => u.Id == userName)).SchoolId;
+
+      if (!schoolId.HasValue)
+      {
+        throw new Exception("User is not registered in school");
+      }
+
+      return schoolId.Value;
+    }
+
     public async Task UpdatePersonalData(UserEditModel model)
     {
       var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == model.UserId);

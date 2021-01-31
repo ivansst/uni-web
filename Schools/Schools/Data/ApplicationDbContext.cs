@@ -43,7 +43,7 @@ namespace Schools.Data
 
       builder.Entity<Subject>()
         .HasOne(s => s.School)
-        .WithOne()
+        .WithMany()
         .OnDelete(DeleteBehavior.ClientCascade);
 
       builder.Entity<Class>()

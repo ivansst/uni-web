@@ -36,7 +36,7 @@ namespace Schools.Services
     public async Task Save(ClassSaveRequestModel model)
     {
 
-      if(model.Id == null)
+      if (model.Id == null)
       {
         if (model.Name == default(int))
         {
@@ -48,7 +48,7 @@ namespace Schools.Services
           Name = model.Name,
           Group = model.Group,
           SchoolId = model.SchoolId,
-          Subject = model.Subjects
+          Subject = model.Subjects.ToList()
         };
 
         this.data.Add(classModel);
@@ -59,19 +59,19 @@ namespace Schools.Services
       {
         var classData = await this.data.Classes.FirstOrDefaultAsync(s => s.Id == model.Id);
 
-        if(classData == null)
+        if (classData == null)
         {
           throw new Exception("Cannot create Class without Name");
         }
 
         classData.Name = model.Name;
         classData.Group = model.Group;
-        classData.Subject = model.Subjects;
+        classData.Subject = model.Subjects.ToList();
 
         this.data.Update(classData);
 
       }
-      
+
     }
 
     public async Task RemoveStudentFromClass(string studentId, int classId)
@@ -88,7 +88,7 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task<ClassSaveViewModel> GetSaveViewModel(int? classId)
+    public async Task<ClassSaveViewModel> GetSaveViewModel(int? classId = null)
     {
       if (classId.HasValue)
       {
@@ -128,22 +128,11 @@ namespace Schools.Services
 
     }
 
-    public async Task<List<Class>> GetAll(int? schoolId)
+    public async Task<IEnumerable<Class>> GetAll(int schoolId)
     {
+      var classes = await this.data.Classes.Where(c => c.SchoolId == schoolId).ToListAsync();
 
-      if (schoolId.HasValue)
-      {
-        var classes = await this.data.Classes.Where(c => c.SchoolId == schoolId).ToListAsync();
-
-        return classes;
-      }
-      else
-      {
-        var classes = await this.data.Classes.ToListAsync();
-
-        return classes;
-      }
-     
+      return classes;
     }
   }
 }

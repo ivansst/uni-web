@@ -10,8 +10,8 @@ using Schools.Data;
 namespace Schools.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210123203100_Initial")]
-    partial class Initial
+    [Migration("20210131000535_Iniia")]
+    partial class Iniia
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -355,8 +355,7 @@ namespace Schools.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId")
-                        .IsUnique();
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Subjects");
                 });
@@ -621,8 +620,8 @@ namespace Schools.Migrations
             modelBuilder.Entity("Schools.Data.Models.Subject", b =>
                 {
                     b.HasOne("Schools.Data.Models.School", "School")
-                        .WithOne()
-                        .HasForeignKey("Schools.Data.Models.Subject", "SchoolId")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 

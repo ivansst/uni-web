@@ -14,8 +14,8 @@ namespace Schools.Services.Interfaces
 
     Task RemoveStudentFromClass(string studentId, int classId);
 
-    Task<ClassSaveViewModel> GetSaveViewModel(int? classId);
+    Task<ClassSaveViewModel> GetSaveViewModel(int? classId = null);
 
-    Task<List<Class>> GetAll(int? schoolId);
+    Task<IEnumerable<Class>> GetAll(int schoolId);
   }
 }

@@ -5,6 +5,6 @@ namespace Schools.ViewModels
 {
   public class ClassViewModel
   {
-    public List<Class> Classes { get; set; }
+    public IEnumerable<Class> Classes { get; set; }
   }
 }

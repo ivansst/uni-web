@@ -24,7 +24,7 @@ namespace Schools.Services
       var subjectModel = new Subject
       {
         Name = model.Name,
-        SchoolId = model.SchoolId
+        SchoolId = model.SchoolId.Value
       };
 
       this.data.Add(subjectModel);
@@ -34,7 +34,6 @@ namespace Schools.Services
 
     public async Task Delete(int Id)
     {
-
       var subject = await this.data.Subjects.FirstOrDefaultAsync(s => s.Id == Id);
 
       if (subject == null)
@@ -48,21 +47,11 @@ namespace Schools.Services
 
     }
 
-    public async Task<List<Subject>> GetAll(int? schoolId)
+    public async Task<IEnumerable<Subject>> GetAll(int schoolId)
     {
-      if (schoolId.HasValue)
-      {
-        var subjects = await this.data.Subjects.Where(c => c.SchoolId == schoolId).ToListAsync();
+      var subjects = await this.data.Subjects.Where(c => c.SchoolId == schoolId).ToListAsync();
 
-        return subjects;
-      }
-      else
-      {
-        var subjects = await this.data.Subjects.ToListAsync();
-
-        return subjects;
-      }
+      return subjects;
     }
-
   }
 }

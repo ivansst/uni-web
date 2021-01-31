@@ -6,31 +6,34 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class SubjectController : Controller
+  public class SubjectController : BaseController
   {
-
+    private readonly IUserService userService;
     private readonly ISubjectService subjectService;
 
-    public SubjectController(ISubjectService subjectService)
+    public SubjectController(ISubjectService subjectService, IUserService userService)
     {
       this.subjectService = subjectService;
+      this.userService = userService;
     }
 
     public async Task<IActionResult> Index()
     {
-      var subjects = await this.subjectService.GetAll(null);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var subjects = await this.subjectService.GetAll(schoolId);
 
       var model = new SubjectViewModel
       {
         Subjects = subjects,
       };
 
-      return View();
+      return View(model);
     }
 
     [HttpGet]
     public IActionResult Create()
     {
+
       return View();
     }
 
@@ -41,6 +44,12 @@ namespace Schools.Controllers
       if (!ModelState.IsValid)
       {
         return View();
+      }
+
+      var schoolId = await this.userService.GetSchoolIdForUser("");
+      if (!model.SchoolId.HasValue)
+      {
+        model.SchoolId = schoolId;
       }
 
       await this.subjectService.Create(model);

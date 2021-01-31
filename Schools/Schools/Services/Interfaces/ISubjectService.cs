@@ -11,6 +11,6 @@ namespace Schools.Services.Interfaces
 
     Task Delete(int Id);
 
-    Task<List<Subject>> GetAll(int? schoolId);
+    Task<IEnumerable<Subject>> GetAll(int schoolId);
   }
 }

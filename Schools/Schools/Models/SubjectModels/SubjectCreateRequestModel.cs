@@ -1,7 +1,4 @@
-﻿using Schools.Data.Models;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Schools.Models.SubjectModels
 {
@@ -10,8 +7,6 @@ namespace Schools.Models.SubjectModels
     [Required]
     public string Name { get; set; }
 
-    [Required]
-    public int SchoolId { get; set; }
-
+    public int? SchoolId { get; set; }
   }
 }

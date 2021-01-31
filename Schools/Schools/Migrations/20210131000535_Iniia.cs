@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Schools.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Iniia : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -512,8 +512,7 @@ namespace Schools.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Subjects_SchoolId",
                 table: "Subjects",
-                column: "SchoolId",
-                unique: true);
+                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeacherSubject_TeacherId",

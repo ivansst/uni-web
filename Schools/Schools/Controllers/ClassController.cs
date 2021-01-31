@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class ClassController : Controller
+  public class ClassController : BaseController
   {
-
     private readonly IClassService classService;
-
-    public ClassController(IClassService classService)
+    private readonly ISchoolService schoolService;
+    private readonly IUserService userService;
+    public ClassController(IClassService classService, ISchoolService schoolService, IUserService userService)
     {
       this.classService = classService;
+      this.schoolService = schoolService;
+      this.userService = userService;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-      var classes = await this.classService.GetAll(null);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+
+      var classes = await this.classService.GetAll(schoolId);
 
       var model = new ClassViewModel
       {
@@ -33,7 +37,7 @@ namespace Schools.Controllers
     public async Task<IActionResult> Create()
     {
 
-      var model = await this.classService.GetSaveViewModel(null);
+      var model = await this.classService.GetSaveViewModel();
 
       return View(nameof(Create), model);
     }
@@ -41,7 +45,7 @@ namespace Schools.Controllers
     [HttpPost]
     public async Task<IActionResult> Save(ClassSaveRequestModel model)
     {
-       if (!ModelState.IsValid)
+      if (!ModelState.IsValid)
       {
         return View();
       }
