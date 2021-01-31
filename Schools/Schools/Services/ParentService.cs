@@ -22,12 +22,13 @@ namespace Schools.Services
 
     public async Task EditParentStudents(string userId, IEnumerable<User> students)
     {
-      var parentStudents = await this.data.ParentStudents.Where(ps => ps.ParentId == userId).ToListAsync();
+      var parentStudents = await this.data.ParentStudents
+                                                  .Where(ps => ps.ParentId == userId)
+                                                  .ToListAsync();
 
       this.data.ParentStudents.RemoveRange(parentStudents);
 
       var parentStudentModel = new ParentStudents();
-
       var parentStudentsList = new List<ParentStudents>();
 
       foreach (var student in students)
@@ -42,7 +43,6 @@ namespace Schools.Services
       }
 
       this.data.ParentStudents.AddRange(parentStudentsList);
-
       await this.data.SaveChangesAsync();
     }
 

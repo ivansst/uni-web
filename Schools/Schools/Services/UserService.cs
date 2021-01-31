@@ -44,9 +44,7 @@ namespace Schools.Services
 
     public async Task<int> GetSchoolIdForUser(string userName)
     {
-      userName = "07daf6aa-8e4b-4296-927b-9e2f98d8d00b";
-
-      var schoolId = (await this.data.Users.FirstOrDefaultAsync(u => u.Id == userName)).SchoolId;
+      var schoolId = (await this.data.Users.FirstOrDefaultAsync(u => u.UserName == userName)).SchoolId;
 
       if (!schoolId.HasValue)
       {

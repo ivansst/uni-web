@@ -1,4 +1,5 @@
-﻿using Schools.Data.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Schools.Data.Models;
 using Schools.Models.UserModels;
 using System.Collections.Generic;
 
@@ -8,8 +9,10 @@ namespace Schools.ViewModels
   {
     public UserEditModel UserEditModel { get; set; }
 
+    public IEnumerable<int> TeacherSubjectIds { get; set; } = new List<int>();
+
     public IEnumerable<Subject> TeacherSubjects { get; set; }
 
-    public IEnumerable<Subject> SchoolSubjects { get; set; }
+    public IEnumerable<Subject> SchoolSubjects { get; set; } 
   }
 }

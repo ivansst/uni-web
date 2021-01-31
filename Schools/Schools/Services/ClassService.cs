@@ -71,7 +71,6 @@ namespace Schools.Services
         this.data.Update(classData);
 
       }
-
     }
 
     public async Task RemoveStudentFromClass(string studentId, int classId)
@@ -125,7 +124,6 @@ namespace Schools.Services
 
         return model;
       }
-
     }
 
     public async Task<IEnumerable<Class>> GetAll(int schoolId)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Schools.Models.SubjectModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
+  [Authorize]
   public class SubjectController : BaseController
   {
     private readonly IUserService userService;
@@ -46,7 +48,7 @@ namespace Schools.Controllers
         return View();
       }
 
-      var schoolId = await this.userService.GetSchoolIdForUser("");
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
       if (!model.SchoolId.HasValue)
       {
         model.SchoolId = schoolId;

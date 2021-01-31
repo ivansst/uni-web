@@ -20,11 +20,16 @@ namespace Schools.Services
       this.data = data;
     }
 
+    public async Task<IEnumerable<User>> GetAll(int schoolId)
+    {
+      var teachers = await this.data.Users.Where(t => t.SchoolId == schoolId && t.Role == "Teacher").ToListAsync();
+
+      return teachers;
+    }
+
     public async Task<TeacherEditViewModel> GetTeacherEditViewModel(string teacherId)
     {
-      teacherId = "07daf6aa-8e4b-4296-927b-9e2f98d8d00b";
-
-      var teacher = await this.data.Users.FirstOrDefaultAsync(t => t.Id == teacherId);
+      var teacher = await this.data.Users.Include(s=> s.Subject).FirstOrDefaultAsync(t => t.Id == teacherId);
 
       var teacherModel = new UserEditModel
       {
@@ -34,7 +39,11 @@ namespace Schools.Services
         LastName = teacher.LastName
       };
 
-      var teacherSubjects = (await this.data.Users.FirstOrDefaultAsync(s => s.Id == teacherId)).Subject;
+      var teacherSubjects = teacher.Subject;
+      if (teacherSubjects == null)
+      {
+        teacherSubjects = new List<Subject>();
+      }
 
       var schoolSubjects = await this.data.Subjects.Where(s=> s.SchoolId == teacher.SchoolId).ToListAsync();
 
@@ -48,23 +57,21 @@ namespace Schools.Services
       return model;
     }
 
-    public async Task UpdateClassSubjects(string teacherId, List<Subject> subjects)
+    public async Task UpdateClassSubjects(string teacherId, IEnumerable<int> subjectIds)
     {
       if (string.IsNullOrEmpty(teacherId))
       {
         throw new Exception("TeacehrId is required");
       }
 
-      if (!subjects.Any())
+      if (!subjectIds.Any())
       {
-        subjects = new List<Subject>();
+        subjectIds = new List<int>();
       }
 
-      var teacher = await this.data.Users.FirstOrDefaultAsync(u => u.Id == teacherId);
+      var teacher = await this.data.Users.Include(t=> t.Subject).FirstOrDefaultAsync(u => u.Id == teacherId);
 
-      var teacherSubjects = await this.data.Subjects.Where(s => s.Teacher == teacher).ToListAsync();
-
-      this.data.RemoveRange(teacherSubjects);
+      var subjects = await this.data.Subjects.Where(s => subjectIds.Contains(s.Id)).ToListAsync();
 
       teacher.Subject = subjects;
 

@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class TeacherController : Controller
+  [Authorize]
+  public class TeacherController : BaseController
   {
     private readonly ITeacherService teacherService;
     private readonly IUserService userService;
@@ -15,6 +16,16 @@ namespace Schools.Controllers
     {
       this.teacherService = teacherService;
       this.userService = userService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+
+      var teachers = await this.teacherService.GetAll(schoolId);
+
+      return View(nameof(Index), teachers);
     }
 
     [HttpGet]
@@ -35,9 +46,9 @@ namespace Schools.Controllers
 
       await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      await this.teacherService.UpdateClassSubjects(model.UserEditModel.UserId, model.TeacherSubjects.ToList());
+      await this.teacherService.UpdateClassSubjects(model.UserEditModel.UserId, model.TeacherSubjectIds);
 
-      return View();
+      return await Edit(model.UserEditModel.UserId);
     }
   }
 }

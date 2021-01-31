@@ -76,13 +76,8 @@ namespace Schools.Controllers
       {
         return View(nameof(Login), model);
       }
-
-      if(user.Role == "Учител")
-      {
-        return RedirectToAction("Index", "Teacher");
-      }
-
-      return RedirectToAction("Index", "Student");
+      
+      return RedirectToAction(user.Role, "Dashboard");
     }
   }
 }
