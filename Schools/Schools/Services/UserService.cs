@@ -4,6 +4,7 @@ using Schools.Data;
 using Schools.Data.Models;
 using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
+using Schools.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -19,6 +20,21 @@ namespace Schools.Services
     { 
       this.data = data;
       this.userManager = userManager;
+    }
+
+    public async Task<EditUserViewModel> GetEditViewModel(string userName)
+    {
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+      var model = new EditUserViewModel
+      {
+        FirstName = user.FirstName,
+        MiddleName = user.MiddleName,
+        LastName = user.LastName,
+        Email = user.Email
+      };
+
+      return model;
     }
 
     public async Task Create(UserCreateRequestModel model)

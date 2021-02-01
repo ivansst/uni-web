@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
 using Schools.Models.UserModels;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class UserController : Controller
+  [Authorize]
+  public class UserController : BaseController
   {
     private readonly UserManager<User> userManager;
     private readonly SignInManager<User> signInManager;
@@ -51,12 +53,14 @@ namespace Schools.Controllers
       return View();
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult Login()
     {
       return View(nameof(Login));
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Login(LoginModel model)
     {
@@ -78,6 +82,13 @@ namespace Schools.Controllers
       }
       
       return RedirectToAction(user.Role, "Dashboard");
+    }
+
+    public async Task<IActionResult> Edit()
+    {
+      var model = await this.userService.GetEditViewModel(UserName);
+
+      return View(nameof(Edit), model);
     }
   }
 }
