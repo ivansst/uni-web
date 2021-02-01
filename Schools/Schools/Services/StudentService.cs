@@ -5,6 +5,7 @@ using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -71,5 +72,13 @@ namespace Schools.Services
 
       await this.data.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<User>> GetAll(int schoolId)
+    {
+      var students = await this.data.Users.Where(c => c.SchoolId == schoolId && c.Role == "Student").ToListAsync();
+
+      return students;
+    }
+
   }
 }

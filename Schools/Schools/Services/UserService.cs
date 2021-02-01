@@ -22,16 +22,16 @@ namespace Schools.Services
       this.userManager = userManager;
     }
 
-    public async Task<EditUserViewModel> GetEditViewModel(string userName)
+    public async Task<UserEditModel> GetEditViewModel(string userName)
     {
       var user = await this.data.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
-      var model = new EditUserViewModel
+      var model = new UserEditModel
       {
         FirstName = user.FirstName,
         MiddleName = user.MiddleName,
         LastName = user.LastName,
-        Email = user.Email
+        UserId = user.Id,
       };
 
       return model;

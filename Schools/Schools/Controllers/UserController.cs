@@ -84,11 +84,25 @@ namespace Schools.Controllers
       return RedirectToAction(user.Role, "Dashboard");
     }
 
+    [HttpGet]
     public async Task<IActionResult> Edit()
     {
       var model = await this.userService.GetEditViewModel(UserName);
 
       return View(nameof(Edit), model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(UserEditModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return await Edit();
+      }
+
+      await this.userService.UpdatePersonalData(model);
+
+      return await Edit();
     }
   }
 }

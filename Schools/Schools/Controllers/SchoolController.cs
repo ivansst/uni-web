@@ -19,12 +19,27 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+      var schools = await this.schoolService.GetAll();
+
+      return View(nameof(Index), schools);
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+      return View();
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
 
       return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index(SaveSchoolRequestModel model)
+    public async Task<IActionResult> Save(SaveSchoolRequestModel model)
     {
       if (!ModelState.IsValid)
       {

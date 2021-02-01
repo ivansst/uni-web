@@ -38,7 +38,7 @@ namespace Schools.Services
 
       if (model.Id == null)
       {
-        if (model.Name == default(int))
+        if (model.Name == default)
         {
           throw new Exception("Cannot create Class without Name");
         }

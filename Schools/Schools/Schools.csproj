@@ -19,8 +19,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\School\" />
-  </ItemGroup>
-
 </Project>

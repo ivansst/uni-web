@@ -24,12 +24,7 @@ namespace Schools.Controllers
       var schoolId = await this.userService.GetSchoolIdForUser(UserName);
       var subjects = await this.subjectService.GetAll(schoolId);
 
-      var model = new SubjectViewModel
-      {
-        Subjects = subjects,
-      };
-
-      return View(model);
+      return View(subjects);
     }
 
     [HttpGet]

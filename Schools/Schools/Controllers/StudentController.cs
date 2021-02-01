@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class StudentController : Controller
+  public class StudentController : BaseController
   {
     public readonly IUserService userService;
     public readonly IClassService classService;
@@ -16,6 +16,16 @@ namespace Schools.Controllers
       this.userService = userService;
       this.classService = classService;
       this.studentService = studentService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+
+      var students = await this.studentService.GetAll(schoolId);
+
+      return View(nameof(Index), students);
     }
 
     [HttpGet]
@@ -40,5 +50,6 @@ namespace Schools.Controllers
 
       return View();
     }
+
   }
 }

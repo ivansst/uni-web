@@ -7,7 +7,7 @@ namespace Schools.Services.Interfaces
 {
   public interface IUserService
   {
-    Task<EditUserViewModel> GetEditViewModel(string userName);
+    Task<UserEditModel> GetEditViewModel(string userName);
 
     Task Create(UserCreateRequestModel model);
 

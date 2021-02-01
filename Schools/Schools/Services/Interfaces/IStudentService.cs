@@ -1,4 +1,6 @@
-﻿using Schools.ViewModels;
+﻿using Schools.Data.Models;
+using Schools.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Schools.Services.Interfaces
@@ -8,5 +10,7 @@ namespace Schools.Services.Interfaces
     Task<StudentEditViewModel> GetViewModel(string userId);
 
     Task SaveStudentClass(string studentId, int classId);
+
+    Task<IEnumerable<User>> GetAll(int schoolId);
   }
 }

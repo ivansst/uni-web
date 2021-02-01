@@ -1,12 +1,12 @@
 ﻿@using Schools.Data.Models
-@model IEnumerable<Class>
+@model IEnumerable<User>
 
 <div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-table"></i>Classes
+                <i class="fa fa-table"></i>Students
             </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
@@ -18,30 +18,39 @@
                     <thead>
                         <tr>
                             <th>
-                                <i class="fa fa-user"></i> Name
+                                <i class="fa fa-briefcase"></i> First Name
+                            </th>
+                            <th class="hidden-xs">
+                                <i class="fa fa-briefcase"></i> Middle Name
                             </th>
                             <th>
-                                <i class="fa fa-bookmark"></i> Group
+                                <i class="fa fa-briefcase"></i> Last Name
                             </th>
-                            <th>
-                                <i class="fa fa-bookmark"></i> SchoolId
+                            <th class="hidden-xs">
+                                <i class="fa fa-envelope-o"></i> Email
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var teacher in Model)
                         {
                             <tr>
                                 <td>
-                                    @item.Name
+                                    @teacher.FirstName
                                 </td>
-                                <td> @item.Group </td>
-                                <td> @item.SchoolId</td>
+                                <td class="hidden-xs">
+                                    @teacher.MiddleName
+                                </td>
                                 <td>
-                                    <a href="<%=Url.Action(" Edit", "Class" , new { id=@item.Id }) %>
-                                        " class="btn dark btn-sm btn-outline sbold uppercase">
-                                        <i class="fa fa-share"></i> View
+                                    @teacher.LastName
+                                </td>
+                                <td class="hidden-xs">
+                                    @teacher.Email
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Teacher", new { userId = teacher.Id })" class="btn dark btn-sm btn-outline sbold uppercase">
+                                        <i class="fa fa-share"></i> Edit
                                     </a>
                                 </td>
                             </tr>

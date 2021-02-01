@@ -25,12 +25,7 @@ namespace Schools.Controllers
 
       var classes = await this.classService.GetAll(schoolId);
 
-      var model = new ClassViewModel
-      {
-        Classes = classes
-      };
-
-      return View(nameof(Index), model);
+      return View(nameof(Index), classes);
     }
 
     [HttpGet]
@@ -47,12 +42,12 @@ namespace Schools.Controllers
     {
       if (!ModelState.IsValid)
       {
-        return View();
+        return View(nameof(Create));
       }
 
       await this.classService.Save(model);
 
-      return View();
+      return View(nameof(Create));
     }
 
     [HttpGet]
