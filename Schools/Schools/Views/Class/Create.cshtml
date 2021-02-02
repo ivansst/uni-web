@@ -1,4 +1,4 @@
-﻿@model Schools.ViewModels.ClassSaveViewModel
+﻿@model Schools.Models.ClassModels.ClassCreateRequestModel
 
 <div class="col-md-12">
     <div class="portlet box blue-hoki">
@@ -12,13 +12,13 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form asp-controller="Class" asp-action="Save" class="form-horizontal">
+            <form asp-controller="Class" asp-action="Create" class="form-horizontal">
                 <div class="form-body">
 
                     <div class="form-group">
                         <label class="col-md-3 control-label">Name</label>
                         <div class="col-md-4">
-                            <input asp-for="ClassCreateRequestModel.Name" type="text" class="form-control" placeholder="Name">
+                            <input asp-for="Name" type="text" class="form-control" placeholder="Name">
                             <span class="help-block"> Enter user first name. </span>
                         </div>
                     </div>
@@ -26,17 +26,17 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Group</label>
                         <div class="col-md-4">
-                            <input asp-for="ClassCreateRequestModel.Group" type="text" class="form-control" placeholder="Group">
+                            <input asp-for="Group" type="text" class="form-control" placeholder="Group">
                             <span class="help-block"> Enter user middle name. </span>
                         </div>
                     </div>
 
-                    <input type="hidden" value="" asp-for="ClassCreateRequestModel.SchoolId" />
+                    <input type="hidden" value="@Model.SchoolId" asp-for="SchoolId" />
 
                     <div class="form-group">
                         <label class="col-md-3 control-label">Subjects</label>
                         <div class="col-md-4">
-                            <select asp-for="Subjects" class="form-control multi-select" multiple>
+                            <select asp-for="SubjectIds" class="form-control multi-select" multiple>
                                 @foreach (var item in Model.Subjects)
                                 {
                                     <option value="@item.Id">@item.Name</option>

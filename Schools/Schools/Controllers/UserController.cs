@@ -87,6 +87,13 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
+    public IActionResult Logout()
+    {
+      this.signInManager.SignOutAsync();
+      return RedirectToAction(nameof(Login));
+    }
+
+    [HttpGet]
     public async Task<IActionResult> Edit()
     {
       var model = await this.userService.GetEditViewModel(UserName);

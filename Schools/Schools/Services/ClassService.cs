@@ -83,12 +83,14 @@ namespace Schools.Services
         throw new Exception("Model cannot be null");
       }
 
+      var subjects = await this.data.Subjects.Where(s => model.SubjectIds.Contains(s.Id)).ToListAsync();
+
       var @class = new Class
       {
         Name = model.Name,
         Group = model.Group,
         SchoolId = model.SchoolId,
-        Subject = model.Subjects.ToList()
+        Subject = subjects
       };
 
       this.data.Classes.Add(@class);
@@ -99,6 +101,8 @@ namespace Schools.Services
     public async Task<ClassEditRequestModel> GetEditModel(int classId)
     {
       var @class = await this.data.Classes.Include(c=> c.Subject).FirstOrDefaultAsync(c => c.Id == classId);
+      var subjects = await this.data.Subjects.Include(s => s.Class).Where(s => s.SchoolId == @class.SchoolId).ToListAsync();
+
       if(@class == null)
       {
         throw new Exception("This class doesn't exist");
@@ -107,20 +111,18 @@ namespace Schools.Services
       var classSubjectEditModel = new ClassSubjectEditModel();
       var classSubjects = new List<ClassSubjectEditModel>();
 
-      foreach (var subject in @class.Subject)
+      foreach (var subject in subjects)
       {
-        if (subject.Class.Contains(@class))
+        classSubjectEditModel = new ClassSubjectEditModel
         {
-          classSubjectEditModel = new ClassSubjectEditModel
-          {
-            Id = subject.Id,
-            Name = subject.Name,
-            SchoolId = subject.SchoolId,
-            IsForClass = true
-          };
+          Id = subject.Id,
+          Name = subject.Name,
+          SchoolId = subject.SchoolId
+        };
 
-          classSubjects.Add(classSubjectEditModel);
-        }
+        classSubjectEditModel.IsForClass = subject.Class.Contains(@class);
+
+        classSubjects.Add(classSubjectEditModel);
       }
 
       var model = new ClassEditRequestModel

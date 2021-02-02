@@ -30,17 +30,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var classModel in Model)
                         {
                             <tr>
                                 <td>
-                                    @item.Name
+                                    @classModel.Name
                                 </td>
-                                <td> @item.Group </td>
-                                <td> @item.SchoolId</td>
+                                <td> @classModel.Group </td>
+                                <td> @classModel.SchoolId</td>
                                 <td>
-                                    <a href="@Url.Action(" Edit", "Class" , new { id=@item.Id })">
-                                        " class="btn dark btn-sm btn-outline sbold uppercase">
+                                    <a href="@Url.Action("Edit", "Class" , new { id = classModel.Id })" class="btn dark btn-sm btn-outline sbold uppercase">                                        
                                         <i class="fa fa-share"></i> View
                                     </a>
                                 </td>

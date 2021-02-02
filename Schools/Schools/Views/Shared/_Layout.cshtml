@@ -79,7 +79,7 @@
                                     </li>
                                     <li class="divider"> </li>
                                     <li>
-                                        <a href="page_user_login_1.html">
+                                        <a href="@Url.Action("Logout", "User")">
                                             <i class="icon-key"></i> Log Out
                                         </a>
                                     </li>
@@ -93,10 +93,10 @@
                     <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
                         <ul class="nav navbar-nav">
 
-                            @if (userData.Role == "Admin")
+                            @if (userData.Role == "Administrator")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="@Url.Action("Admin", "Dashboard")" class="text-uppercase">
+                                    <a href="@Url.Action("Administrator", "Dashboard")" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                 </li>
@@ -189,7 +189,7 @@
                 <div class="page-content-container">
                     <div class="page-content-row">
 
-                        @if (userData.Role == "Admin" && ViewData["schoolId"] != null)
+                        @if (userData.Role == "Administrator" && ViewData["schoolId"] != null)
                         {
                             <div class="page-sidebar">
                                 <nav class="navbar" role="navigation">
@@ -236,9 +236,6 @@
 
             </div>
             <!-- BEGIN FOOTER -->
-            <!-- <p class="copyright">2015 © Metronic by keenthemes.
-                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
-            </p> -->
             <a href="#index" class="go2top">
                 <i class="icon-arrow-up"></i>
             </a>

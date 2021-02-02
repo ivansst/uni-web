@@ -14,6 +14,8 @@ namespace Schools.Extensions
       var dbContext = services.ServiceProvider.GetService<ApplicationDbContext>();
 
       dbContext.Database.Migrate();
+
+      Seeder.Seed(dbContext);
     }
   }
 }

@@ -12,7 +12,7 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form asp-controller="Class" asp-action="Create" class="form-horizontal">
+            <form asp-controller="Class" asp-action="Edit" class="form-horizontal">
                 <div class="form-body">
 
                     <input type="hidden" asp-for="Id" value="@Model.Id" />
@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Subjects</label>
                         <div class="col-md-4">
-                            <select asp-for="SubjectIds" class="form-control" multiple>
+                            <select asp-for="SubjectIds" class="multi-select form-control" multiple>
                                 @foreach (var subject in Model.AllSubjects)
                                 {
                                     @if (subject.IsForClass)

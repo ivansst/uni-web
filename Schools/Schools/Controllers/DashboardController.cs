@@ -20,14 +20,14 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> Admin()
+    public async Task<IActionResult> Administrator()
     {
 
       ViewData["schoolId"] = null;
 
       var model = await this.schoolService.GetAll();
 
-      return View(nameof(Admin), model);
+      return View(nameof(Administrator), model);
     }
 
     [HttpGet]

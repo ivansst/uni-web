@@ -12,15 +12,19 @@ namespace Schools.Controllers
     private readonly ISchoolService schoolService;
     private readonly IUserService userService;
     private readonly IStudentService studentService;
+    private readonly ISubjectService subjectService;
+
     public ClassController(IClassService classService, 
                            ISchoolService schoolService, 
                            IUserService userService, 
-                           IStudentService studentService)
+                           IStudentService studentService,
+                           ISubjectService subjectService)
     {
       this.classService = classService;
       this.schoolService = schoolService;
       this.userService = userService;
       this.studentService = studentService;
+      this.subjectService = subjectService;
     }
 
     [HttpGet]
@@ -36,8 +40,15 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Create()
     {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
 
-      var model = new ClassCreateRequestModel();
+      var subjects = await this.subjectService.GetAll(schoolId);
+
+      var model = new ClassCreateRequestModel
+      {
+        Subjects = subjects,
+        SchoolId = schoolId
+      };
 
       return View(nameof(Create), model);
     }
@@ -62,6 +73,15 @@ namespace Schools.Controllers
       var model = await this.classService.GetEditModel(id);
 
       return View(nameof(Edit), model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(ClassEditRequestModel model)
+    {
+
+      await this.classService.Edit(model);
+
+      return RedirectToAction(nameof(Edit), new { model.Id });
     }
 
     [HttpGet]

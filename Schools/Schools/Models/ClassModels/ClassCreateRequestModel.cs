@@ -14,6 +14,8 @@ namespace Schools.Models.ClassModels
 
     public int SchoolId { get; set; }
 
+    public IEnumerable<int> SubjectIds { get; set; }
+
     public IEnumerable<Subject> Subjects { get; set; }
   }
 }
