@@ -18,9 +18,9 @@ namespace Schools.Services
 
     public async Task AssignNewPrincipal(int schoolId, string userId)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u=>u.Id == userId && u.SchoolId == schoolId);
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId && u.SchoolId == schoolId);
 
-      user.Role = "Директор";
+      user.Role = "Principal";
 
       await this.data.SaveChangesAsync();
     }
@@ -32,7 +32,7 @@ namespace Schools.Services
 
     public async Task<SchoolPrincipalModel> GetPrincipal(int schoolId)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u =>u.SchoolId == schoolId && u.Role == "Principal");
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.SchoolId == schoolId && u.Role == "Principal");
 
       if (user == null)
       {
@@ -74,27 +74,27 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task Save(int id, string name, string address)
+    public async Task Create(SaveSchoolRequestModel model)
     {
-      var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == id);
-
-      if (school == null)
+      var school = new School
       {
-        school = new School
-        {
-          Name = name,
-          Address = address
-        };
+        Name = model.Name,
+        Address = model.Address
+      };
 
-        this.data.Add(school);
-      }
-      else
-      {
-        school.Name = name;
-        school.Address = address;
+      this.data.Add(school);
 
-        this.data.Update(school);
-      }
+      await this.data.SaveChangesAsync();
+    }
+
+    public async Task Edit(SaveSchoolRequestModel model)
+    {
+      var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == model.Id);
+
+      school.Name = model.Name;
+      school.Address = model.Address;
+
+      this.data.Update(school);
 
       await this.data.SaveChangesAsync();
     }
@@ -103,7 +103,7 @@ namespace Schools.Services
     {
       var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == schoolId);
 
-      if(school == null)
+      if (school == null)
       {
         throw new Exception("There is no school with this id!");
       }

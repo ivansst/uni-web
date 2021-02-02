@@ -47,14 +47,27 @@ namespace Schools.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Save(SaveSchoolRequestModel model)
+    public async Task<IActionResult> Create(SaveSchoolRequestModel model)
     {
       if (!ModelState.IsValid)
       {
         return View();
       }
 
-      await this.schoolService.Save(model.Id, model.Name, model.Address);
+      await this.schoolService.Create(model);
+
+      return View(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(SaveSchoolRequestModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
+
+      await this.schoolService.Edit(model);
 
       return View(nameof(Index));
     }

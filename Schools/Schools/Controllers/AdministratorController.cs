@@ -15,10 +15,11 @@ namespace Schools.Controllers
     public readonly IParentService parentService;
     public readonly IClassService classService;
     public readonly ISubjectService subjectService;
+    public readonly IStatisticsService statisticsService;
 
     public AdministratorController(ITeacherService teacherService, IUserService userService,
       ISchoolService schoolService, IStudentService studentService, IParentService parentService,
-      IClassService classService, ISubjectService subjectService)
+      IClassService classService, ISubjectService subjectService, IStatisticsService statisticsService)
     {
       this.teacherService = teacherService;
       this.userService = userService;
@@ -27,6 +28,7 @@ namespace Schools.Controllers
       this.parentService = parentService;
       this.classService = classService;
       this.subjectService = subjectService;
+      this.statisticsService = statisticsService;
     }
 
     [HttpGet]
@@ -38,10 +40,13 @@ namespace Schools.Controllers
 
       var principal = await this.schoolService.GetPrincipal(schoolId);
 
+      var statistics = this.statisticsService.GetStatistics(schoolId);
+
       var model = new SchoolDataViewModel
       {
         School = schoolData,
-        Principal = principal
+        Principal = principal,
+        Statistics = statistics,
       };
 
       return View(nameof(School), model);

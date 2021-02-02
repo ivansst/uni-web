@@ -9,5 +9,7 @@ namespace Schools.ViewModels
 
     public SchoolPrincipalModel Principal { get; set; }
 
+    public SchoolStatisticModel Statistics { get; set; }
+
   }
 }

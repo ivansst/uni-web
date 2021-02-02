@@ -1,6 +1,5 @@
 ﻿using Schools.Data.Models;
 using Schools.Models.SchoolModels;
-using Schools.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +9,9 @@ namespace Schools.Services.Interfaces
   {
     Task<IEnumerable<School>> GetAll();
 
-    Task Save(int id, string name, string address);
+    Task Edit(SaveSchoolRequestModel model);
+
+    Task Create(SaveSchoolRequestModel model);
 
     Task AssignNewPrincipal(int schoolId, string userId);
 
