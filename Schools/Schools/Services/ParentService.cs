@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Services
 {
-  public class ParentService : BaseService, IParentService
+  public class ParentService : IParentService
   {
     private readonly ApplicationDbContext data;
 

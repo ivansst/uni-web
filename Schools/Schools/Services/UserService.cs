@@ -4,13 +4,12 @@ using Schools.Data;
 using Schools.Data.Models;
 using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
-using Schools.ViewModels;
 using System;
 using System.Threading.Tasks;
 
 namespace Schools.Services
 {
-  public class UserService : BaseService, IUserService
+  public class UserService : IUserService
   {
     private readonly ApplicationDbContext data;
     private readonly UserManager<User> userManager;

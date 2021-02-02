@@ -52,7 +52,7 @@ namespace Schools.Controllers
 
       await this.userService.Create(model.UserCreateRequestModel);
 
-      return View();
+      return View()
     }
 
     [AllowAnonymous]
