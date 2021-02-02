@@ -32,10 +32,18 @@ namespace Schools.Controllers
 
 
     [HttpGet]
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int schoolId)
     {
+      var school = await this.schoolService.GetSchoolData(schoolId);
 
-      return View();
+      var model = new SaveSchoolRequestModel
+      {
+        Id = school.Id,
+        Name = school.Name,
+        Address = school.Address,
+      };
+
+      return View(nameof(Edit), model);
     }
 
     [HttpPost]
@@ -48,7 +56,7 @@ namespace Schools.Controllers
 
       await this.schoolService.Save(model.Id, model.Name, model.Address);
 
-      return View();
+      return View(nameof(Index));
     }
   }
 }

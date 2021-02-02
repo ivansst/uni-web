@@ -17,5 +17,7 @@ namespace Schools.Services.Interfaces
     Task RemoveUserFromSchool(int schoolId, string userId);
 
     Task<SchoolPrincipalModel> GetPrincipal(int schoolId);
+
+    Task<School> GetSchoolData(int schoolId);
   }
 }

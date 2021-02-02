@@ -78,5 +78,17 @@ namespace Schools.Services
 
       return model;
     }
+
+    public async Task<IEnumerable<User>> GetAll(int schoolId)
+    {
+      var parents = await this.data.Users.Where(c => c.SchoolId == schoolId && c.Role == "Parent").ToListAsync();
+
+      if(parents == null)
+      {
+        throw new Exception("There is no school with this id!");
+      }
+
+      return parents;
+    }
   }
 }

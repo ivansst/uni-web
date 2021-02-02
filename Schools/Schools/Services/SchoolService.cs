@@ -32,7 +32,7 @@ namespace Schools.Services
 
     public async Task<SchoolPrincipalModel> GetPrincipal(int schoolId)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u =>u.SchoolId == schoolId && u.Role == "Директор");
+      var user = await this.data.Users.FirstOrDefaultAsync(u =>u.SchoolId == schoolId && u.Role == "Principal");
 
       if (user == null)
       {
@@ -97,6 +97,18 @@ namespace Schools.Services
       }
 
       await this.data.SaveChangesAsync();
+    }
+
+    public async Task<School> GetSchoolData(int schoolId)
+    {
+      var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == schoolId);
+
+      if(school == null)
+      {
+        throw new Exception("There is no school with this id!");
+      }
+
+      return school;
     }
   }
 }

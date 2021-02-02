@@ -77,6 +77,11 @@ namespace Schools.Services
     {
       var students = await this.data.Users.Where(c => c.SchoolId == schoolId && c.Role == "Student").ToListAsync();
 
+      if (students == null)
+      {
+        throw new Exception("There is no school with this id!");
+      }
+
       return students;
     }
 

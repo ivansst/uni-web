@@ -1,0 +1,55 @@
+﻿@model Schools.ViewModels.SchoolDataViewModel
+
+<div class="col-sm-12">
+    <div class="portlet blue-hoki box">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i> School Data
+            </div>
+            <div class="actions">
+                <a href="@Url.Action("Edit", "School", new { schoolId = Model.School.Id })" class="btn btn-default btn-sm">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row static-info">
+                <div class="col-md-5 name"> School: </div>
+                <div class="col-md-7 value"> @Model.School.Name </div>
+            </div>
+            <div class="row static-info">
+                <div class="col-md-5 name"> Address </div>
+                <div class="col-md-7 value"> @Model.School.Address </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="portlet blue-hoki box">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Principal
+            </div>
+            <div class="actions">
+                <a href="@Url.Action("Edit", "EditPrincipal", new { model = Model.Principal })" class="btn btn-default btn-sm">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row static-info">
+                <div class="col-md-5 name"> First Name: </div>
+                <div class="col-md-7 value"> @Model.Principal.UserEditModel.FirstName </div>
+            </div>
+            <div class="row static-info">
+                <div class="col-md-5 name"> Middle Name: </div>
+                <div class="col-md-7 value"> @Model.Principal.UserEditModel.MiddleName </div>
+            </div>
+            <div class="row static-info">
+                <div class="col-md-5 name"> Last Name: </div>
+                <div class="col-md-7 value"> @Model.Principal.UserEditModel.LastName </div>
+            </div>
+        </div>
+    </div>
+</div> 

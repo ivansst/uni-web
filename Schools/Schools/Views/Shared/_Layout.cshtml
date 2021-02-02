@@ -1,7 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Schools.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+@{
+    var userId = UserManager.GetUserId(User);
+    var userData = UserManager.FindByIdAsync(userId).Result;
+}
+
+<!DOCTYPE html>
 <html lang="en">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 
 <head>
     <base href="~/lib/" />
@@ -24,12 +33,12 @@
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="./assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="./assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-    @*<link href="./css/site.css" rel="stylesheet" type="text/css" />*@
+    <link href="./css/site.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/lib/multiselect/css/bootstrap-multiselect.css" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
-    <!-- END HEAD -->
+<!-- END HEAD -->
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo">
     <!-- BEGIN CONTAINER -->
@@ -84,38 +93,77 @@
                     <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
                         <ul class="nav navbar-nav">
 
-                            <li class="dropdown dropdown-fw open">
-                                <a href="javascript:;" class="text-uppercase">
-                                    <i class="fa fa-book"></i> Dashboard
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-fw">
-                                    <li>
-                                        <a href="index.html">
-                                            Schools
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            Principals
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            Teachers
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            Students
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            Parents
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            @if (userData.Role == "Admin")
+                            {
+                                <li class="dropdown dropdown-fw open">
+                                    <a href="@Url.Action("Admin", "Dashboard")" class="text-uppercase">
+                                        <i class="fa fa-book"></i> Dashboard
+                                    </a>
+                                </li>
+                            }
+
+                            @if (userData.Role == "Principal")
+                            {
+                                <li class="dropdown dropdown-fw open">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="fa fa-book"></i> Dashboard
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-fw">
+                                        <li>
+                                            <a href="@Url.Action("Index", "Teachers", new { schoolId = userData.SchoolId })">
+                                                Teachers
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                                Students
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                                Parents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Classes", new { schoolId = userData.SchoolId })">
+                                                Classes
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            @if (userData.Role == "Teacher")
+                            {
+                                <li class="dropdown dropdown-fw open">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="fa fa-book"></i> Dashboard
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-fw">
+                                        <li>
+                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                                Students
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                                Parents
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            @if (userData.Role == "Student" || userData.Role == "Parent")
+                            {
+                                <li class="dropdown dropdown-fw open">
+                                    <a href="@Url.Action(userData.Role, "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
+                                        <i class="fa fa-book"></i> Dashboard
+                                    </a>
+                                </li>
+                            }
 
                         </ul>
                     </div>
@@ -128,9 +176,54 @@
         <div class="container-fluid">
             <div class="page-content">
 
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </span>
+                </button>
+
                 <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
                 <div class="page-content-container">
                     <div class="page-content-row">
+
+                        @if (userData.Role == "Admin" && ViewData["schoolId"] != null)
+                        {
+                            <div class="page-sidebar">
+                                <nav class="navbar" role="navigation">
+                                    <ul class="nav navbar-nav margin-bottom-35">
+                                        <li>
+                                            <a href="@Url.Action("Classes", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                                <i class="icon-notebook"></i> Classes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Subjects", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                                <i class="icon-book-open"></i> Subjects
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Teachers", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                                <i class="icon-users"></i> Teachers
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Students", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                                <i class="icon-users"></i> Students
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Parents", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                                <i class="icon-users"></i> Parents
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </nav>
+                            </div>
+                        }
 
                         <div class="page-content-col">
                             <!-- BEGIN PAGE BASE CONTENT -->
