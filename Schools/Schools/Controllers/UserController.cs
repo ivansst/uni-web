@@ -27,7 +27,8 @@ namespace Schools.Controllers
       this.userService = userService;
       this.schoolService = schoolService;
     }
-
+    
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> Register()
     {
@@ -40,6 +41,7 @@ namespace Schools.Controllers
       return View(nameof(Register), model);
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Register(UserCreateViewModel model)
     {

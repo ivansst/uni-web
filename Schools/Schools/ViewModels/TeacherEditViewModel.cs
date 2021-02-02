@@ -9,7 +9,7 @@ namespace Schools.ViewModels
   {
     public UserEditModel UserEditModel { get; set; }
 
-    public IEnumerable<int> TeacherSubjectIds { get; set; } = new List<int>();
+    public IEnumerable<int> NewTeacherSubjectIds { get; set; } = new List<int>();
 
     public IEnumerable<Subject> TeacherSubjects { get; set; }
 

@@ -57,7 +57,7 @@ namespace Schools.Services
       return model;
     }
 
-    public async Task UpdateClassSubjects(string teacherId, IEnumerable<int> subjectIds)
+    public async Task UpdateTeacherSubjects(string teacherId, IEnumerable<int> subjectIds)
     {
       if (string.IsNullOrEmpty(teacherId))
       {

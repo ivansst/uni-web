@@ -19,9 +19,7 @@ namespace Schools.Data.Models
 
     public virtual Subject Subject { get; set; }
 
-    public DateTime StartTime { get; set; }
-
-    public DateTime EndTime { get; set; }
+    public int Order { get; set; }
 
     [Required]
     public int Day { get; set; }

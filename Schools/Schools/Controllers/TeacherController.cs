@@ -46,7 +46,7 @@ namespace Schools.Controllers
 
       await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      await this.teacherService.UpdateClassSubjects(model.UserEditModel.UserId, model.TeacherSubjectIds);
+      await this.teacherService.UpdateTeacherSubjects(model.UserEditModel.UserId, model.NewTeacherSubjectIds);
 
       return await Edit(model.UserEditModel.UserId);
     }

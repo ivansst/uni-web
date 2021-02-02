@@ -11,6 +11,6 @@ namespace Schools.Services.Interfaces
 
     Task<TeacherEditViewModel> GetTeacherEditViewModel(string teacherId);
 
-    Task UpdateClassSubjects(string teacherId, IEnumerable<int> subjectIds);
+    Task UpdateTeacherSubjects(string teacherId, IEnumerable<int> subjectIds);
   }
 }

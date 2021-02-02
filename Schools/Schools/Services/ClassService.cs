@@ -3,7 +3,6 @@ using Schools.Data;
 using Schools.Data.Models;
 using Schools.Models.ClassModels;
 using Schools.Services.Interfaces;
-using Schools.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,44 +32,27 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task Save(ClassSaveRequestModel model)
+    public async Task Edit(ClassEditRequestModel model)
     {
-
-      if (model.Id == null)
+      if (model == null)
       {
-        if (model.Name == default)
-        {
-          throw new Exception("Cannot create Class without Name");
-        }
-
-        var classModel = new Class
-        {
-          Name = model.Name,
-          Group = model.Group,
-          SchoolId = model.SchoolId,
-          Subject = model.Subjects.ToList()
-        };
-
-        this.data.Add(classModel);
-
-        await this.data.SaveChangesAsync();
+        throw new Exception("Model cannot be null");
       }
-      else
+
+      var @class = await this.data.Classes.Include(s=> s.Subject).FirstOrDefaultAsync(c => c.Id == model.Id);
+
+      if(@class == null)
       {
-        var classData = await this.data.Classes.FirstOrDefaultAsync(s => s.Id == model.Id);
-
-        if (classData == null)
-        {
-          throw new Exception("Cannot create Class without Name");
-        }
-
-        classData.Name = model.Name;
-        classData.Group = model.Group;
-        classData.Subject = model.Subjects.ToList();
-
-        this.data.Update(classData);
-
+        throw new Exception("This class doesn't exist");
       }
+
+      @class.Name = model.Name;
+      @class.Group = model.Group;
+
+      var subjects = await this.data.Subjects.Where(s => s.SchoolId == @class.SchoolId && model.SubjectIds.Contains(s.Id)).ToListAsync();
+      @class.Subject = subjects;
+
+      await this.data.SaveChangesAsync();
     }
 
     public async Task RemoveStudentFromClass(string studentId, int classId)
@@ -87,50 +69,69 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task<ClassSaveViewModel> GetSaveViewModel(int? classId = null)
-    {
-      if (classId.HasValue)
-      {
-        var subjects = await this.data.Subjects.ToListAsync();
-
-        var classData = await this.data.Classes.FirstOrDefaultAsync(s => s.Id == classId);
-
-        var basicSaveModel = new ClassSaveRequestModel
-        {
-          Id = classData.Id,
-          Name = classData.Name,
-          Group = classData.Group,
-          SchoolId = classData.SchoolId,
-          Subjects = subjects
-        };
-
-        var model = new ClassSaveViewModel
-        {
-          ClassCreateRequestModel = basicSaveModel,
-          Subjects = subjects
-        };
-
-        return model;
-      }
-      else
-      {
-        var subjects = await this.data.Subjects.ToListAsync();
-
-        var model = new ClassSaveViewModel
-        {
-          ClassCreateRequestModel = new ClassSaveRequestModel(),
-          Subjects = subjects,
-        };
-
-        return model;
-      }
-    }
-
     public async Task<IEnumerable<Class>> GetAll(int schoolId)
     {
       var classes = await this.data.Classes.Where(c => c.SchoolId == schoolId).ToListAsync();
 
       return classes;
+    }
+
+    public async Task Create(ClassCreateRequestModel model)
+    {
+      if (model == null)
+      {
+        throw new Exception("Model cannot be null");
+      }
+
+      var @class = new Class
+      {
+        Name = model.Name,
+        Group = model.Group,
+        SchoolId = model.SchoolId,
+        Subject = model.Subjects.ToList()
+      };
+
+      this.data.Classes.Add(@class);
+
+      await this.data.SaveChangesAsync();
+    }
+
+    public async Task<ClassEditRequestModel> GetEditModel(int classId)
+    {
+      var @class = await this.data.Classes.Include(c=> c.Subject).FirstOrDefaultAsync(c => c.Id == classId);
+      if(@class == null)
+      {
+        throw new Exception("This class doesn't exist");
+      }
+
+      var classSubjectEditModel = new ClassSubjectEditModel();
+      var classSubjects = new List<ClassSubjectEditModel>();
+
+      foreach (var subject in @class.Subject)
+      {
+        if (subject.Class.Contains(@class))
+        {
+          classSubjectEditModel = new ClassSubjectEditModel
+          {
+            Id = subject.Id,
+            Name = subject.Name,
+            SchoolId = subject.SchoolId,
+            IsForClass = true
+          };
+
+          classSubjects.Add(classSubjectEditModel);
+        }
+      }
+
+      var model = new ClassEditRequestModel
+      {
+        Id = @class.Id,
+        Name = @class.Name,
+        Group = @class.Group,
+        AllSubjects = classSubjects
+      };
+
+      return model;
     }
   }
 }

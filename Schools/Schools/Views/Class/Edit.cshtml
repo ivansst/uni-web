@@ -1,4 +1,4 @@
-﻿@model Schools.ViewModels.ClassSaveViewModel
+﻿@model Schools.Models.ClassModels.ClassEditRequestModel
 
 <div class="col-md-6">
     <div class="portlet box blue-hoki">
@@ -15,10 +15,12 @@
             <form asp-controller="Class" asp-action="Create" class="form-horizontal">
                 <div class="form-body">
 
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+
                     <div class="form-group">
                         <label class="col-md-3 control-label">Name</label>
                         <div class="col-md-4">
-                            <input asp-for="ClassCreateRequestModel.Name" type="text" class="form-control" value="@Model.ClassCreateRequestModel.Name" placeholder="Name">
+                            <input asp-for="Name" type="text" class="form-control" value="@Model.Name" placeholder="Name">
                             <span class="help-block"> Enter user first name. </span>
                         </div>
                     </div>
@@ -26,20 +28,25 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Group</label>
                         <div class="col-md-4">
-                            <input asp-for="ClassCreateRequestModel.Group" type="text" class="form-control" placeholder="Group">
+                            <input asp-for="Group" type="text" class="form-control" placeholder="Group">
                             <span class="help-block"> Enter user middle name. </span>
                         </div>
                     </div>
 
-                    <input type="hidden" value="" asp-for="ClassCreateRequestModel.SchoolId" />
-
                     <div class="form-group">
                         <label class="col-md-3 control-label">Subjects</label>
                         <div class="col-md-4">
-                            <select asp-for="Subjects" class="form-control" multiple>
-                                @foreach (var item in Model.Subjects)
+                            <select asp-for="SubjectIds" class="form-control" multiple>
+                                @foreach (var subject in Model.AllSubjects)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    @if (subject.IsForClass)
+                                    {
+                                        <option selected value="@subject.Id">@subject.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@subject.Id">@subject.Name</option>
+                                    }
                                 }
                             </select>
                         </div>

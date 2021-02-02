@@ -8,13 +8,15 @@ namespace Schools.Services.Interfaces
 {
   public interface IClassService
   {
-    Task Save(ClassSaveRequestModel model);
+    Task Edit(ClassEditRequestModel model);
+
+    Task Create(ClassCreateRequestModel model);
 
     Task AddStudentToClass(string studentId, int classId);
 
     Task RemoveStudentFromClass(string studentId, int classId);
 
-    Task<ClassSaveViewModel> GetSaveViewModel(int? classId = null);
+    Task<ClassEditRequestModel> GetEditModel(int classId);
 
     Task<IEnumerable<Class>> GetAll(int schoolId);
   }

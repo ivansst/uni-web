@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">School</label>
                         <div class="col-md-4">
-                            <select asp-for="TeacherSubjectIds" class="multi-select form-control" multiple="multiple">
+                            <select asp-for="NewTeacherSubjectIds" class="multi-select form-control" multiple="multiple">
                                 @foreach (var subject in Model.SchoolSubjects)
                                 {
                                     @if (Model.TeacherSubjects.Contains(subject))

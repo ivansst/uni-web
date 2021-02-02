@@ -6,7 +6,7 @@ namespace Schools.ViewModels
 {
   public class ClassSaveViewModel
   {
-    public ClassSaveRequestModel ClassCreateRequestModel { get; set; }
+    public ClassCreateRequestModel ClassCreateRequestModel { get; set; }
 
     public IEnumerable<Subject> Subjects { get; set; }
   }

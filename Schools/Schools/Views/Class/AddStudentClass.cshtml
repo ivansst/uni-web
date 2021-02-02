@@ -1,0 +1,60 @@
+﻿@model Schools.ViewModels.AddStudentClassViewModel
+
+<div class="col-md-12">
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Edit Teacher
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form asp-controller="Class" asp-action="AddStudentClass" class="form-horizontal">
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Classes</label>
+                        <div class="col-md-4">
+                            <select asp-for="ClassId" class="form-control" >
+                                @foreach (var studentClass in Model.Classes)
+                                {
+                                    <option value="@studentClass.Id">@studentClass.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Students</label>
+                        <div class="col-md-4">
+                            <select asp-for="StudentId" class=" form-control">
+                                @foreach (var student in Model.Students)
+                                {
+                                    <option value="@student.Id">@student.FirstName @student.MiddleName @student.LastName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <input hidden asp-for="Classes" value="@Model.Classes" />
+
+                    <input hidden asp-for="Students" value="@Model.Students" />
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn green">Submit</button>
+                            <button type="reset" class="btn default">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+
+</div>

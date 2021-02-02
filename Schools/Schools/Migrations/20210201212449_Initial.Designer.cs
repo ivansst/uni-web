@@ -10,8 +10,8 @@ using Schools.Data;
 namespace Schools.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210131000535_Iniia")]
-    partial class Iniia
+    [Migration("20210201212449_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,14 +228,11 @@ namespace Schools.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
