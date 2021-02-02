@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Services
 {
-  public class StudentService : BaseService, IStudentService
+  public class StudentService : IStudentService
   {
     private readonly ApplicationDbContext data;
 

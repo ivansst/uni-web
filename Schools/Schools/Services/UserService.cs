@@ -21,9 +21,9 @@ namespace Schools.Services
       this.userManager = userManager;
     }
 
-    public async Task<UserEditModel> GetEditViewModel(string userName)
+    public async Task<UserEditModel> GetEditViewModel(string userId)
     {
-      var user = await this.data.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+      var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
       var model = new UserEditModel
       {
@@ -57,9 +57,9 @@ namespace Schools.Services
       }
     }
 
-    public async Task<int> GetSchoolIdForUser(string userName)
+    public async Task<int> GetSchoolIdForUser(string userId)
     {
-      var schoolId = (await this.data.Users.FirstOrDefaultAsync(u => u.UserName == userName)).SchoolId;
+      var schoolId = (await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId)).SchoolId;
 
       if (!schoolId.HasValue)
       {
@@ -88,7 +88,7 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task UpdateUserSchool(string userId, int schoolId)
+    public async Task UpdateUserSchool(string userId, int? schoolId = null)
     {
       var user = await this.data.Users.FirstOrDefaultAsync(u => u.Id == userId);
       user.SchoolId = schoolId;

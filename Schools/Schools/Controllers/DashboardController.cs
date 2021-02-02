@@ -9,7 +9,6 @@ namespace Schools.Controllers
   [Authorize]
   public class DashboardController : BaseController
   {
-
     private readonly ISchoolService schoolService;
     private readonly IUserService userService;
 
@@ -22,8 +21,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Administrator()
     {
-
-      ViewData["schoolId"] = null;
+      await this.userService.UpdateUserSchool(UserId);
 
       var model = await this.schoolService.GetAll();
 
@@ -34,7 +32,7 @@ namespace Schools.Controllers
     public async Task<IActionResult> Principal()
     {
 
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       var school = await this.schoolService.GetSchoolData(schoolId);
 

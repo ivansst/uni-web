@@ -18,7 +18,7 @@ namespace Schools.Controllers
 
     public async Task<IActionResult> Index()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
       var parents = await this.parentService.GetAll(schoolId);
 
       return View(nameof(Index), parents);

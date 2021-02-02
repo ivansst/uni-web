@@ -30,7 +30,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       var classes = await this.classService.GetAll(schoolId);
 
@@ -40,7 +40,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Create()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       var subjects = await this.subjectService.GetAll(schoolId);
 
@@ -87,7 +87,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> AddStudentClass()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       var students = await this.studentService.GetAll(schoolId);
       var classes = await this.classService.GetAll(schoolId);

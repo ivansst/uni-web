@@ -52,7 +52,7 @@ namespace Schools.Controllers
 
       await this.userService.Create(model.UserCreateRequestModel);
 
-      return View()
+      return View();
     }
 
     [AllowAnonymous]
@@ -96,7 +96,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Edit()
     {
-      var model = await this.userService.GetEditViewModel(UserName);
+      var model = await this.userService.GetEditViewModel(UserId);
 
       return View(nameof(Edit), model);
     }

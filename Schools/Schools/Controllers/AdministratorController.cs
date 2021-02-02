@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class AdministratorController : Controller
+  public class AdministratorController : BaseController
   {
     public readonly ITeacherService teacherService;
     public readonly IUserService userService;
@@ -34,7 +34,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> School(int schoolId)
     {
-      ViewData["schoolId"] = schoolId;
+      await this.userService.UpdateUserSchool(UserId, schoolId);
 
       var schoolData = await this.schoolService.GetSchoolData(schoolId);
 

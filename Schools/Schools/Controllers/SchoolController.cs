@@ -69,7 +69,7 @@ namespace Schools.Controllers
 
       await this.schoolService.Edit(model);
 
-      return View(nameof(Index));
+      return Redirect(Request.Headers["Referer"].ToString());
     }
   }
 }

@@ -21,7 +21,7 @@ namespace Schools.Controllers
 
     public async Task<IActionResult> Index()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
       var subjects = await this.subjectService.GetAll(schoolId);
 
       return View(subjects);
@@ -43,7 +43,7 @@ namespace Schools.Controllers
         return View();
       }
 
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
       if (!model.SchoolId.HasValue)
       {
         model.SchoolId = schoolId;

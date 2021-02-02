@@ -21,7 +21,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserName);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       var students = await this.studentService.GetAll(schoolId);
 

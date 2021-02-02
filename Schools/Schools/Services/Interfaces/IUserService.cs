@@ -7,14 +7,14 @@ namespace Schools.Services.Interfaces
 {
   public interface IUserService
   {
-    Task<UserEditModel> GetEditViewModel(string userName);
+    Task<UserEditModel> GetEditViewModel(string userId);
 
     Task Create(UserCreateRequestModel model);
 
-    Task UpdateUserSchool(string userId, int schoolId);
+    Task UpdateUserSchool(string userId, int? schoolId = null);
 
     Task UpdatePersonalData(UserEditModel model);
 
-    Task<int> GetSchoolIdForUser(string userName);
+    Task<int> GetSchoolIdForUser(string userId);
   }
 }
