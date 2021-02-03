@@ -90,10 +90,9 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> ClassBook(int subjectId)
+    public async Task<IActionResult> ClassBook(int classId)
     {
       return View(nameof(ClassBook));
     }
-
   }
 }

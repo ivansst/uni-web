@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Schools.Data.Models;
+﻿using Schools.Data.Models;
 using Schools.Models.UserModels;
 using System.Collections.Generic;
 

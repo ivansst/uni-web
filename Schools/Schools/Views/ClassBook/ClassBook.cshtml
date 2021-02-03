@@ -1,4 +1,6 @@
-﻿<div class="col-md-12">
+﻿@model Schools.ViewModels.ClassBookViewModel 
+
+<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box yellow">
         <div class="portlet-title">
@@ -25,25 +27,25 @@
 
                     </thead>
                     <tbody>
-
-                        <tr>
-                            <td> Math </td>
-                            <td> Stoyan Georgiev </td>
-                            <td> 6,4,5 </td>
-                            <td> 2 </td>
-                            <td>
-                                <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade">
-                                    <i class="icon-trophy"></i> Add Grade
-                                </a>
-                            </td>
-                            <td>
-                                <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence">
-                                    <i class="icon-user-unfollow"></i> Add Absence
-                                </a>
-                            </td>
-                        </tr>
-
-
+                        @foreach (var classBookModel in Model.ClassBookModels)
+                        {
+                            <tr>
+                                <td> @classBookModel.SubjectName </td>
+                                <td> @classBookModel.FirstName @classBookModel.LastName </td>
+                                <td> @string.Join(", ", classBookModel.StudentGrades)</td>
+                                <td> @classBookModel.StudentAbsences.Sum() </td>
+                                <td>
+                                    <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade">
+                                        <i class="icon-trophy"></i> Add Grade
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence">
+                                        <i class="icon-user-unfollow"></i> Add Absence
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

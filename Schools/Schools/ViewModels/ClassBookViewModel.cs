@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Schools.Models.ClassBookModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Schools.ViewModels
 {
   public class ClassBookViewModel
   {
-    public string SubjectName { get; set; }
-
+    public IEnumerable<ClassBookModel> ClassBookModels { get; set; }
   }
 }

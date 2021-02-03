@@ -1,6 +1,5 @@
 ﻿using Schools.Data.Models;
 using Schools.Models.ClassModels;
-using Schools.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
