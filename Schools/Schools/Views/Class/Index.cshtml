@@ -30,23 +30,29 @@
                                 <i class="fa fa-bookmark"></i> SchoolId
                             </th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var classModel in Model)
                         {
-                            <tr>
-                                <td>
-                                    @classModel.Name
-                                </td>
-                                <td> @classModel.Group </td>
-                                <td> @classModel.SchoolId</td>
-                                <td>
-                                    <a href="@Url.Action("Edit", "Class" , new { id = classModel.Id })" class="btn dark btn-sm btn-outline sbold uppercase">                                        
-                                        <i class="fa fa-share"></i> Edit
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @classModel.Name
+                            </td>
+                            <td> @classModel.Group </td>
+                            <td> @classModel.SchoolId</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Class" , new { id = classModel.Id })" class="btn dark btn-sm btn-outline sbold uppercase">
+                                    <i class="fa fa-share"></i> Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Delete", "Class" , new { id = classModel.Id })" class="btn red btn-sm btn-outline sbold uppercase">
+                                    <i class="fa fa-share"></i> Remove
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
