@@ -1,4 +1,5 @@
-﻿
+﻿@model Schools.ViewModels.ParentStudentsViewModel
+
 <div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet">
@@ -37,27 +38,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                John
-                            </td>
-                            <td class="hidden-xs">
-                                Freaking
-                            </td>
-                            <td>
-                                Doe
-                            </td>
-                            <td class="hidden-xs">
-                                test@test.com
-                            </td>
-                            <td> NBU </td>
-                            <td> 12 A </td>
-                            <td>
-                                <a href="@Url.Action("StudentBook", "Student", new { userId = 1 })" class="btn dark btn-sm btn-outline sbold uppercase">
-                                    <i class="fa fa-share"></i> View
-                                </a>
-                            </td>
-                        </tr>
+                        @foreach (var student in Model.ParentStudents)
+                        {
+                            <tr>
+                                <td>
+                                    @student.FirstName
+                                </td>
+                                <td class="hidden-xs">
+                                    @student.MiddleName
+                                </td>
+                                <td>
+                                    @student.LastName
+                                </td>
+                                <td class="hidden-xs">
+                                    @student.Email
+                                </td>
+                                <td> @student.SchoolName </td>
+                                <td> @student.Class </td>
+                                <td>
+                                    <a href="@Url.Action("StudentBook", "Student", new { userId = student.UserId })" class="btn dark btn-sm btn-outline sbold uppercase">
+                                        <i class="fa fa-share"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

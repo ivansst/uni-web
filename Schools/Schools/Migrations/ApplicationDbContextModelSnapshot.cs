@@ -294,12 +294,19 @@ namespace Schools.Migrations
 
             modelBuilder.Entity("Schools.Data.Models.StudentClass", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ClassId");
 

@@ -262,11 +262,14 @@ namespace Schools.Migrations
                 name: "StudentClass",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ClassId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_StudentClass", x => x.Id);
                     table.ForeignKey(
                         name: "FK_StudentClass_AspNetUsers_StudentId",
                         column: x => x.StudentId,

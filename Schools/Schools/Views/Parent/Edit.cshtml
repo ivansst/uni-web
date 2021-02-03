@@ -12,7 +12,7 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form asp-controller="Student" asp-action="Edit" class="form-horizontal">
+            <form asp-controller="Parent" asp-action="Edit" class="form-horizontal">
                 <div class="form-body">
 
                     <div class="form-group">
@@ -42,28 +42,34 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Students</label>
                         <div class="col-md-4">
-                            <select asp-for="ParentStudents" class="multi-select form-control" multiple="multiple">
+                            <select asp-for="StudentIds" class="multi-select form-control" multiple="multiple">
                                 @foreach (var student in Model.AllStudents)
                                 {
                                     @if (Model.ParentStudents.Contains(student))
                                     {
-                                        <option selected value="@student">@student.FirstName @student.LastName</option>
+                                        <option selected value="@student.Id">@student.FirstName @student.LastName</option>
                                     }
                                     else
                                     {
-                                        <option value="@student">@student.FirstName @student.LastName</option>
+                                        <option value="@student.Id">@student.FirstName @student.LastName</option>
                                     }
                                 }
                             </select>
                         </div>
                     </div>
 
+                    <input hidden asp-for="AllStudents"  value="@Model.AllStudents"/>
+
+                    <input hidden asp-for="ParentStudents" value="@Model.ParentStudents" />
+
+                    <input hidden asp-for="UserEditModel.UserId" value="@Model.UserEditModel.UserId" />
+
                 </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-9">
                             <button type="submit" class="btn green">Submit</button>
-                            <button type="reset" class="btn default">Cancel</button>
+                            <a href="@Url.Action("Index", "Parent")" class="btn default">Cancel</a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schools.Data;
 using Schools.Data.Models;
+using Schools.Models.ParentModels;
 using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
@@ -20,7 +21,7 @@ namespace Schools.Services
       this.data = data;
     }
 
-    public async Task EditParentStudents(string userId, IEnumerable<User> students)
+    public async Task EditParentStudents(string userId, IEnumerable<string> students)
     {
       var parentStudents = await this.data.ParentStudents
                                                   .Where(ps => ps.ParentId == userId)
@@ -36,13 +37,14 @@ namespace Schools.Services
         parentStudentModel = new ParentStudents
         {
           ParentId = userId,
-          StudentId = student.Id
+          StudentId = student
         };
 
         parentStudentsList.Add(parentStudentModel);
       }
 
       this.data.ParentStudents.AddRange(parentStudentsList);
+
       await this.data.SaveChangesAsync();
     }
 
@@ -59,7 +61,7 @@ namespace Schools.Services
 
       var students = await this.data.Users.Where(u => parentStudentsIds.Contains(u.Id)).ToListAsync(); 
 
-      var studentsForSchool = await this.data.Users.Where(u => u.SchoolId == parent.SchoolId && u.Role == "Ученик").ToListAsync();
+      var studentsForSchool = await this.data.Users.Where(u => u.SchoolId == parent.SchoolId && u.Role == "Student").ToListAsync();
 
       var userEditModel = new UserEditModel
       {
@@ -104,5 +106,53 @@ namespace Schools.Services
 
       return students;
     }
+
+    public async Task<ParentStudentsViewModel> GetParentStudentsViewModel(string parentId)
+    {
+      var parentStudentsIds = await this.data.ParentStudents.Where(ps => ps.ParentId == parentId).Select(ps => ps.StudentId).ToListAsync();
+
+      var students = await this.data.Users.Where(u => parentStudentsIds.Contains(u.Id)).ToListAsync();
+
+      var schools = await this.data.Schools.ToListAsync();
+      var schoolsIds = schools.Select(s => s.Id).ToList();
+
+      var classes = await this.data.Classes.Where(c => schoolsIds.Contains(c.SchoolId)).ToListAsync();
+      var classesIds = classes.Select(c => c.Id).ToList();
+
+      var studentClasses = await this.data.StudentClass.Include(sc => sc.Class).Where(sc => classesIds.Contains(sc.ClassId)).ToListAsync();
+
+      var parentStudents = new List<ParentStudentsModel>();
+
+      var schoolName = string.Empty;
+      var classData = new Class { };
+      var className = string.Empty;
+
+      foreach(var student in students)
+      {
+        schoolName = schools.FirstOrDefault(s => s.Id == student.SchoolId).Name;
+
+        classData = studentClasses.FirstOrDefault(sc => sc.StudentId == student.Id).Class;
+        className = $"{classData.Name} {classData.Group}";
+
+        parentStudents.Add(new ParentStudentsModel
+        {
+          UserId = student.Id,
+          FirstName = student.FirstName,
+          MiddleName = student.MiddleName,
+          LastName = student.LastName,
+          Email = student.Email,
+          SchoolName = schoolName,
+          Class = className
+        });
+      }
+
+      var model = new ParentStudentsViewModel
+      {
+        ParentStudents = parentStudents,
+      };
+
+      return model;
+    }
+
   }
 }

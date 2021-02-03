@@ -11,5 +11,7 @@ namespace Schools.ViewModels
     public IEnumerable<User> ParentStudents { get; set; }
 
     public IEnumerable<User> AllStudents { get; set; }
+
+    public IEnumerable<string> StudentIds { get; set; } = new List<string>();
   }
 }

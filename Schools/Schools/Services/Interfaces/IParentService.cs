@@ -11,10 +11,12 @@ namespace Schools.Services.Interfaces
   {
     Task<ParentEditViewModel> GetEditViewModel(string userId);
 
-    Task EditParentStudents(string userId, IEnumerable<User> students);
+    Task EditParentStudents(string userId, IEnumerable<string> students);
 
     Task<IEnumerable<User>> GetAll(int schoolId);
 
     Task<IEnumerable<User>> GetParentStudents(string parentId);
+
+    Task<ParentStudentsViewModel> GetParentStudentsViewModel(string parentId);
   }
 }

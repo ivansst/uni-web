@@ -76,10 +76,10 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Students</label>
                         <div class="col-md-4">
-                            <select asp-for="Students" class="multi-select form-control" multiple="multiple">
+                            <select asp-for="StudentIds" class="multi-select form-control" multiple="multiple">
                                 @foreach (var student in Model.Students)
                                 {
-                                    <option value="@student">@student.FirstName @student.LastName</option>
+                                    <option value="@student.Id">@student.FirstName @student.LastName</option>
                                 }
                             </select>
                         </div>
