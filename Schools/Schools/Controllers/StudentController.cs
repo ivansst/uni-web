@@ -71,15 +71,13 @@ namespace Schools.Controllers
     [HttpPost]
     public async Task<IActionResult> Create(StudentCreateViewModel model)
     {
-
-      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
-
-      model.SchoolId = schoolId;
-
       if (!ModelState.IsValid)
       {
         return View(nameof(Create));
       }
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      model.SchoolId = schoolId;
 
       var user = await this.userService.Create(model);
 
@@ -89,10 +87,9 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> Info(string userId)
+    public IActionResult Info(string userId)
     {
       return View(nameof(Info));
     }
-
   }
 }
