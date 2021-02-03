@@ -29,7 +29,7 @@ namespace Schools.Services
 
     public async Task<TeacherEditViewModel> GetTeacherEditViewModel(string teacherId)
     {
-      var teacher = await this.data.Users.Include(s=> s.Subject).FirstOrDefaultAsync(t => t.Id == teacherId);
+      var teacher = await this.data.Users.Include(s => s.Subject).FirstOrDefaultAsync(t => t.Id == teacherId);
 
       var teacherModel = new UserEditModel
       {
@@ -45,7 +45,7 @@ namespace Schools.Services
         teacherSubjects = new List<Subject>();
       }
 
-      var schoolSubjects = await this.data.Subjects.Where(s=> s.SchoolId == teacher.SchoolId).ToListAsync();
+      var schoolSubjects = await this.data.Subjects.Where(s => s.SchoolId == teacher.SchoolId).ToListAsync();
 
       var model = new TeacherEditViewModel
       {
@@ -69,7 +69,7 @@ namespace Schools.Services
         subjectIds = new List<int>();
       }
 
-      var teacher = await this.data.Users.Include(t=> t.Subject).FirstOrDefaultAsync(u => u.Id == teacherId);
+      var teacher = await this.data.Users.Include(t => t.Subject).FirstOrDefaultAsync(u => u.Id == teacherId);
 
       var subjects = await this.data.Subjects.Where(s => subjectIds.Contains(s.Id)).ToListAsync();
 

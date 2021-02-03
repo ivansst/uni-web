@@ -47,9 +47,52 @@ namespace Schools.Services
 
     }
 
+    public async Task<IEnumerable<Subject>> GetSubjectsForTeacher(string userId)
+    {
+      var teacher = await this.data.Users.Include(u => u.Subject).FirstOrDefaultAsync(t => t.Id == userId);
+
+      if (teacher == null)
+      {
+        throw new Exception("Teacher doesn't exist!");
+      }
+
+      return teacher.Subject.ToList();
+    }
+
     public async Task<IEnumerable<Subject>> GetAll(int schoolId)
     {
       var subjects = await this.data.Subjects.Where(c => c.SchoolId == schoolId).ToListAsync();
+
+      return subjects;
+    }
+
+    public async Task<IEnumerable<Subject>> GetSubjectsForClassAndTeacher(string userId, int classId)
+    {
+      var teacher = await this.data.Users.Include(t => t.Subject).FirstOrDefaultAsync(t => t.Id == userId);
+      if (teacher == null)
+      {
+        throw new Exception("Teacher doesn't exist!");
+      }
+
+      var teacherSubjects = teacher.Subject.Any() ? teacher.Subject : new List<Subject>();
+
+      var @class = await this.data.Classes.Include(c => c.Subject).FirstOrDefaultAsync(c => c.Id == classId);
+      if (@class == null)
+      {
+        throw new Exception("Class doesn't exist");
+      }
+
+      var classSubjects = @class.Subject.Any() ? @class.Subject : new List<Subject>();
+
+      var subjects = new List<Subject>();
+
+      foreach (var subject in teacherSubjects)
+      {
+        if (classSubjects.Contains(subject))
+        {
+          subjects.Add(subject);
+        }
+      }
 
       return subjects;
     }

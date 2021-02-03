@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Schools.Models.SubjectModels;
 using Schools.Services.Interfaces;
-using Schools.ViewModels;
 using System.Threading.Tasks;
 
 namespace Schools.Controllers
@@ -31,17 +30,15 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> SubjectsForTeacher()
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
-      var subjects = await this.subjectService.GetAll(schoolId);
+      var subjects = await this.subjectService.GetSubjectsForTeacher(UserId);
 
-      return View("Index",subjects);
+      return View("Index", subjects);
     }
 
     [HttpGet]
     public async Task<IActionResult> SubjectsForClassAndTeacher(int classId)
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
-      var subjects = await this.subjectService.GetAll(schoolId);
+      var subjects = await this.subjectService.GetSubjectsForClassAndTeacher(UserId, classId);
 
       return View("Index", subjects);
     }
