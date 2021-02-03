@@ -10,5 +10,7 @@ namespace Schools.ViewModels
   public class ParentCreateViewModel : UserCreateRequestModel
   {
     public IEnumerable<User> Students { get; set; }
+
+    public IEnumerable<string> StudentIds { get; set; } = new List<string>();
   }
 }

@@ -9,5 +9,6 @@ namespace Schools.ViewModels
   {
     public string SubjectName { get; set; }
 
+
   }
 }

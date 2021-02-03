@@ -57,7 +57,7 @@ namespace Schools.Controllers
 
       var user = await this.userService.Create(model);
 
-      await this.parentService.EditParentStudents(user.Id, model.Students);
+      await this.parentService.EditParentStudents(user.Id, model.StudentIds);
 
       return await Index();
     }
@@ -65,17 +65,7 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> Edit(string userId)
     {
-      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
-
-      var parentStudents = await this.parentService.GetParentStudents(userId);
-
-      var allStudents = await this.studentService.GetAll(schoolId);
-
-      var model = new ParentEditViewModel
-      {
-        ParentStudents = parentStudents,
-        AllStudents = allStudents,
-      };
+      var model = await this.parentService.GetEditViewModel(userId);
 
       return View(nameof(Edit), model);
     }
@@ -85,14 +75,14 @@ namespace Schools.Controllers
     {
       if(!ModelState.IsValid)
       {
-        return View();
+        return View(nameof(Edit), model.UserEditModel.UserId);
       }
 
       await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      await this.parentService.EditParentStudents(model.UserEditModel.UserId, model.ParentStudents);
+      await this.parentService.EditParentStudents(model.UserEditModel.UserId, model.StudentIds);
 
-      return View();
+      return await Index();
     }
   }
 }

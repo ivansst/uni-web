@@ -10,7 +10,7 @@ using Schools.Data;
 namespace Schools.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210201212449_Initial")]
+    [Migration("20210203220838_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -296,12 +296,19 @@ namespace Schools.Migrations
 
             modelBuilder.Entity("Schools.Data.Models.StudentClass", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ClassId");
 

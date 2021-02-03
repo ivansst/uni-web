@@ -5,6 +5,9 @@ namespace Schools.Data.Models
 {
   public class StudentClass
   {
+    [Key]
+    public int Id { get; set; }
+
     [Required]
     public string StudentId { get; set; }
 
