@@ -90,5 +90,19 @@ namespace Schools.Services
 
       return parents;
     }
+
+    public async Task<IEnumerable<User>> GetParentStudents(string parentId)
+    {
+      var parentStudentsIds = await this.data.ParentStudents.Where(ps => ps.ParentId == parentId).Select(ps => ps.StudentId).ToListAsync();
+
+      var students = await this.data.Users.Where(u => parentStudentsIds.Contains(u.Id)).ToListAsync();
+
+      if (students == null)
+      {
+        students = new List<User>();
+      }
+
+      return students;
+    }
   }
 }

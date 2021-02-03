@@ -36,7 +36,7 @@ namespace Schools.Services
         ParentCount = parentsCount,
         ClassesCount = classesCount,
         SubjectsCount = subjectsCount,
-        Absents = absents,
+        Absences = absents,
         GradeAverage = gradeAverage,
       };
 

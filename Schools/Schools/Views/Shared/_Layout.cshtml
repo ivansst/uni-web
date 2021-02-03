@@ -33,7 +33,7 @@
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="./assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="./assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="./css/site.css" rel="stylesheet" type="text/css" />
+    <link href="../css/site.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/lib/multiselect/css/bootstrap-multiselect.css" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -59,16 +59,16 @@
                         </button>
                         <!-- End Toggle Button -->
                         <!-- BEGIN LOGO -->
-                        <a id="index" class="page-logo" href="index.html">
+                        @*<a id="index" class="page-logo" href="index.html">
                             <img src="./assets/layouts/layout5/img/logo.png" alt="Logo">
-                        </a>
+                        </a>*@
                         <!-- END LOGO -->
                         <!-- BEGIN TOPBAR ACTIONS -->
                         <div class="topbar-actions">
                             <!-- BEGIN USER PROFILE -->
                             <div class="btn-group-img btn-group">
                                 <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span>Hi, Marcus</span>
+                                    <span>Hi, @userData.UserName</span>
                                     <img src="./assets/layouts/layout5/img/avatar1.jpg" alt="">
                                 </button>
                                 <ul class="dropdown-menu-v2" role="menu">
@@ -110,23 +110,28 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Teachers", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = userData.SchoolId })">
                                                 Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 Parents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Classes", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
                                                 Classes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Subject", new { schoolId = userData.SchoolId })">
+                                                Subjects
                                             </a>
                                         </li>
                                     </ul>
@@ -142,12 +147,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 Parents
                                             </a>
                                         </li>
@@ -176,46 +181,49 @@
         <div class="container-fluid">
             <div class="page-content">
 
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="toggle-icon">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </span>
-                </button>
+                @if (userData.Role == "Administrator" && userData.SchoolId != null)
+                {
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="toggle-icon">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </span>
+                    </button>
+                }
 
                 <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
                 <div class="page-content-container">
                     <div class="page-content-row">
 
-                        @if (userData.Role == "Administrator" && ViewData["schoolId"] != null)
+                        @if (userData.Role == "Administrator" && userData.SchoolId != null)
                         {
                             <div class="page-sidebar">
                                 <nav class="navbar" role="navigation">
                                     <ul class="nav navbar-nav margin-bottom-35">
                                         <li>
-                                            <a href="@Url.Action("Classes", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Class", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-notebook"></i> Classes
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Subjects", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Subject", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-book-open"></i> Subjects
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Teachers", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-users"></i> Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Students", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-users"></i> Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Parents", "Administrator", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-users"></i> Parents
                                             </a>
                                         </li>

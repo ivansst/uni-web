@@ -14,5 +14,7 @@ namespace Schools.Services.Interfaces
     Task EditParentStudents(string userId, IEnumerable<User> students);
 
     Task<IEnumerable<User>> GetAll(int schoolId);
+
+    Task<IEnumerable<User>> GetParentStudents(string parentId);
   }
 }

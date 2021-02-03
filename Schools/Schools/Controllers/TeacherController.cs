@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace Schools.Controllers
   {
     private readonly ITeacherService teacherService;
     private readonly IUserService userService;
+    private readonly ISubjectService subjectService;
 
-    public TeacherController(ITeacherService teacherService, IUserService userService)
+    public TeacherController(ITeacherService teacherService, IUserService userService, ISubjectService subjectService)
     {
       this.teacherService = teacherService;
       this.userService = userService;
+      this.subjectService = subjectService;
     }
 
     [HttpGet]
@@ -26,6 +29,41 @@ namespace Schools.Controllers
       var teachers = await this.teacherService.GetAll(schoolId);
 
       return View(nameof(Index), teachers);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var subjects = await this.subjectService.GetAll(schoolId);
+
+      var model = new TeacherCreateViewModel
+      {
+        Subjects = subjects,
+      };
+
+      return View(nameof(Create), model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(TeacherCreateViewModel model)
+    {
+
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      model.SchoolId = schoolId;
+
+      if (!ModelState.IsValid)
+      {
+        return View(nameof(Create));
+      }
+
+      var user = await this.userService.Create(model);
+
+      await this.teacherService.UpdateTeacherSubjects(user.Id, model.Subjects);
+
+      return await Index();
     }
 
     [HttpGet]
@@ -48,7 +86,8 @@ namespace Schools.Controllers
 
       await this.teacherService.UpdateTeacherSubjects(model.UserEditModel.UserId, model.NewTeacherSubjectIds);
 
-      return await Edit(model.UserEditModel.UserId);
+      return await Index();
     }
+
   }
 }

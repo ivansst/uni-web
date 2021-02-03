@@ -1,11 +1,10 @@
-﻿@model Schools.ViewModels.UserCreateViewModel
-
+﻿@model Schools.Models.UserModels.UserCreateRequestModel
 <!-- REGISTER/EDIT USERS -->
 <div class="col-md-12">
     <div class="portlet box blue-hoki">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>Register User
+                <i class="fa fa-gift"></i>Create Principal
             </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
@@ -13,13 +12,13 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form asp-controller="User" asp-action="Register" class="form-horizontal">
+            <form asp-controller="Parent" asp-action="Create" class="form-horizontal">
                 <div class="form-body">
 
                     <div class="form-group">
                         <label class="col-md-3 control-label">First Name</label>
                         <div class="col-md-4">
-                            <input asp-for="UserCreateRequestModel.FirstName" type="text" class="form-control" placeholder="First Name">
+                            <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
                             <span class="help-block"> Enter user first name. </span>
                         </div>
                     </div>
@@ -27,7 +26,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Middle Name</label>
                         <div class="col-md-4">
-                            <input asp-for="UserCreateRequestModel.MiddleName" type="text" class="form-control" placeholder="Middle Name">
+                            <input asp-for="MiddleName" type="text" class="form-control" placeholder="Middle Name">
                             <span class="help-block"> Enter user middle name. </span>
                         </div>
                     </div>
@@ -35,7 +34,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Last Name</label>
                         <div class="col-md-4">
-                            <input asp-for="UserCreateRequestModel.LastName" type="text" class="form-control" placeholder="Last Name">
+                            <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
                             <span class="help-block"> Enter user last name. </span>
                         </div>
                     </div>
@@ -47,7 +46,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input asp-for="UserCreateRequestModel.Email" type="email" class="form-control" placeholder="Email Address">
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Email Address">
                             </div>
                         </div>
                     </div>
@@ -55,7 +54,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Username</label>
                         <div class="col-md-4">
-                            <input asp-for="UserCreateRequestModel.UserName" type="text" class="form-control" placeholder="Username">
+                            <input asp-for="UserName" type="text" class="form-control" placeholder="Username">
                             <span class="help-block"> Enter a username. </span>
                         </div>
                     </div>
@@ -64,7 +63,7 @@
                         <label class="col-md-3 control-label">Password</label>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input asp-for="UserCreateRequestModel.Password" type="password" class="form-control" placeholder="Password">
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
@@ -72,29 +71,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Role</label>
-                        <div class="col-md-4">
-                            <select asp-for="UserCreateRequestModel.Role" class="form-control">
-                                <option value="Administrator">Administrator</option>
-                                <option value="Principal">Principal</option>
-                                <option value="Teacher">Teacher</option>
-                                <option value="Student">Student</option>
-                                <option value="Parent">Parent</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">School</label>
-                        <div class="col-md-4">
-                            <select asp-for="UserCreateRequestModel.SchoolId" class="form-control">
-                                @foreach (var school in Model.Schools) {
-                                    <option value="@school.Id">@school.Name</option>
-                                    }
-                            </select>
-                        </div>
-                    </div>
+                    <input hidden asp-for="Role" value="Principal" />
 
                 </div>
                 <div class="form-actions">

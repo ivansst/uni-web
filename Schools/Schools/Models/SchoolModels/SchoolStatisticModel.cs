@@ -17,7 +17,7 @@ namespace Schools.Models.SchoolModels
 
     public int SubjectsCount { get; set; }
 
-    public int Absents { get; set; }
+    public int Absences { get; set; }
 
     public double GradeAverage { get; set; }
 

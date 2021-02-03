@@ -1,10 +1,6 @@
 ﻿@using Schools.Data.Models
 @model IEnumerable<User> 
 
-@{ 
-  Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 <div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet">
@@ -13,6 +9,9 @@
                 <i class="fa fa-table"></i>Teachers
             </div>
             <div class="tools">
+                <a href="@Url.Action("Create", "Teacher")" class="btn dark btn-sm btn-outline sbold uppercase" style="height: auto;">
+                    <i class="fa fa-share"></i> Create
+                </a>
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
             </div>
         </div>
@@ -34,30 +33,36 @@
                                 <i class="fa fa-envelope-o"></i> Email
                             </th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var teacher in Model)
                         {
-                            <tr>
-                                <td>
-                                    @teacher.FirstName
-                                </td>
-                                <td class="hidden-xs">
-                                    @teacher.MiddleName
-                                </td>
-                                <td>
-                                    @teacher.LastName
-                                </td>
-                                <td class="hidden-xs">
-                                    @teacher.Email
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Edit", "Teacher", new { userId = teacher.Id })" class="btn dark btn-sm btn-outline sbold uppercase">
-                                        <i class="fa fa-share"></i> Edit
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @teacher.FirstName
+                            </td>
+                            <td class="hidden-xs">
+                                @teacher.MiddleName
+                            </td>
+                            <td>
+                                @teacher.LastName
+                            </td>
+                            <td class="hidden-xs">
+                                @teacher.Email
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Teacher", new { userId = teacher.Id })" class="btn dark btn-sm btn-outline sbold uppercase">
+                                    <i class="fa fa-share"></i> Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Delete", "Teacher", new { userId = teacher.Id })" class="btn red btn-sm btn-outline sbold uppercase">
+                                    <i class="fa fa-share"></i> Remove
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

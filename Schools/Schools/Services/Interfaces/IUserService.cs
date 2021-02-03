@@ -9,7 +9,7 @@ namespace Schools.Services.Interfaces
   {
     Task<UserEditModel> GetEditViewModel(string userId);
 
-    Task Create(UserCreateRequestModel model);
+    Task<User> Create(UserCreateRequestModel model);
 
     Task UpdateUserSchool(string userId, int? schoolId = null);
 

@@ -36,7 +36,10 @@ namespace Schools.Services
 
       if (user == null)
       {
-        throw new Exception("There is no principal for this school");
+        return new SchoolPrincipalModel
+        {
+          Role = null,
+        };
       }
 
       var schoolName = (await this.data.Schools.FirstOrDefaultAsync(s => s.Id == user.SchoolId)).Name;

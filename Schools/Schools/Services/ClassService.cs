@@ -101,12 +101,13 @@ namespace Schools.Services
     public async Task<ClassEditRequestModel> GetEditModel(int classId)
     {
       var @class = await this.data.Classes.Include(c=> c.Subject).FirstOrDefaultAsync(c => c.Id == classId);
-      var subjects = await this.data.Subjects.Include(s => s.Class).Where(s => s.SchoolId == @class.SchoolId).ToListAsync();
 
       if(@class == null)
       {
         throw new Exception("This class doesn't exist");
       }
+
+      var subjects = await this.data.Subjects.Include(s => s.Class).Where(s => s.SchoolId == @class.SchoolId).ToListAsync();
 
       var classSubjectEditModel = new ClassSubjectEditModel();
       var classSubjects = new List<ClassSubjectEditModel>();

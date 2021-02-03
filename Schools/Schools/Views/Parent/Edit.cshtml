@@ -39,6 +39,25 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Students</label>
+                        <div class="col-md-4">
+                            <select asp-for="ParentStudents" class="multi-select form-control" multiple="multiple">
+                                @foreach (var student in Model.AllStudents)
+                                {
+                                    @if (Model.ParentStudents.Contains(student))
+                                    {
+                                        <option selected value="@student">@student.FirstName @student.LastName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@student">@student.FirstName @student.LastName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="form-actions">
                     <div class="row">

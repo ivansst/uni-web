@@ -1,4 +1,15 @@
 ﻿.table-scrollable {
-    height: 200px;
+    max-height: 600px;
     overflow-y: auto;
+}
+
+.btn-group > .dropdown-menu {
+    padding: 10px 0px 0px 30px !important;
+}
+
+@media (min-width: 992px) {
+    .page-content {
+        padding-top: 90px !important;
+        padding-bottom: 10px !important;
+    }
 }

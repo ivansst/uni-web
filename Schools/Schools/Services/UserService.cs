@@ -36,7 +36,7 @@ namespace Schools.Services
       return model;
     }
 
-    public async Task Create(UserCreateRequestModel model)
+    public async Task<User> Create(UserCreateRequestModel model)
     {
       var user = new User
       {
@@ -55,6 +55,8 @@ namespace Schools.Services
       {
         throw new Exception("Unnable to create user!");
       }
+
+      return user;
     }
 
     public async Task<int> GetSchoolIdForUser(string userId)
