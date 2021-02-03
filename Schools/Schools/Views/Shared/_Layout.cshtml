@@ -130,7 +130,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Subject", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = userData.SchoolId })">
                                                 Subjects
                                             </a>
                                         </li>
@@ -154,6 +154,16 @@
                                         <li>
                                             <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 Parents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Classes", new { schoolId = userData.SchoolId })">
+                                                Classes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("SubjectsForTeacher", "Subject")">
+                                                Subjects
                                             </a>
                                         </li>
                                     </ul>
@@ -208,7 +218,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Subject", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = ViewData["schoolId"] })">
                                                 <i class="icon-book-open"></i> Subjects
                                             </a>
                                         </li>

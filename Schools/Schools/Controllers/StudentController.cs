@@ -87,9 +87,9 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Info(string userId)
+    public async Task<IActionResult> StudentBook(string userId)
     {
-      return View(nameof(Info));
+      return View(nameof(StudentBook));
     }
   }
 }
