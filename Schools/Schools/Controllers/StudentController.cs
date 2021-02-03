@@ -76,5 +76,11 @@ namespace Schools.Controllers
       return await Index();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Info(string userId)
+    {
+      return View(nameof(Info));
+    }
+
   }
 }

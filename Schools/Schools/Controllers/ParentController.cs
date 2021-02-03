@@ -10,11 +10,13 @@ namespace Schools.Controllers
   {
     private readonly IParentService parentService;
     private readonly IUserService userService;
+    private readonly IStudentService studentService;
 
-    public ParentController(IParentService parentService, IUserService userService)
+    public ParentController(IParentService parentService, IUserService userService, IStudentService studentService)
     {
       this.parentService = parentService;
       this.userService = userService;
+      this.studentService = studentService;
     }
 
     public async Task<IActionResult> Index()
@@ -26,13 +28,22 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-      return View(nameof(Create));
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var students = await this.studentService.GetAll(schoolId);
+
+      var model = new ParentCreateViewModel
+      {
+        Students = students,
+      };
+
+      return View(nameof(Create), model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UserCreateRequestModel model)
+    public async Task<IActionResult> Create(ParentCreateViewModel model)
     {
 
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
@@ -50,14 +61,35 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Edit(string userId)
+    public async Task<IActionResult> Edit(string userId)
     {
-      return View();
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var parentStudents = await this.parentService.GetParentStudents(userId);
+
+      var allStudents = await this.studentService.GetAll(schoolId);
+
+      var model = new ParentEditViewModel
+      {
+        ParentStudents = parentStudents,
+        AllStudents = allStudents,
+      };
+
+      return View(nameof(Edit), model);
     }
 
     [HttpPost]
-    public IActionResult Edit(ParentEditViewModel model)
+    public async Task<IActionResult> Edit(ParentEditViewModel model)
     {
+      if(!ModelState.IsValid)
+      {
+        return View();
+      }
+
+      await this.userService.UpdatePersonalData(model.UserEditModel);
+
+      await this.parentService.EditParentStudents(model.UserEditModel.UserId, model.ParentStudents);
+
       return View();
     }
   }

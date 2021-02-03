@@ -1,4 +1,4 @@
-﻿@model Schools.Models.UserModels.UserCreateRequestModel
+﻿@model Schools.ViewModels.TeacherCreateViewModel
 <!-- REGISTER/EDIT USERS -->
 <div class="col-md-12">
     <div class="portlet box blue-hoki">
@@ -71,7 +71,19 @@
                         </div>
                     </div>
 
-                    <input hidden asp-for="Role" value="Teacher"/>
+                    <input hidden asp-for="Role" value="Teacher" />
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">School</label>
+                        <div class="col-md-4">
+                            <select asp-for="Subjects" class="multi-select form-control" multiple="multiple">
+                                @foreach (var student in Model.Subjects)
+                                {
+                                    <option value="@student">@student.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="form-actions">

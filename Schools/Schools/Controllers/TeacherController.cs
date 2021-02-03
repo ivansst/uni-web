@@ -12,11 +12,13 @@ namespace Schools.Controllers
   {
     private readonly ITeacherService teacherService;
     private readonly IUserService userService;
+    private readonly ISubjectService subjectService;
 
-    public TeacherController(ITeacherService teacherService, IUserService userService)
+    public TeacherController(ITeacherService teacherService, IUserService userService, ISubjectService subjectService)
     {
       this.teacherService = teacherService;
       this.userService = userService;
+      this.subjectService = subjectService;
     }
 
     [HttpGet]
@@ -30,13 +32,22 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-      return View(nameof(Create));
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var subjects = await this.subjectService.GetAll(schoolId);
+
+      var model = new TeacherCreateViewModel
+      {
+        Subjects = subjects,
+      };
+
+      return View(nameof(Create), model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UserCreateRequestModel model)
+    public async Task<IActionResult> Create(TeacherCreateViewModel model)
     {
 
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);

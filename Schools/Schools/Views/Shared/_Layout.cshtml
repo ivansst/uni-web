@@ -59,9 +59,9 @@
                         </button>
                         <!-- End Toggle Button -->
                         <!-- BEGIN LOGO -->
-                        <a id="index" class="page-logo" href="index.html">
+                        @*<a id="index" class="page-logo" href="index.html">
                             <img src="./assets/layouts/layout5/img/logo.png" alt="Logo">
-                        </a>
+                        </a>*@
                         <!-- END LOGO -->
                         <!-- BEGIN TOPBAR ACTIONS -->
                         <div class="topbar-actions">
@@ -110,23 +110,28 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Teachers", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = userData.SchoolId })">
                                                 Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 Parents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Classes", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
                                                 Classes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Subject", new { schoolId = userData.SchoolId })">
+                                                Subjects
                                             </a>
                                         </li>
                                     </ul>
@@ -142,12 +147,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Students", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parents", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 Parents
                                             </a>
                                         </li>
