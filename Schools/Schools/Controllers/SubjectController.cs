@@ -19,12 +19,31 @@ namespace Schools.Controllers
       this.userService = userService;
     }
 
-    public async Task<IActionResult> Index()
+    [HttpGet]
+    public async Task<IActionResult> AllSubjects()
     {
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
       var subjects = await this.subjectService.GetAll(schoolId);
 
-      return View(subjects);
+      return View("Index", subjects);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> SubjectsForTeacher()
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+      var subjects = await this.subjectService.GetAll(schoolId);
+
+      return View("Index",subjects);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> SubjectsForClassAndTeacher(int classId)
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+      var subjects = await this.subjectService.GetAll(schoolId);
+
+      return View("Index", subjects);
     }
 
     [HttpGet]

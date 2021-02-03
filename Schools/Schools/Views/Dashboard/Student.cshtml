@@ -20,8 +20,6 @@
                             <th> Teacher </th>
                             <th> Grades </th>
                             <th> Absences </th>
-                            <th> Add Grade </th>
-                            <th> Add Absence </th>
                         </tr>
 
                     </thead>
@@ -32,16 +30,6 @@
                             <td> Stoyan Georgiev </td>
                             <td> 6,4,5 </td>
                             <td> 2 </td>
-                            <td>
-                                <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade">
-                                    <i class="icon-trophy"></i> Add Grade
-                                </a>
-                            </td>
-                            <td>
-                                <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence">
-                                    <i class="icon-user-unfollow"></i> Add Absence
-                                </a>
-                            </td>
                         </tr>
 
 
@@ -51,52 +39,4 @@
         </div>
     </div>
     <!-- END SAMPLE TABLE PORTLET-->
-</div>
-
-<div class="modal fade" id="add_grade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add Grade</h4>
-            </div>
-            <div class="modal-body">
-
-                <form>
-                    <input type="number" class="form-control" min="2" max="6" step="0.25" placeholder="Grade">
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade in" id="add_absence" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add Absence</h4>
-            </div>
-            <div class="modal-body"> 
-            
-                <form>
-                    <input type="number" class="form-control" min="1" step="1" placeholder="Absence">
-                </form>
-            
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
 </div>
