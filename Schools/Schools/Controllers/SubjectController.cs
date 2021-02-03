@@ -69,7 +69,7 @@ namespace Schools.Controllers
 
       await this.subjectService.Create(model);
 
-      return await Index();
+      return await AllSubjects();
     }
 
     [HttpPost]
@@ -78,7 +78,7 @@ namespace Schools.Controllers
     {
       await this.subjectService.Delete(subjectId);
 
-      return await Index();
+      return await AllSubjects();
     }
   }
 }
