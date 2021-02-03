@@ -53,13 +53,23 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-      return View(nameof(Create));
+
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var classes = await this.classService.GetAll(schoolId);
+
+      var model = new StudentCreateViewModel
+      {
+        Classes = classes,
+      };
+
+      return View(nameof(Create), model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UserCreateRequestModel model)
+    public async Task<IActionResult> Create(StudentCreateViewModel model)
     {
 
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
@@ -71,7 +81,9 @@ namespace Schools.Controllers
         return View(nameof(Create));
       }
 
-      await this.userService.Create(model);
+      var user = await this.userService.Create(model);
+
+      await this.classService.AddStudentToClass(user.Id, model.ClassId);
 
       return await Index();
     }
