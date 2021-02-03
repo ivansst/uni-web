@@ -11,10 +11,10 @@ namespace Schools.Services.Interfaces
 
     Task Delete(int Id);
 
-    Task<IEnumerable<Subject>> GetAll(int schoolId);
+    Task<IEnumerable<SubjectModel>> GetAll(int schoolId);
 
-    Task<IEnumerable<Subject>> GetSubjectsForClassAndTeacher(string userId, int classId);
+    Task<IEnumerable<SubjectModel>> GetSubjectsForClassAndTeacher(string userId, int classId);
 
-    Task<IEnumerable<Subject>> GetSubjectsForTeacher(string userId);
+    Task<IEnumerable<SubjectModel>> GetSubjectsForTeacher(string userId);
   }
 }

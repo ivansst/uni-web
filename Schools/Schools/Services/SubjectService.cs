@@ -47,7 +47,7 @@ namespace Schools.Services
 
     }
 
-    public async Task<IEnumerable<Subject>> GetSubjectsForTeacher(string userId)
+    public async Task<IEnumerable<SubjectModel>> GetSubjectsForTeacher(string userId)
     {
       var teacher = await this.data.Users.Include(u => u.Subject).FirstOrDefaultAsync(t => t.Id == userId);
 
@@ -55,18 +55,38 @@ namespace Schools.Services
       {
         throw new Exception("Teacher doesn't exist!");
       }
+      var subjectsResult = MapSubjects(teacher.Subject);
 
-      return teacher.Subject.ToList();
+      return subjectsResult;
     }
 
-    public async Task<IEnumerable<Subject>> GetAll(int schoolId)
+    public async Task<IEnumerable<SubjectModel>> GetAll(int schoolId)
     {
       var subjects = await this.data.Subjects.Where(c => c.SchoolId == schoolId).ToListAsync();
 
-      return subjects;
+      var subjectsResult = MapSubjects(subjects);
+
+      return subjectsResult;
     }
 
-    public async Task<IEnumerable<Subject>> GetSubjectsForClassAndTeacher(string userId, int classId)
+    private static IEnumerable<SubjectModel> MapSubjects(IEnumerable<Subject> subjects)
+    {
+      var subjectsResult = new List<SubjectModel>();
+
+      foreach (var subject in subjects)
+      {
+        subjectsResult.Add(new SubjectModel
+        {
+          Id = subject.Id,
+          Name = subject.Name,
+          SchoolId = subject.SchoolId
+        });
+      }
+
+      return subjectsResult.ToList();
+    }
+
+    public async Task<IEnumerable<SubjectModel>> GetSubjectsForClassAndTeacher(string userId, int classId)
     {
       var teacher = await this.data.Users.Include(t => t.Subject).FirstOrDefaultAsync(t => t.Id == userId);
       if (teacher == null)
@@ -84,13 +104,22 @@ namespace Schools.Services
 
       var classSubjects = @class.Subject.Any() ? @class.Subject : new List<Subject>();
 
-      var subjects = new List<Subject>();
+      var subjectModel = new SubjectModel();
+      var subjects = new List<SubjectModel>();
 
       foreach (var subject in teacherSubjects)
       {
         if (classSubjects.Contains(subject))
         {
-          subjects.Add(subject);
+          subjectModel = new SubjectModel
+          {
+            Id = subject.Id,
+            Name = subject.Name,
+            SchoolId = subject.SchoolId,
+            ClassId = @class.Id
+          };
+
+          subjects.Add(subjectModel);
         }
       }
 
