@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">School</label>
                         <div class="col-md-4">
-                            <select asp-for="Subjects" class="multi-select form-control" multiple="multiple">
+                            <select asp-for="SubjectIds" class="multi-select form-control" multiple="multiple">
                                 @foreach (var student in Model.Subjects)
                                 {
                                     <option value="@student">@student.Name</option>
@@ -84,6 +84,8 @@
                             </select>
                         </div>
                     </div>
+
+                    <input hidden asp-for="Subjects" value="@Model.Subjects" />
 
                 </div>
                 <div class="form-actions">

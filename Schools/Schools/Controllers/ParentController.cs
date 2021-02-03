@@ -55,7 +55,9 @@ namespace Schools.Controllers
         return View(nameof(Create));
       }
 
-      await this.userService.Create(model);
+      var user = await this.userService.Create(model);
+
+      await this.parentService.EditParentStudents(user.Id, model.Students);
 
       return await Index();
     }

@@ -7,5 +7,7 @@ namespace Schools.ViewModels
   public class TeacherCreateViewModel : UserCreateRequestModel
   {
     public IEnumerable<Subject> Subjects { get; set; }
+
+    public IEnumerable<int> SubjectIds { get; set }
   }
 }

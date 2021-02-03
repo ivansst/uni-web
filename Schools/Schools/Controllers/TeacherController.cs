@@ -59,7 +59,9 @@ namespace Schools.Controllers
         return View(nameof(Create));
       }
 
-      await this.userService.Create(model);
+      var user = await this.userService.Create(model);
+
+      await this.teacherService.UpdateTeacherSubjects(user.Id, model.Subjects);
 
       return await Index();
     }
