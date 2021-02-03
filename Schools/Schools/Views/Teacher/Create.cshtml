@@ -77,9 +77,9 @@
                         <label class="col-md-3 control-label">Subjects</label>
                         <div class="col-md-4">
                             <select asp-for="SubjectIds" class="multi-select form-control" multiple="multiple">
-                                @foreach (var student in Model.Subjects)
+                                @foreach (var subject in Model.Subjects)
                                 {
-                                    <option value="@student">@student.Name</option>
+                                    <option value="@subject.Id">@subject.Name</option>
                                 }
                             </select>
                         </div>
