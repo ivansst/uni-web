@@ -9,6 +9,9 @@
                 <i class="fa fa-table"></i>Classes
             </div>
             <div class="tools">
+                <a href="@Url.Action("Create", "Class")" class="btn dark btn-sm btn-outline sbold uppercase" style="height: auto;">
+                    <i class="fa fa-share"></i> Create
+                </a>
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
             </div>
         </div>
@@ -40,7 +43,7 @@
                                 <td> @classModel.SchoolId</td>
                                 <td>
                                     <a href="@Url.Action("Edit", "Class" , new { id = classModel.Id })" class="btn dark btn-sm btn-outline sbold uppercase">                                        
-                                        <i class="fa fa-share"></i> View
+                                        <i class="fa fa-share"></i> Edit
                                     </a>
                                 </td>
                             </tr>

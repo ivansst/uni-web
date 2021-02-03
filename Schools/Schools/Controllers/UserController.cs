@@ -28,7 +28,6 @@ namespace Schools.Controllers
       this.schoolService = schoolService;
     }
     
-    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> Register()
     {
@@ -41,18 +40,17 @@ namespace Schools.Controllers
       return View(nameof(Register), model);
     }
 
-    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Register(UserCreateViewModel model)
     {
       if (!ModelState.IsValid)
       {
-        return View();
+        return await Register();
       }
 
       await this.userService.Create(model.UserCreateRequestModel);
 
-      return View();
+      return await Register();
     }
 
     [AllowAnonymous]

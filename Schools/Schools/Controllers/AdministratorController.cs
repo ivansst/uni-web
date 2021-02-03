@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Schools.Models.SchoolModels;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System.Threading.Tasks;
@@ -53,53 +54,27 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> Teachers(int schoolId)
+    public IActionResult CreatePrincipal()
     {
-      ViewData["schoolId"] = schoolId;
-
-      var model = await this.teacherService.GetAll(schoolId);
-
-      return View(nameof(Teachers), model);
+      return View(nameof(CreatePrincipal));
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Students(int schoolId)
+    [HttpPost]
+    public async Task<IActionResult> CreatePrincipal(UserCreateRequestModel model)
     {
-      ViewData["schoolId"] = schoolId;
 
-      var model = await this.studentService.GetAll(schoolId);
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
-      return View(nameof(Students), model);
-    }
+      model.SchoolId = schoolId;
 
-    [HttpGet]
-    public async Task<IActionResult> Parents(int schoolId)
-    {
-      ViewData["schoolId"] = schoolId;
+      if (!ModelState.IsValid)
+      {
+        return View(nameof(CreatePrincipal));
+      }
 
-      var model = await this.parentService.GetAll(schoolId);
+      await this.userService.Create(model);
 
-      return View(nameof(Parents), model);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Classes(int schoolId)
-    {
-      ViewData["schoolId"] = schoolId;
-
-      var model = await this.classService.GetAll(schoolId);
-
-      return View(nameof(Classes), model);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Subjects(int schoolId)
-    {
-      ViewData["schoolId"] = schoolId;
-
-      var model = await this.subjectService.GetAll(schoolId);
-
-      return View(nameof(Subjects), model);
+      return await School(schoolId);
     }
 
     [HttpGet]

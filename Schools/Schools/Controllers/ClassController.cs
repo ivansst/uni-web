@@ -63,7 +63,7 @@ namespace Schools.Controllers
 
       await this.classService.Create(model);
 
-      return View(nameof(Create));
+      return await Index();
     }
 
     [HttpGet]
@@ -81,7 +81,7 @@ namespace Schools.Controllers
 
       await this.classService.Edit(model);
 
-      return RedirectToAction(nameof(Edit), new { model.Id });
+      return await Index();
     }
 
     [HttpGet]
@@ -106,7 +106,7 @@ namespace Schools.Controllers
     {
       await this.classService.AddStudentToClass(model.StudentId, model.ClassId);
 
-      return View(nameof(AddStudentClass));
+      return await Index();
     }
   }
 }

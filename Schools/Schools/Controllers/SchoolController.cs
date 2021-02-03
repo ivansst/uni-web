@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
 using Schools.Models.SchoolModels;
 using Schools.Services.Interfaces;
@@ -7,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  public class SchoolController : Controller
+  public class SchoolController : BaseController
   {
     private readonly ISchoolService schoolService;
+    private readonly UserManager<User> userManager;
 
-    public SchoolController(ISchoolService schoolService)
+    public SchoolController(ISchoolService schoolService, UserManager<User> userManager)
     {
       this.schoolService = schoolService;
+      this.userManager = userManager;
     }
 
     [HttpGet]
@@ -56,7 +59,14 @@ namespace Schools.Controllers
 
       await this.schoolService.Create(model);
 
-      return View(nameof(Index));
+      var user = await this.userManager.FindByIdAsync(UserId);
+
+      if(user.Role == "Administrator")
+      {
+        return RedirectToAction("Administrator", "Dashboard");
+      }
+
+      return await Index();
     }
 
     [HttpPost]
@@ -69,7 +79,14 @@ namespace Schools.Controllers
 
       await this.schoolService.Edit(model);
 
-      return Redirect(Request.Headers["Referer"].ToString());
+      var user = await this.userManager.FindByIdAsync(UserId);
+
+      if (user.Role == "Administrator")
+      {
+        return RedirectToAction("School", "Administrator", new { schoolId = user.SchoolId});
+      }
+
+      return await Index();
     }
   }
 }

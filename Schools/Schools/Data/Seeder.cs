@@ -35,6 +35,14 @@ namespace Schools.Data
 
       data.Users.Add(user);
 
+      var school = new School
+      {
+        Name = "NBU",
+        Address = "Sofia, Ovcha Kupel",
+      };
+
+      data.Schools.Add(school);
+
       data.SaveChanges();
     }
   }

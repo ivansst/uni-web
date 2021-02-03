@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System.Threading.Tasks;
@@ -41,14 +42,38 @@ namespace Schools.Controllers
     {
       if (!ModelState.IsValid)
       {
-        return View();
+        return View(nameof(Edit));
       }
 
       await this.userService.UpdatePersonalData(model.UserEditModel);
 
       await this.studentService.SaveStudentClass(model.UserEditModel.UserId, model.NewClassId.Value);
 
-      return View();
+      return await Index();
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+      return View(nameof(Create));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(UserCreateRequestModel model)
+    {
+
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      model.SchoolId = schoolId;
+
+      if (!ModelState.IsValid)
+      {
+        return View(nameof(Create));
+      }
+
+      await this.userService.Create(model);
+
+      return await Index();
     }
 
   }

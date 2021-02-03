@@ -1,41 +1,50 @@
-﻿@{
-}
-
-<div class="col-md-12">
+﻿<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
-    <div class="portlet">
+    <div class="portlet box yellow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-table"></i>Missed Attendance
+                <i class="fa fa-comments"></i>Student Data
             </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
             </div>
         </div>
         <div class="portlet-body">
             <div class="table-scrollable">
-                <table class="table table-striped table-bordered table-advance table-hover">
+                <table class="table table-bordered table-hover">
                     <thead>
+
                         <tr>
-                            <th>
-                                <i class="fa fa-user"></i> Class
-                            </th>
-                            <th class="hidden-xs">
-                                <i class="fa fa-bookmark"></i> Teacher
-                            </th>
-                            <th>
-                                <i class="fa fa-bookmark"></i> Date
-                            </th>
+                            <th> Subject </th>
+                            <th> Teacher </th>
+                            <th> Grades </th>
+                            <th> Absences </th>
+                            <th> Add Grade </th>
+                            <th> Add Absence </th>
                         </tr>
+
                     </thead>
                     <tbody>
+
                         <tr>
+                            <td> Math </td>
+                            <td> Stoyan Georgiev </td>
+                            <td> 6,4,5 </td>
+                            <td> 2 </td>
                             <td>
-                                Math
+                                <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade">
+                                    <i class="icon-trophy"></i> Add Grade
+                                </a>
                             </td>
-                            <td class="hidden-xs"> John Doe </td>
-                            <td> 01.12.2019 </td>
+                            <td>
+                                <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence">
+                                    <i class="icon-user-unfollow"></i> Add Absence
+                                </a>
+                            </td>
                         </tr>
+
+
                     </tbody>
                 </table>
             </div>
@@ -44,50 +53,50 @@
     <!-- END SAMPLE TABLE PORTLET-->
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-table"></i>Math
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                </div>
+<div class="modal fade" id="add_grade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Grade</h4>
             </div>
-            <div class="portlet-body">
-                <div class="table-scrollable">
-                    <table class="table table-striped table-bordered table-advance table-hover">
-                        <thead>
-                            <tr>
-                                <th class="hidden-xs">
-                                    <i class="fa fa-user"></i> Teacher
-                                </th>
-                                <th>
-                                    <i class="fa fa-bookmark"></i> Grade
-                                </th>
-                                <th>
-                                    <i class="fa fa-bookmark"></i> Date
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hidden-xs">
-                                    John Doe
-                                </td>
-                                <td> 5 </td>
-                                <td> 01.12.2019 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="modal-body">
+
+                <form>
+                    <input type="number" class="form-control" min="2" max="6" step="0.25" placeholder="Grade">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn green">Save changes</button>
             </div>
         </div>
-        <!-- END SAMPLE TABLE PORTLET-->
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
 </div>
 
-
-
+<div class="modal fade in" id="add_absence" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Absence</h4>
+            </div>
+            <div class="modal-body"> 
+            
+                <form>
+                    <input type="number" class="form-control" min="1" step="1" placeholder="Absence">
+                </form>
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn green">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

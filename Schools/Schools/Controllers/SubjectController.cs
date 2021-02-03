@@ -30,7 +30,6 @@ namespace Schools.Controllers
     [HttpGet]
     public IActionResult Create()
     {
-
       return View();
     }
 
@@ -40,7 +39,7 @@ namespace Schools.Controllers
 
       if (!ModelState.IsValid)
       {
-        return View();
+        return View(nameof(Create));
       }
 
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
@@ -51,16 +50,16 @@ namespace Schools.Controllers
 
       await this.subjectService.Create(model);
 
-      return View();
+      return await Index();
     }
 
     [HttpPost]
 
-    public async Task<IActionResult> Delete(int Id)
+    public async Task<IActionResult> Delete(int subjectId)
     {
-      await this.subjectService.Delete(Id);
+      await this.subjectService.Delete(subjectId);
 
-      return View();
+      return await Index();
     }
   }
 }

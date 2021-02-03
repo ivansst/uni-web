@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Schools.Models.UserModels;
 using Schools.Services.Interfaces;
 using Schools.ViewModels;
 using System.Threading.Tasks;
@@ -22,6 +23,30 @@ namespace Schools.Controllers
       var parents = await this.parentService.GetAll(schoolId);
 
       return View(nameof(Index), parents);
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+      return View(nameof(Create));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(UserCreateRequestModel model)
+    {
+
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      model.SchoolId = schoolId;
+
+      if (!ModelState.IsValid)
+      {
+        return View(nameof(Create));
+      }
+
+      await this.userService.Create(model);
+
+      return await Index();
     }
 
     [HttpGet]
