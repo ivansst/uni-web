@@ -8,6 +8,6 @@ namespace Schools.ViewModels
   {
     public IEnumerable<Subject> Subjects { get; set; }
 
-    public IEnumerable<int> SubjectIds { get; set; }
+    public IEnumerable<int> SubjectIds { get; set; } = new List<int>();
   }
 }
