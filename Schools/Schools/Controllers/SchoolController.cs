@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Schools.Data.Models;
 using Schools.Models.SchoolModels;
+using Schools.Services;
 using Schools.Services.Interfaces;
+using Schools.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,11 +14,18 @@ namespace Schools.Controllers
   {
     private readonly ISchoolService schoolService;
     private readonly UserManager<User> userManager;
+    private readonly IScheduleService scheduleService;
+    private readonly IUserService userService;
 
-    public SchoolController(ISchoolService schoolService, UserManager<User> userManager)
+    public SchoolController(ISchoolService schoolService,
+                            UserManager<User> userManager,
+                            IScheduleService scheduleService,
+                            IUserService userService)
     {
       this.schoolService = schoolService;
       this.userManager = userManager;
+      this.scheduleService = scheduleService;
+      this.userService = userService;
     }
 
     [HttpGet]
@@ -90,9 +99,19 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> Schedule() {
-      return View();
+    public async Task<IActionResult> GetScheduleCreate() 
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var model = await this.scheduleService.GetCreateViewModel(schoolId);
+
+      return View("Schedule", model);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateSchedule(List<ScheduleModel> model)
+    {
+      return View();
+    }
   }
 }

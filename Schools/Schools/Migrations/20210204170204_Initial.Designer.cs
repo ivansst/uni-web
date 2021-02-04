@@ -10,7 +10,7 @@ using Schools.Data;
 namespace Schools.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210203220838_Initial")]
+    [Migration("20210204170204_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,9 +222,6 @@ namespace Schools.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
@@ -237,18 +234,11 @@ namespace Schools.Migrations
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TeacherId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
 
                     b.HasIndex("SchoolId");
 
                     b.HasIndex("SubjectId");
-
-                    b.HasIndex("TeacherId");
 
                     b.ToTable("Schedules");
                 });
@@ -541,12 +531,6 @@ namespace Schools.Migrations
 
             modelBuilder.Entity("Schools.Data.Models.Schedule", b =>
                 {
-                    b.HasOne("Schools.Data.Models.Class", "Class")
-                        .WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Schools.Data.Models.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId")
@@ -559,17 +543,9 @@ namespace Schools.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Schools.Data.Models.User", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId");
-
-                    b.Navigation("Class");
-
                     b.Navigation("School");
 
                     b.Navigation("Subject");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Schools.Data.Models.StudentAbsence", b =>
