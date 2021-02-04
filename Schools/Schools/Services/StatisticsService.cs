@@ -25,9 +25,11 @@ namespace Schools.Services
 
       var subjectsCount = this.data.Classes.Where(s => s.SchoolId == schoolId).Count();
 
-      var absents = 0;
+      var absents = this.data.StudentAbsences.Select(sa => sa.Absences).ToList().Sum();
 
-      var gradeAverage = 0;
+      var grades = this.data.StudentGrades.Select(sg => sg.Grade).ToList();
+
+      var gradeAverage = (double)(grades.Sum()) / grades.Count();
 
       var model = new SchoolStatisticModel
       {
