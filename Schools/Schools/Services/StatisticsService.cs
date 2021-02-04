@@ -31,6 +31,11 @@ namespace Schools.Services
 
       var gradeAverage = (double)(grades.Sum()) / grades.Count();
 
+      if (grades.Count == 0)
+      {
+        gradeAverage = 0;
+      }
+
       var model = new SchoolStatisticModel
       {
         TeacherCount = teacherCount,

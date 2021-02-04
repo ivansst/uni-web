@@ -12,12 +12,14 @@ namespace Schools.Controllers
     private readonly ISchoolService schoolService;
     private readonly IUserService userService;
     private readonly IParentService parentService;
+    private readonly IClassBookService classBookService;
 
-    public DashboardController(ISchoolService schoolService, IUserService userService, IParentService parentService)
+    public DashboardController(ISchoolService schoolService, IUserService userService, IParentService parentService, IClassBookService classBookService)
     {
       this.userService = userService;
       this.schoolService = schoolService;
       this.parentService = parentService;
+      this.classBookService = classBookService;
     }
 
     [HttpGet]
@@ -55,9 +57,10 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
-    public IActionResult Student()
+    public async Task<IActionResult> Student()
     {
-      return View(nameof(Student));
+      var model = await this.classBookService.GetStudentViewModel(UserId);
+      return View(nameof(Student), model);
     }
 
     [HttpGet]

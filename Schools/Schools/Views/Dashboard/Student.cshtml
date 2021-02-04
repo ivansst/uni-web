@@ -1,13 +1,14 @@
-﻿<div class="col-md-12">
+﻿@model Schools.ViewModels.StudentBookViewModel
+
+<div class="col-md-9">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box yellow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-comments"></i>Student Data
+                <i class="fa fa-comments"></i>Student Grades
             </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
             </div>
         </div>
         <div class="portlet-body">
@@ -17,22 +18,53 @@
 
                         <tr>
                             <th> Subject </th>
-                            <th> Teacher </th>
                             <th> Grades </th>
-                            <th> Absences </th>
                         </tr>
 
                     </thead>
                     <tbody>
 
+                        @foreach (var studentBook in Model.StudentBookModel)
+                        {
+                            <tr>
+                                <td> @studentBook.SubjectName </td>
+                                <td> @string.Join(", ", studentBook.StudentGrades) </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+</div>
+
+<div class="col-md-3">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box yellow">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-comments"></i>Student Absences
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <table class="table table-bordered table-hover">
+                    <thead>
+
                         <tr>
-                            <td> Math </td>
-                            <td> Stoyan Georgiev </td>
-                            <td> 6,4,5 </td>
-                            <td> 2 </td>
+                            <th> Absences </th>
                         </tr>
 
-
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> @Model.StudentAbsences.Sum() </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

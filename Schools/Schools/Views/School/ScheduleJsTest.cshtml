@@ -1,0 +1,56 @@
+﻿<div class="col-md-12">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-comments"></i>School Schedule
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <form>
+                    <table class="table table-bordered table-hover">
+
+                        <thead>
+
+                            <tr>
+                                <th> Monday </th>
+                                <th> Tuesday </th>
+                                <th> Wednesday </th>
+                                <th> Thursday </th>
+                                <th> Friday </th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tableBodyId">
+                            @for (var i = 0; i < 6; i++)
+                            {
+                                <tr>
+                                    @for (var j = 0; j < 5; j++)
+                                    {
+                                        <td>
+                                            <select class="form-control">
+                                                <option value="1">Math</option>
+                                                <option value="2">English</option>
+                                                <option value="3">History</option>
+                                                <option value="4">Biology</option>
+                                                <option value="5">P.E.</option>
+                                                <option value="6">Geography</option>
+                                            </select>
+                                        </td>
+                                    }
+                                </tr>}
+                        </tbody>
+
+
+                    </table>
+                    <button type="button" class="btn btn-primary pull-right" id="submitSchedule">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+</div>

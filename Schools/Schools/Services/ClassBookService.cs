@@ -3,6 +3,7 @@ using Schools.Data;
 using Schools.Data.Models;
 using Schools.Models.ClassBookModels;
 using Schools.Services.Interfaces;
+using Schools.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace Schools.Services
       var studentsIds = students.Select(s => s.Id).ToList();
 
       var studentsAbsences = await this.data.StudentAbsences.Where(sa => studentsIds.Contains(sa.StudentId)).ToListAsync();
-      var studentsGrades = await this.data.StudentGrades.Where(sg => studentsIds.Contains(sg.StudentId)).ToListAsync();
+      var studentsGrades = await this.data.StudentGrades.Where(sg => studentsIds.Contains(sg.StudentId) && sg.Subject.Id == subjectId).ToListAsync();
 
       var classBookModels = new List<ClassBookModel>();
       var subjectName = (await this.data.Subjects.FirstOrDefaultAsync(s => s.Id == subjectId))?.Name;
@@ -85,15 +86,48 @@ namespace Schools.Services
         {
           UserId = student.Id,
           FirstName = student.FirstName,
-          MiddleName= student.MiddleName,
+          MiddleName = student.MiddleName,
           LastName = student.LastName,
-          StudentGrades = studentsGrades.Where(sg=> sg.StudentId == student.Id).Select(sg=> sg.Grade).ToList(),
-          StudentAbsences = studentsAbsences.Where(sa=> sa.StudentId == student.Id).Select(sa=> sa.Absences).ToList(),
+          StudentGrades = studentsGrades.Where(sg => sg.StudentId == student.Id).Select(sg => sg.Grade).ToList(),
+          StudentAbsences = studentsAbsences.Where(sa => sa.StudentId == student.Id).Select(sa => sa.Absences).ToList(),
           SubjectName = subjectName
         });
       }
 
       return classBookModels;
     }
+
+    public async Task<StudentBookViewModel> GetStudentViewModel(string studentId)
+    {
+      var student = await this.data.StudentClass.Include(sc => sc.Class).FirstOrDefaultAsync(s => s.StudentId == studentId);
+
+      var studentAbsences = await this.data.StudentAbsences.Where(sa => sa.StudentId == studentId).Select(sa => sa.Absences).ToListAsync();
+      var studentGrades = await this.data.StudentGrades.Where(sg => sg.StudentId == studentId).ToListAsync();
+
+      var subjects = await this.data.Subjects.Include(s => s.Teacher).Where(s => s.Class.Contains(student.Class)).ToListAsync();
+
+      var classBookModels = new List<StudentBookModel>();
+
+      var subjectGrades = new List<int>();
+
+      foreach (var subject in subjects)
+      {
+        subjectGrades = studentGrades.Where(sg => sg.Subject.Id == subject.Id).Select(sg => sg.Grade).ToList();
+        classBookModels.Add(new StudentBookModel
+        {
+          StudentGrades = subjectGrades,
+          SubjectName = subject.Name,
+        });
+      }
+
+      var model = new StudentBookViewModel
+      {
+        StudentBookModel = classBookModels,
+        StudentAbsences = studentAbsences,
+      };
+
+      return model;
+    }
+
   }
 }

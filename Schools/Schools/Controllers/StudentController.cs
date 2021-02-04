@@ -91,7 +91,8 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> StudentBook(string userId)
     {
-      return View(nameof(StudentBook));
+      var model = await this.classBookService.GetStudentViewModel(userId);
+      return View(nameof(StudentBook), model);
     }
   }
 }

@@ -94,5 +94,11 @@ namespace Schools.Controllers
       return View();
     }
 
+    [HttpGet]
+    public IActionResult ScheduleJsTest()
+    {
+      return View();
+    }
+
   }
 }

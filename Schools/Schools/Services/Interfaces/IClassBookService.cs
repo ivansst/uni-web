@@ -1,4 +1,5 @@
 ﻿using Schools.Models.ClassBookModels;
+using Schools.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace Schools.Services.Interfaces
     Task AddAbsence(string userId, int value);
 
     Task<IEnumerable<ClassBookModel>> GetViewModel(int classId, int subjectId);
+
+    Task<StudentBookViewModel> GetStudentViewModel(string studentId);
 
   }
 }
