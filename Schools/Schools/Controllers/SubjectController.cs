@@ -44,6 +44,14 @@ namespace Schools.Controllers
     }
 
     [HttpGet]
+    public async Task<IActionResult> SubjectsForClass(int classId)
+    {
+      var subjects = await this.subjectService.GetSubjectsForClass(classId);
+
+      return View("Index", subjects);
+    }
+
+    [HttpGet]
     public IActionResult Create()
     {
       return View();

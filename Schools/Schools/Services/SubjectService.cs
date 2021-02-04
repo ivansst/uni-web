@@ -125,5 +125,34 @@ namespace Schools.Services
 
       return subjects;
     }
+
+    public async Task<IEnumerable<SubjectModel>> GetSubjectsForClass(int classId)
+    {
+      var @class = await this.data.Classes.Include(c => c.Subject).FirstOrDefaultAsync(c => c.Id == classId);
+      if (@class == null)
+      {
+        throw new Exception("Class doesn't exist");
+      }
+
+      var classSubjects = @class.Subject.Any() ? @class.Subject : new List<Subject>();
+
+      var subjectModel = new SubjectModel();
+      var subjects = new List<SubjectModel>();
+
+      foreach (var subject in classSubjects)
+      {
+        subjectModel = new SubjectModel
+        {
+          Id = subject.Id,
+          Name = subject.Name,
+          SchoolId = subject.SchoolId,
+          ClassId = @class.Id
+        };
+
+        subjects.Add(subjectModel);
+      }
+
+      return subjects;
+    }
   }
 }

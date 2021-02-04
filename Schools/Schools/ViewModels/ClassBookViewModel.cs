@@ -7,9 +7,9 @@ namespace Schools.ViewModels
   {
     public IEnumerable<ClassBookModel> ClassBookModels { get; set; }
 
-    public AddGradeModel AddGradeModel { get; set; }
+    public AddGradeModel AddGradeModel { get; set; } = new AddGradeModel { };
 
-    public AddAbsenceModel AddAbsenceModel { get; set; }
+    public AddAbsenceModel AddAbsenceModel { get; set; } = new AddAbsenceModel { };
     public int SubjectId { get; set; }
 
     public int ClassId { get; set; }

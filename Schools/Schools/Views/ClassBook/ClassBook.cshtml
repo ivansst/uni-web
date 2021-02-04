@@ -102,12 +102,11 @@
             <form asp-controller="ClassBook" asp-action="AddGrade">
                 <div class="modal-body">
 
-
                     <input asp-for="AddGradeModel.Grade" type="number" class="form-control" min="2" max="6" step="0.25" placeholder="Grade">
-                    <input hidden asp-for="AddGradeModel.ClassId" value="@Model.ClassId" />
-                    <input hidden asp-for="AddGradeModel.SubjectId" value="@Model.SubjectId " />
+                    <input hidden asp-for="ClassId" value="@Model.ClassId" />
+                    <input hidden asp-for="SubjectId" value="@Model.SubjectId" />
                     <input hidden asp-for="AddGradeModel.UserId" id="addGrade_userId" />
-
+                    <input hidden asp-for="ClassBookModels" />
 
                 </div>
                 <div class="modal-footer">
@@ -131,12 +130,11 @@
             <form asp-controller="ClassBook" asp-action="AddAbsence">
                 <div class="modal-body">
 
-
                     <input asp-for="AddAbsenceModel.AbsenceValue" type="number" class="form-control" min="1" step="1" placeholder="Absence">
-                    <input hidden asp-for="AddAbsenceModel.ClassId" value="@Model.ClassId" />
-                    <input hidden asp-for="AddAbsenceModel.SubjectId" value="@Model.SubjectId " />
+                    <input hidden asp-for="ClassId" value="@Model.ClassId" />
+                    <input hidden asp-for="SubjectId" value="@Model.SubjectId" />
                     <input hidden asp-for="AddAbsenceModel.UserId" id="addAbsence_userId" />
-
+                    <input hidden asp-for="ClassBookModels" />
 
                 </div>
                 <div class="modal-footer">

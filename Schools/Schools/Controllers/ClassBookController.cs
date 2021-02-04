@@ -30,27 +30,27 @@ namespace Schools.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddGrade(AddGradeModel model)
+    public async Task<IActionResult> AddGrade(ClassBookViewModel model)
     {
       if (!ModelState.IsValid)
       {
         return await ClassBook(model.ClassId, model.SubjectId);
       }
 
-      await this.classBookService.AddGrade(model.UserId, model.SubjectId, model.Grade);
+      await this.classBookService.AddGrade(model.AddGradeModel.UserId, model.SubjectId, model.AddGradeModel.Grade);
 
       return await ClassBook(model.ClassId, model.SubjectId);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAbsence(AddAbsenceModel model)
+    public async Task<IActionResult> AddAbsence(ClassBookViewModel model)
     {
       if (!ModelState.IsValid)
       {
         return await ClassBook(model.ClassId, model.SubjectId);
       }
 
-      await this.classBookService.AddAbsence(model.UserId, model.AbsenceValue);
+      await this.classBookService.AddAbsence(model.AddAbsenceModel.UserId, model.AddAbsenceModel.AbsenceValue);
 
       return await ClassBook(model.ClassId, model.SubjectId);
     }

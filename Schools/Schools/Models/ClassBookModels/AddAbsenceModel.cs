@@ -11,8 +11,5 @@ namespace Schools.Models.ClassBookModels
 
     public string UserId { get; set; }
 
-    public int SubjectId { get; set; }
-
-    public int ClassId { get; set; }
   }
 }

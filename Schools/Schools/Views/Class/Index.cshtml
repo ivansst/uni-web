@@ -64,7 +64,7 @@
                                 <a href="@Url.Action("Edit", "Class" , new { id = classModel.Id })" class="btn dark btn-sm btn-outline sbold uppercase">
                                     <i class="fa fa-share"></i> Edit
                                 </a>
-                                <a href="@Url.Action("AllSubjects", "Subject")" class="btn blue btn-sm btn-outline sbold uppercase">
+                                <a href="@Url.Action("SubjectsForClass", "Subject", new { classId = classModel.Id})" class="btn blue btn-sm btn-outline sbold uppercase">
                                     <i class="fa fa-share"></i> Subjects
                                 </a>
                             }

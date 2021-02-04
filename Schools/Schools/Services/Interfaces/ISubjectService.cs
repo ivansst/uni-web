@@ -16,5 +16,7 @@ namespace Schools.Services.Interfaces
     Task<IEnumerable<SubjectModel>> GetSubjectsForClassAndTeacher(string userId, int classId);
 
     Task<IEnumerable<SubjectModel>> GetSubjectsForTeacher(string userId);
+
+    Task<IEnumerable<SubjectModel>> GetSubjectsForClass(int classId);
   }
 }
