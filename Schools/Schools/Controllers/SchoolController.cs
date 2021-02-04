@@ -115,8 +115,13 @@ namespace Schools.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateSchedule(List<ScheduleModel> model)
+    public async Task<IActionResult> CreateSchedule([FromBody] IEnumerable<SchoolScheduleModel> model)
     {
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
+
       return View();
     }
   }
