@@ -88,5 +88,11 @@ namespace Schools.Controllers
 
       return await Index();
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Schedule() {
+      return View();
+    }
+
   }
 }

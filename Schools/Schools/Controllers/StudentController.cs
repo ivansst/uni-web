@@ -11,12 +11,14 @@ namespace Schools.Controllers
     public readonly IUserService userService;
     public readonly IClassService classService;
     public readonly IStudentService studentService;
+    public readonly IClassBookService classBookService;
 
-    public StudentController(IUserService userService, IClassService classService, IStudentService studentService)
+    public StudentController(IUserService userService, IClassService classService, IStudentService studentService, IClassBookService classBookService)
     {
       this.userService = userService;
       this.classService = classService;
       this.studentService = studentService;
+      this.classBookService = classBookService;
     }
 
     [HttpGet]

@@ -11,5 +11,6 @@ namespace Schools.Services.Interfaces
     Task AddAbsence(string userId, int value);
 
     Task<IEnumerable<ClassBookModel>> GetViewModel(int classId, int subjectId);
+
   }
 }
