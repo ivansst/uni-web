@@ -6,7 +6,8 @@ namespace Schools.ViewModels
 {
   public class ScheduleCreateViewModel
   {
-    public IEnumerable<SchoolScheduleModel> ScheduleModels;
+    public IEnumerable<ScheduleCreateModel> ScheduleModels = new List<ScheduleCreateModel>();
+
     public IEnumerable<SubjectModel> Subjects { get; set; } = new List<SubjectModel>();
   }
 }

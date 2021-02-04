@@ -1,6 +1,6 @@
 ﻿namespace Schools.Models.SchoolModels
 {
-  public class SchoolScheduleModel
+  public class ScheduleCreateModel
   {
     public int Day { get; set; }
 

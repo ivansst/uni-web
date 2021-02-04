@@ -1,4 +1,7 @@
-﻿<div class="col-md-12">
+﻿@model Schools.ViewModels.ScheduleCreateViewModel
+
+
+<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box blue">
         <div class="portlet-title">
@@ -11,8 +14,7 @@
         </div>
         <div class="portlet-body">
             <div class="table-scrollable">
-                <form>
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover" id="schedule_table">
 
                         <thead>
 
@@ -25,30 +27,27 @@
                             </tr>
 
                         </thead>
-                        <tbody id="tableBodyId">
-                            @for (var i = 0; i < 6; i++)
+                        <tbody>
+                            @for (int order = 1; order < 7; order++)
                             {
                                 <tr>
-                                    @for (var j = 0; j < 5; j++)
+                                    @for (int day = 1; day < 6; day++)
                                     {
                                         <td>
-                                            <select class="form-control">
-                                                <option value="1">Math</option>
-                                                <option value="2">English</option>
-                                                <option value="3">History</option>
-                                                <option value="4">Biology</option>
-                                                <option value="5">P.E.</option>
-                                                <option value="6">Geography</option>
+                                            <select single class="form-control">
+                                                @foreach (var subject in Model.Subjects)
+                                                {
+                                                    <option value="@subject.Id">@subject.Name</option>
+                                                }
                                             </select>
                                         </td>
                                     }
-                                </tr>}
+                                </tr>
+                            }
                         </tbody>
-
 
                     </table>
                     <button type="button" class="btn btn-primary pull-right" id="submitSchedule">Submit</button>
-                </form>
             </div>
         </div>
     </div>
