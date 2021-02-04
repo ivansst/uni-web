@@ -62,9 +62,13 @@
                                     <i class="fa fa-trash"></i> remove
                                 </a>
                             }
-                            <a href="@Url.Action("ClassBook", "ClassBook", new { classId = subject.ClassId.Value, subjectId = subject.Id })" class="btn green btn-sm btn-outline sbold uppercase">
-                                <i class="fa fa-trash"></i> ClassBook
-                            </a>
+                            @if (userRole == "Teacher")
+                            {
+
+                                <a href="@Url.Action("ClassBook", "ClassBook", new { classId = subject.ClassId.Value, subjectId = subject.Id })" class="btn green btn-sm btn-outline sbold uppercase">
+                                    <i class="fa fa-trash"></i> ClassBook
+                                </a>
+                            }
                         </td>
                         </tr>
                         }

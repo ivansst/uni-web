@@ -1,4 +1,4 @@
-﻿@model Schools.ViewModels.ClassBookViewModel 
+﻿@model Schools.ViewModels.ClassBookViewModel
 
 <div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -20,9 +20,7 @@
                             <th> Subject </th>
                             <th> Student </th>
                             <th> Grades </th>
-                            <th> Absences </th>
                             <th> Add Grade </th>
-                            <th> Add Absence </th>
                         </tr>
 
                     </thead>
@@ -33,14 +31,53 @@
                                 <td> @classBookModel.SubjectName </td>
                                 <td> @classBookModel.FirstName @classBookModel.LastName </td>
                                 <td> @string.Join(", ", classBookModel.StudentGrades)</td>
-                                <td> @classBookModel.StudentAbsences.Sum() </td>
                                 <td>
-                                    <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade">
+                                    <a class="btn green btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_grade" onclick="setModalData('@classBookModel.UserId')">
                                         <i class="icon-trophy"></i> Add Grade
                                     </a>
                                 </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+</div>
+
+
+<div class="col-md-12">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box yellow">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-comments"></i>Student Data
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <table class="table table-bordered table-hover">
+                    <thead>
+
+                        <tr>
+                            <th> Student </th>
+                            <th> Absences </th>
+                            <th> Add Absence </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var classBookModel in Model.ClassBookModels)
+                        {
+                            <tr>
+                                <td> @classBookModel.FirstName @classBookModel.LastName </td>
+                                <td> @classBookModel.StudentAbsences.Sum() </td>
                                 <td>
-                                    <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence">
+                                    <a class="btn red btn-sm btn-outline sbold uppercase" data-toggle="modal" href="#add_absence" onclick="setModalData('@classBookModel.UserId')">
                                         <i class="icon-user-unfollow"></i> Add Absence
                                     </a>
                                 </td>
@@ -54,6 +91,7 @@
     <!-- END SAMPLE TABLE PORTLET-->
 </div>
 
+
 <div class="modal fade" id="add_grade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,17 +99,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Add Grade</h4>
             </div>
-            <div class="modal-body">
+            <form asp-controller="ClassBook" asp-action="AddGrade">
+                <div class="modal-body">
 
-                <form>
-                    <input type="number" class="form-control" min="2" max="6" step="0.25" placeholder="Grade">
-                </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
-            </div>
+                    <input asp-for="AddGradeModel.Grade" type="number" class="form-control" min="2" max="6" step="0.25" placeholder="Grade">
+                    <input hidden asp-for="AddGradeModel.ClassId" value="@Model.ClassId" />
+                    <input hidden asp-for="AddGradeModel.SubjectId" value="@Model.SubjectId " />
+                    <input hidden asp-for="AddGradeModel.UserId" id="addGrade_userId" />
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn green">Save</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -85,17 +128,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Add Absence</h4>
             </div>
-            <div class="modal-body">
+            <form asp-controller="ClassBook" asp-action="AddAbsence">
+                <div class="modal-body">
 
-                <form>
-                    <input type="number" class="form-control" min="1" step="1" placeholder="Absence">
-                </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
-            </div>
+                    <input asp-for="AddAbsenceModel.AbsenceValue" type="number" class="form-control" min="1" step="1" placeholder="Absence">
+                    <input hidden asp-for="AddAbsenceModel.ClassId" value="@Model.ClassId" />
+                    <input hidden asp-for="AddAbsenceModel.SubjectId" value="@Model.SubjectId " />
+                    <input hidden asp-for="AddAbsenceModel.UserId" id="addAbsence_userId" />
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                    <button type="submit"class="btn green">Save</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>

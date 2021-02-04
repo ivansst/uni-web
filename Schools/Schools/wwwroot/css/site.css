@@ -7,6 +7,10 @@
     padding: 10px 0px 0px 30px !important;
 }
 
+btn-group > .dropdown-menu > li.active > a{
+    background-color: transparent !important;
+}
+
 @media (min-width: 992px) {
     .page-content {
         padding-top: 90px !important;

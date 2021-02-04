@@ -89,10 +89,5 @@ namespace Schools.Controllers
       return await Index();
     }
 
-    [HttpGet]
-    public async Task<IActionResult> ClassBook(int classId)
-    {
-      return View(nameof(ClassBook));
-    }
   }
 }
