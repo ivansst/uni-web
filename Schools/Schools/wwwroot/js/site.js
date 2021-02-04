@@ -20,12 +20,13 @@ $('#submitSchedule, #submitEditSchedule').click((e) => {
         url = "../Schedule/Create/";
     }
     else if (e.target.id == "submitEditSchedule") {
-        table == "schedule_table";
-        ulr == "../Schedule/Edit/";
+        table = "schedule_edit_table";
+        url = "../Schedule/Edit/";
     }
 
 
-    let rows = document.querySelectorAll(`#${schedule_table}tbody tr`);
+    let rows = document.querySelectorAll(`#${table} tbody tr`);
+    console.log(rows);
     let model = [];
 
     for (let i = 0; i < rows.length; i++) {

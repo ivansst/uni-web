@@ -1,4 +1,4 @@
-﻿@model Schools.ViewModels.ScheduleCreateViewModel
+﻿@model Schools.ViewModels.ScheduleEditViewModel
 
 
 <div class="col-md-12">
@@ -14,7 +14,7 @@
         </div>
         <div class="portlet-body">
             <div class="table-scrollable">
-                <table class="table table-bordered table-hover" id="schedule_table">
+                <table class="table table-bordered table-hover" id="schedule_edit_table">
 
                     <thead>
 
@@ -37,7 +37,7 @@
                                         <select single class="form-control">
                                             @foreach (var subject in Model.Subjects)
                                             {
-                                                if (Model.FirstOrDefault(s => s.Order == order && s.Day == day).SubjectId == subject.Id)
+                                                if (Model.ScheduleEditModels.FirstOrDefault(s => s.Order == order && s.Day == day)?.SubjectId == subject.Id)
                                                 {
                                                     <option selected value="@subject.Id">@subject.Name</option>
                                                 }
@@ -54,7 +54,7 @@
                     </tbody>
 
                 </table>
-                <button type="button" class="btn btn-primary pull-right" id="submitSchedule">Submit</button>
+                <button type="button" class="btn btn-primary pull-right" id="submitEditSchedule">Submit</button>
             </div>
         </div>
     </div>

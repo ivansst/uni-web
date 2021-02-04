@@ -12,6 +12,10 @@ namespace Schools.Services.Interfaces
 
     Task<ScheduleCreateViewModel> GetCreateViewModel(int schoolId);
 
-    Task Create(int schoolId, IEnumerable<ScheduleCreateModel> scheduleModels);
+    Task Create(int schoolId, IEnumerable<ScheduleCreateModel> scheduleCreateModels);
+
+    Task<ScheduleEditViewModel> GetScheduleEditModel(int schoolId);
+
+    Task EditSchedule(int schoolId, IEnumerable<ScheduleEditModel> scheduleEditModels);
   }
 }

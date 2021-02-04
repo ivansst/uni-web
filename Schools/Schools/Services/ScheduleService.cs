@@ -25,21 +25,21 @@ namespace Schools.Services
     public async Task Create(int schoolId, IEnumerable<ScheduleCreateModel> scheduleModels)
     {
       var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == schoolId);
-      if(school == null)
+      if (school == null)
       {
         throw new Exception("Can't create schedule for non existant school");
       }
 
       var schedules = new List<Schedule>();
 
-      foreach (var model in scheduleModels)
+      foreach (var schedule in scheduleModels)
       {
         schedules.Add(new Schedule
         {
-          Day = model.Day,
+          Day = schedule.Day,
           SchoolId = schoolId,
-          SubjectId = model.SubjectId,
-          Order = model.Order
+          SubjectId = schedule.SubjectId,
+          Order = schedule.Order
         });
       }
 
@@ -73,19 +73,65 @@ namespace Schools.Services
                                                .Where(s => s.SchoolId == schoolId)
                                                .ToListAsync();
 
-      var result = new List<ScheduleModel>();
-
-      foreach (var schedule in schedules)
+      var result = schedules.Select(s => new ScheduleModel
       {
-        result.Add(new ScheduleModel
-        {
-          Order = schedule.Order,
-          Day =schedule.Day,
-          Subject = schedule.Subject.Name
-        });
-      }
+        Order = s.Order,
+        Day = s.Day,
+        SubjectName = s.Subject.Name
+      });
 
       return result;
+    }
+
+    public async Task<ScheduleEditViewModel> GetScheduleEditModel(int schoolId)
+    {
+      var schoolSubjects = await this.data.Subjects.Where(s => s.SchoolId == schoolId)
+                                                   .Select(s => new SubjectModel
+                                                   {
+                                                     Id = s.Id,
+                                                     Name = s.Name,
+                                                     SchoolId = s.Id
+                                                   })
+                                                    .ToListAsync();
+
+      var schedules = await this.data.Schedules.Include(s => s.Subject)
+                                               .Where(s => s.SchoolId == schoolId)
+                                               .ToListAsync();
+
+      var scheduleModels = schedules.Select(s => new ScheduleEditModel
+      {
+        Day = s.Day,
+        SubjectId = s.Subject.Id,
+        SubjectName = s.Subject.Name,
+        Order = s.Order
+      });
+
+      var model = new ScheduleEditViewModel
+      {
+        ScheduleEditModels = scheduleModels,
+        Subjects = schoolSubjects
+      };
+
+      return model;
+    }
+
+    public async Task EditSchedule(int schoolId, IEnumerable<ScheduleEditModel> scheduleEditModels)
+    {
+      var currentSchedules = await this.data.Schedules.Where(s => s.SchoolId == schoolId).ToListAsync();
+
+      this.data.Schedules.RemoveRange(currentSchedules);
+
+      var schedules = scheduleEditModels.Select(sm => new Schedule
+      {
+        Day = sm.Day,
+        SubjectId = sm.SubjectId,
+        Order = sm.Order,
+        SchoolId = schoolId
+      });
+
+      this.data.Schedules.AddRange(schedules);
+
+      await this.data.SaveChangesAsync();
     }
   }
 }

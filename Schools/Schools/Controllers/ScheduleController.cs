@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Schools.Models.ScheduleModels;
 using Schools.Models.SchoolModels;
 using Schools.Services.Interfaces;
 using System.Collections.Generic;
@@ -49,7 +50,27 @@ namespace Schools.Controllers
 
       await this.scheduleService.Create(schoolId, model);
 
-      return View();
+      return View(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit()
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      var model = await this.scheduleService.GetScheduleEditModel(schoolId);
+
+      return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit([FromBody] IEnumerable<ScheduleEditModel> model)
+    {
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      await this.scheduleService.EditSchedule(schoolId, model);
+
+      return View(nameof(Index));
     }
   }
 }
