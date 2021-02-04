@@ -53,6 +53,7 @@ namespace Schools.Extensions
       .AddTransient<IParentService, ParentService>()
       .AddTransient<ISubjectService, SubjectService>()
       .AddTransient<IStatisticsService, StatisticsService>()
-      .AddTransient<IClassBookService, ClassBookService>();
+      .AddTransient<IClassBookService, ClassBookService>()
+      .AddTransient<IScheduleService, ScheduleService>();
   }
 }

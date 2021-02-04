@@ -317,25 +317,11 @@ namespace Schools.Migrations
                     SchoolId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
-                    Day = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ClassId = table.Column<int>(type: "int", nullable: false)
+                    Day = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Schedules", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Schedules_AspNetUsers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Schedules_Classes_ClassId",
-                        column: x => x.ClassId,
-                        principalTable: "Classes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Schools_SchoolId",
                         column: x => x.SchoolId,
@@ -467,11 +453,6 @@ namespace Schools.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedules_ClassId",
-                table: "Schedules",
-                column: "ClassId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Schedules_SchoolId",
                 table: "Schedules",
                 column: "SchoolId");
@@ -480,11 +461,6 @@ namespace Schools.Migrations
                 name: "IX_Schedules_SubjectId",
                 table: "Schedules",
                 column: "SubjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_TeacherId",
-                table: "Schedules",
-                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentAbsences_StudentId",

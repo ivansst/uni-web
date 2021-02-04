@@ -1,4 +1,7 @@
-﻿<div class="col-md-12">
+﻿@model Schools.ViewModels.ScheduleCreateViewModel
+
+
+<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box blue">
         <div class="portlet-title">
@@ -11,7 +14,7 @@
         </div>
         <div class="portlet-body">
             <div class="table-scrollable">
-                <form>
+                <form asp-action="CreateSchedule" asp-controller="School">
                     <table class="table table-bordered table-hover">
 
                         <thead>
@@ -26,20 +29,19 @@
 
                         </thead>
                         <tbody>
-                            @for (var i = 0; i < 6; i++)
+                            @for (int day = 1; day < 6; day++)
                             {
                             <tr>
-                                @for (var j = 0; j < 5; j++)
+                                @for (int order = 0; order < 7; order++)
                                 {
-                                <td>
-                                    <select class="form-control">
-                                        @*@foreach (var subject in subjects)
-                                        {
-                                            <option value="@subject.Id">@subject.Name</option>
-                                        }*@
-                                        <option>Math</option>
-                                    </select>
-                                </td>
+                                    <td>
+                                        <select class="form-control">
+                                            @foreach (var subject in Model.Subjects)
+                                            {
+                                                <option value="@subject.Id">@subject.Name</option>
+                                            }
+                                        </select>
+                                    </td>
                                 }
                             </tr>
                             }
@@ -47,6 +49,7 @@
 
 
                     </table>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         </div>
