@@ -19,6 +19,6 @@ namespace Schools.Services.Interfaces
 
     Task<SchoolPrincipalModel> GetPrincipal(int schoolId);
 
-    Task<School> GetSchoolData(int schoolId);
+    Task<SchoolModel> GetSchoolData(int schoolId);
   }
 }

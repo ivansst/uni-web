@@ -1,4 +1,7 @@
-﻿<div class="col-md-12">
+﻿@using Schools.Models.ScheduleModels
+@model IEnumerable<ScheduleModel>
+
+<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box yellow">
         <div class="portlet-title">
@@ -15,7 +18,6 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th> # </th>
                             <th> Monday </th>
                             <th> Tuesday </th>
                             <th> Wednesday </th>
@@ -24,56 +26,15 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr>
-                            <td> 1 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-                        <tr>
-                            <td> 2 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-                        <tr>
-                            <td> 3 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-                        <tr>
-                            <td> 4 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-                        <tr>
-                            <td> 5 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-                        <tr>
-                            <td> 6 </td>
-                            <td class="active"> Math </td>
-                            <td class="success"> P.E. </td>
-                            <td class="warning"> History </td>
-                            <td class="danger"> English </td>
-                            <td class="danger"> Biology </td>
-                        </tr>
-
+                        @for (int order = 1; order < 7; order++)
+                        {
+                            <tr>
+                                @for (int day = 1; day < 6; day++)
+                                {
+                                    <td>@Model.FirstOrDefault(s => s.Order == order && s.Day == day).Subject</td>
+                                }
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

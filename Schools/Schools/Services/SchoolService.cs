@@ -102,7 +102,7 @@ namespace Schools.Services
       await this.data.SaveChangesAsync();
     }
 
-    public async Task<School> GetSchoolData(int schoolId)
+    public async Task<SchoolModel> GetSchoolData(int schoolId)
     {
       var school = await this.data.Schools.FirstOrDefaultAsync(s => s.Id == schoolId);
 
@@ -111,7 +111,17 @@ namespace Schools.Services
         throw new Exception("There is no school with this id!");
       }
 
-      return school;
+      var hasSchedule = await this.data.Schedules.FirstOrDefaultAsync(s => s.SchoolId == school.Id) != null;
+
+      var model = new SchoolModel
+      {
+        Id = school.Id,
+        Name = school.Name,
+        Address = school.Address,
+        HasSchedule = hasSchedule,
+      };
+
+      return model;
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿@model Schools.Data.Models.School
+﻿@model Schools.Models.SchoolModels.SchoolModel
 
 <div class="col-sm-12">
     <div class="portlet blue-hoki box">
@@ -7,6 +7,18 @@
                 <i class="fa fa-cogs"></i> School Data
             </div>
             <div class="actions">
+                @if (Model.School.HasSchedule)
+                {
+                    <a href="@Url.Action("Edit", "Schedule", new { schoolId = Model.School.Id })" class="btn btn-default btn-sm">
+                        <i class="fa fa-pencil"></i> Edit Schedule
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Create", "Schedule", new { schoolId = Model.School.Id })" class="btn btn-default btn-sm">
+                        <i class="fa fa-pencil"></i> Create Schedule
+                    </a>
+                }
                 <a href="@Url.Action("Edit", "School", new { schoolId = Model.Id })" class="btn btn-default btn-sm">
                     <i class="fa fa-pencil"></i> Edit
                 </a>

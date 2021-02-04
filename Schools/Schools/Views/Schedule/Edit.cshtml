@@ -1,0 +1,62 @@
+﻿@model Schools.ViewModels.ScheduleCreateViewModel
+
+
+<div class="col-md-12">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-comments"></i>School Schedule
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <table class="table table-bordered table-hover" id="schedule_table">
+
+                    <thead>
+
+                        <tr>
+                            <th> Monday </th>
+                            <th> Tuesday </th>
+                            <th> Wednesday </th>
+                            <th> Thursday </th>
+                            <th> Friday </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @for (int order = 1; order < 7; order++)
+                        {
+                            <tr>
+                                @for (int day = 1; day < 6; day++)
+                                {
+                                    <td>
+                                        <select single class="form-control">
+                                            @foreach (var subject in Model.Subjects)
+                                            {
+                                                if (Model.FirstOrDefault(s => s.Order == order && s.Day == day).SubjectId == subject.Id)
+                                                {
+                                                    <option selected value="@subject.Id">@subject.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@subject.Id">@subject.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+                <button type="button" class="btn btn-primary pull-right" id="submitSchedule">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+</div>
