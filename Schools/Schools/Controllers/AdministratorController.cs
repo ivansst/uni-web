@@ -80,7 +80,6 @@ namespace Schools.Controllers
     [HttpGet]
     public async Task<IActionResult> EditPrincipal(int schoolId)
     {
-      ViewData["schoolId"] = schoolId;
 
       var model = await this.schoolService.GetPrincipal(schoolId);
 

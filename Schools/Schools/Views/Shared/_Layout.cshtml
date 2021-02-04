@@ -105,7 +105,7 @@
                             @if (userData.Role == "Principal")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="javascript:;" class="text-uppercase">
+                                    <a href="@Url.Action("Principal", "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
@@ -142,7 +142,7 @@
                             @if (userData.Role == "Teacher")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="javascript:;" class="text-uppercase">
+                                    <a href="@Url.Action("Teacher", "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
@@ -213,27 +213,32 @@
                                 <nav class="navbar" role="navigation">
                                     <ul class="nav navbar-nav margin-bottom-35">
                                         <li>
-                                            <a href="@Url.Action("Index", "Class", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("School", "Administrator", new { schoolId = userData.SchoolId })">
+                                                <i class="icon-notebook"></i> School
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
                                                 <i class="icon-notebook"></i> Classes
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = userData.SchoolId })">
                                                 <i class="icon-book-open"></i> Subjects
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = userData.SchoolId })">
                                                 <i class="icon-users"></i> Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Student", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
                                                 <i class="icon-users"></i> Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parent", new { schoolId = ViewData["schoolId"] })">
+                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
                                                 <i class="icon-users"></i> Parents
                                             </a>
                                         </li>

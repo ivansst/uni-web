@@ -132,7 +132,7 @@
                     <i class="fa fa-cogs"></i>Principal
                 </div>
                 <div class="actions">
-                    <a href="@Url.Action("EditPrincipal", "Administrator", new { model = Model.Principal })" class="btn btn-default btn-sm">
+                    <a href="@Url.Action("EditPrincipal", "Administrator", new { schoolId = Model.School.Id })" class="btn btn-default btn-sm">
                         <i class="fa fa-pencil"></i> Edit
                     </a>
                 </div>
