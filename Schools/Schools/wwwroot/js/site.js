@@ -12,9 +12,20 @@ class SchoolScheduleModel {
     }
 }
 
-$('#submitSchedule').click(() => {
+$('#submitSchedule, #submitEditSchedule').click((e) => {
+    let table, url;
 
-    let rows = document.querySelectorAll('#schedule_table tbody tr');
+    if (e.target.id == "submitSchedule") {
+        table = "schedule_table";
+        url = "../Schedule/Create/";
+    }
+    else if (e.target.id == "submitEditSchedule") {
+        table == "schedule_table";
+        ulr == "../Schedule/Edit/";
+    }
+
+
+    let rows = document.querySelectorAll(`#${schedule_table}tbody tr`);
     let model = [];
 
     for (let i = 0; i < rows.length; i++) {
@@ -31,7 +42,7 @@ $('#submitSchedule').click(() => {
 
     $.ajax({
         type: 'POST',
-        url: `../Schedule/Create/`,
+        url: url,
         data: JSON.stringify(model),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
