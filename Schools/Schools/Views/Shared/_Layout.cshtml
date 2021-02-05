@@ -13,7 +13,6 @@
 <!-- BEGIN HEAD -->
 
 <head>
-    <base href="~/lib/" />
     <meta charset="utf-8" />
     <title>School Panel</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,19 +20,19 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="./assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="./assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="./assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="./assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="./assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="./assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/lib/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="./assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
-    <link href="./assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="../css/site.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/lib/multiselect/css/bootstrap-multiselect.css" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -73,7 +72,7 @@
                                 </button>
                                 <ul class="dropdown-menu-v2" role="menu">
                                     <li>
-                                        <a href="page_user_profile_1.html">
+                                        <a href="@Url.Action("Edit", "User")">
                                             <i class="icon-user"></i> My Profile
                                         </a>
                                     </li>
@@ -105,32 +104,37 @@
                             @if (userData.Role == "Principal")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="@Url.Action("Principal", "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
+                                    <a href="@Url.Action("Principal", "Dashboard")" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Teacher")">
                                                 Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Schedule")">
+                                                Schedule
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Student")">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent")">
                                                 Parents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Class")">
                                                 Classes
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("AllSubjects", "Subject")">
                                                 Subjects
                                             </a>
                                         </li>
@@ -142,22 +146,22 @@
                             @if (userData.Role == "Teacher")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="@Url.Action("Teacher", "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
+                                    <a href="@Url.Action("Teacher", "Dashboard")" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-fw">
                                         <li>
-                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student")">
                                                 Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent")">
                                                 Parents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Class")">
                                                 Classes
                                             </a>
                                         </li>
@@ -174,7 +178,7 @@
                             @if (userData.Role == "Student" || userData.Role == "Parent")
                             {
                                 <li class="dropdown dropdown-fw open">
-                                    <a href="@Url.Action(userData.Role, "Dashboard", new { schoolId = userData.SchoolId })" class="text-uppercase">
+                                    <a href="@Url.Action(userData.Role, "Dashboard")" class="text-uppercase">
                                         <i class="fa fa-book"></i> Dashboard
                                     </a>
                                 </li>
@@ -214,31 +218,36 @@
                                     <ul class="nav navbar-nav margin-bottom-35">
                                         <li>
                                             <a href="@Url.Action("School", "Administrator", new { schoolId = userData.SchoolId })">
-                                                <i class="icon-notebook"></i> School
+                                                <i class="icon-graduation"></i> School
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Class", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Schedule")">
+                                                <i class="icon-notebook"></i> Schedule
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Class")">
                                                 <i class="icon-notebook"></i> Classes
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("AllSubjects", "Subject", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("AllSubjects", "Subject")">
                                                 <i class="icon-book-open"></i> Subjects
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Teacher", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Teacher")">
                                                 <i class="icon-users"></i> Teachers
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Student", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Student")">
                                                 <i class="icon-users"></i> Students
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Index", "Parent", new { schoolId = userData.SchoolId })">
+                                            <a href="@Url.Action("Index", "Parent")">
                                                 <i class="icon-users"></i> Parents
                                             </a>
                                         </li>

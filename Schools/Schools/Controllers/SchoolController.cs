@@ -84,6 +84,10 @@ namespace Schools.Controllers
       {
         return RedirectToAction("School", "Administrator", new { schoolId = user.SchoolId});
       }
+      else if(user.Role == "Principal")
+      {
+        return RedirectToAction("Principal", "Dashboard", new { schoolId = user.SchoolId });
+      }
 
       return await Index();
     }
