@@ -31,6 +31,7 @@ namespace Schools.Services
 
       var basicEditModel = new UserEditModel
       {
+        UserId = student.Id,
         FirstName = student.FirstName,
         MiddleName = student.MiddleName,
         LastName = student.LastName

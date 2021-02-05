@@ -124,7 +124,7 @@ namespace Schools.Services
       var parentStudents = new List<ParentStudentsModel>();
 
       var schoolName = string.Empty;
-      var classData = new Class { };
+      var classData = new Class();
       var className = string.Empty;
 
       foreach(var student in students)
