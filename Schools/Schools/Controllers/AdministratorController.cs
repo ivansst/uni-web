@@ -74,7 +74,7 @@ namespace Schools.Controllers
 
       await this.userService.Create(model);
 
-      return await School(schoolId);
+      return RedirectToAction("School", "Administrator", new { schoolId = schoolId });
     }
 
     [HttpGet]
@@ -96,7 +96,9 @@ namespace Schools.Controllers
 
       await this.userService.UpdatePersonalData(model.UserEditModel);
 
-      return View();
+      var schoolId = await this.userService.GetSchoolIdForUser(UserId);
+
+      return RedirectToAction("School", "Administrator", new { schoolId = schoolId });
     }
   }
 }
