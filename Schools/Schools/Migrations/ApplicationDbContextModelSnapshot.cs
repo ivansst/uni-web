@@ -184,8 +184,7 @@ namespace Schools.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId")
-                        .IsUnique();
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Classes");
                 });
@@ -502,9 +501,9 @@ namespace Schools.Migrations
             modelBuilder.Entity("Schools.Data.Models.Class", b =>
                 {
                     b.HasOne("Schools.Data.Models.School", "School")
-                        .WithOne()
-                        .HasForeignKey("Schools.Data.Models.Class", "SchoolId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("School");
