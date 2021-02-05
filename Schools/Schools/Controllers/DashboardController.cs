@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  [Authorize]
   public class DashboardController : BaseController
   {
     private readonly ISchoolService schoolService;

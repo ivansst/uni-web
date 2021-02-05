@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Schools.Controllers
 {
-  [Authorize]
   public class UserController : BaseController
   {
     private readonly UserManager<User> userManager;

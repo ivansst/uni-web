@@ -31,7 +31,7 @@
                             <tr>
                                 @for (int day = 1; day < 6; day++)
                                 {
-                                    <td>@Model.FirstOrDefault(s=> s.Order == order && s.Day == day).Subject</td>
+                                    <td>@Model.FirstOrDefault(s=> s.Order == order && s.Day == day).SubjectName</td>
                                 }
                             </tr>
                         }
