@@ -17,16 +17,15 @@ $('#submitSchedule, #submitEditSchedule').click((e) => {
 
     if (e.target.id == "submitSchedule") {
         table = "schedule_table";
-        url = "../Schedule/Create/";
+        url = "/Schedule/Create/";
     }
     else if (e.target.id == "submitEditSchedule") {
         table = "schedule_edit_table";
-        url = "../Schedule/Edit/";
+        url = "/Schedule/Edit/";
     }
 
 
     let rows = document.querySelectorAll(`#${table} tbody tr`);
-    console.log(rows);
     let model = [];
 
     for (let i = 0; i < rows.length; i++) {
@@ -47,6 +46,9 @@ $('#submitSchedule, #submitEditSchedule').click((e) => {
         data: JSON.stringify(model),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        success: function (result) {
+            window.location = "/Schedule/Index";
+        },  
         error: function (err) {
             console.log(err);
         }

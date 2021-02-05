@@ -43,14 +43,14 @@ namespace Schools.Controllers
     {
       if (!ModelState.IsValid)
       {
-        return View();
+        return View(nameof(Create));
       }
 
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       await this.scheduleService.Create(schoolId, model);
 
-      return View(nameof(Index));
+      return Json(new { communicationCode = 1 });
     }
 
     [HttpGet]
@@ -66,11 +66,17 @@ namespace Schools.Controllers
     [HttpPost]
     public async Task<IActionResult> Edit([FromBody] IEnumerable<ScheduleEditModel> model)
     {
+
+      if (ModelState.IsValid)
+      {
+        return View(nameof(Edit));
+      }
+
       var schoolId = await this.userService.GetSchoolIdForUser(UserId);
 
       await this.scheduleService.EditSchedule(schoolId, model);
 
-      return View(nameof(Index));
+      return Json(new { communicationCode = 1 });
     }
   }
 }
