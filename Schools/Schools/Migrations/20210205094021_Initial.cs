@@ -104,7 +104,7 @@ namespace Schools.Migrations
                         column: x => x.SchoolId,
                         principalTable: "Schools",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -434,8 +434,7 @@ namespace Schools.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_SchoolId",
                 table: "Classes",
-                column: "SchoolId",
-                unique: true);
+                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassSubject_SubjectId",

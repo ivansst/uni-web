@@ -103,12 +103,12 @@ namespace Schools.Controllers
     {
       if (!ModelState.IsValid)
       {
-        return await Edit();
+        return View(nameof(Edit), model);
       }
 
       await this.userService.UpdatePersonalData(model);
 
-      return await Edit();
+      return RedirectToAction(nameof(Edit));
     }
   }
 }

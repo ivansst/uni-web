@@ -46,11 +46,6 @@ namespace Schools.Data
         .WithMany()
         .OnDelete(DeleteBehavior.ClientCascade);
 
-      builder.Entity<Class>()
-        .HasOne(s => s.School)
-        .WithOne()
-        .OnDelete(DeleteBehavior.ClientCascade);
-
       builder.Entity<User>()
         .Property(u => u.CreationTime)
         .HasDefaultValueSql("GETUTCDATE()");

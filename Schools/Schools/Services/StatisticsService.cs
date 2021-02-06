@@ -23,9 +23,9 @@ namespace Schools.Services
 
       var classesCount = this.data.Classes.Where(c => c.SchoolId == schoolId).Count();
 
-      var subjectsCount = this.data.Classes.Where(s => s.SchoolId == schoolId).Count();
+      var subjectsCount = this.data.Subjects.Where(s => s.SchoolId == schoolId).Count();
 
-      var absents = this.data.StudentAbsences.Select(sa => sa.Absences).ToList().Sum();
+      var absences = this.data.StudentAbsences.Select(sa => sa.Absences).ToList().Sum();
 
       var grades = this.data.StudentGrades.Select(sg => sg.Grade).ToList();
 
@@ -43,7 +43,7 @@ namespace Schools.Services
         ParentCount = parentsCount,
         ClassesCount = classesCount,
         SubjectsCount = subjectsCount,
-        Absences = absents,
+        Absences = absences,
         GradeAverage = gradeAverage,
       };
 
